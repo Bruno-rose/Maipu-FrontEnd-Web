@@ -13,7 +13,7 @@ const AgregarVehiculo = () => {
 
   return (
     <Box m="20px">
-      <Header title="AREGAR VEHÍCULO" subtitle="Ingresa la infomación del nuevo vehÍculo" />
+      <Header title="AGREGAR VEHÍCULO" subtitle="Ingresa la infomación del nuevo vehÍculo" />
 
       <Formik
         onSubmit={handleFormSubmit}
