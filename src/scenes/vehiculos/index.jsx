@@ -6,9 +6,32 @@ import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettin
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
-import getCars from "../../service/user_calls";
+import {useEffect} from 'react';
+
+// Import axios library
+import axios from 'axios';
+
+
+// Define an async function
+function getCars(){
+  try {
+    // Make a GET request
+    const response = axios.get('http://localhost:3000/hola/aaa');
+
+    // Handle success response
+    console.log(response.data);
+  } catch (error) {
+    // Handle error
+    console.error(error);
+  }
+}
 
 const Vehiculos = () => {
+  
+  useEffect(()=>{
+    getCars();
+  },[])
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   getCars();

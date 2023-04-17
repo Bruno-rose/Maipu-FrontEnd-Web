@@ -1,6 +1,5 @@
-// Import axios library
-const axios = require('axios');
 
+<<<<<<< HEAD
 // Define an async function
 export async function getCars () {
   try {
@@ -14,3 +13,5 @@ export async function getCars () {
     console.error(error);
   }
 }
+=======
+>>>>>>> a66f3d1d5167ca79ca8034975d25c0b43d6d8fec
