@@ -11,6 +11,7 @@ import getCars from "../../service/user_calls";
 const Vehiculos = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  getCars();
   const columns = [
     {
       field: "id",

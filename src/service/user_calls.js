@@ -2,7 +2,7 @@
 const axios = require('axios');
 
 // Define an async function
-export async function getCars() {
+export async function getCars () {
   try {
     // Make a GET request
     const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
