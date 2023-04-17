@@ -3,6 +3,66 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
+import MenuItem from '@mui/material/MenuItem';
+
+
+const vehicle_type = [
+  {
+    value: 1,
+    label: 'Tipo 1',
+  },
+  {
+    value: 2,
+    label: 'Tipo 2',
+  },
+  {
+    value: 3,
+    label: 'Tipo 3',
+  },
+  {
+    value: 4,
+    label: 'Tipo 4',
+  },
+];
+
+const vehicle_class = [
+  {
+    value: 1,
+    label: 'Clase 1',
+  },
+  {
+    value: 2,
+    label: 'Clase 2',
+  },
+  {
+    value: 3,
+    label: 'Clase 3',
+  },
+  {
+    value: 4,
+    label: 'Clase 4',
+  },
+];
+
+const contract = [
+  {
+    value: 1,
+    label: 'Leasing',
+  },
+  {
+    value: 2,
+    label: 'Vecino',
+  },
+  {
+    value: 3,
+    label: 'Municipal',
+  },
+];
+
+
+
+
+
 
 const AgregarVehiculo = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -71,7 +131,8 @@ const AgregarVehiculo = () => {
               <TextField
                 // fullWidth
                 variant="filled"
-                type="text"
+                select
+                type="select"
                 label="Tipo"
                 onBlur={handleBlur}
                 onChange={handleChange}
@@ -80,11 +141,18 @@ const AgregarVehiculo = () => {
                 error={!!touched.tipo && !!errors.tipo}
                 helperText={touched.tipo && errors.tipo}
                 sx={{ gridColumn: "span 2" }}
-              />
+              >
+                {vehicle_type.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
               <TextField
                 // fullWidth
                 variant="filled"
                 type="text"
+                select
                 label="Clase"
                 onBlur={handleBlur}
                 onChange={handleChange}
@@ -93,7 +161,13 @@ const AgregarVehiculo = () => {
                 error={!!touched.clase && !!errors.clase}
                 helperText={touched.clase && errors.clase}
                 sx={{ gridColumn: "span 2" }}
-              />
+              >
+                {vehicle_class.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
               <TextField
                 // fullWidth
                 variant="filled"
@@ -111,6 +185,7 @@ const AgregarVehiculo = () => {
               <TextField
                 // fullWidth
                 variant="filled"
+                select
                 type="text"
                 label="Contrato"
                 onBlur={handleBlur}
@@ -120,7 +195,13 @@ const AgregarVehiculo = () => {
                 error={!!touched.contrato && !!errors.contrato}
                 helperText={touched.contrato && errors.contrato}
                 sx={{ gridColumn: "span 2" }}
-              />
+              >
+                {contract.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
             </Box>
             <Box mt="20px"
              sx={{ display: 'flex', justifyContent: 'space-between' }}>

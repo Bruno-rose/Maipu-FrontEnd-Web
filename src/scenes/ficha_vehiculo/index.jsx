@@ -44,10 +44,10 @@ const FichaVehiculo = () => {
           <TableBody>
             {rows.map((row) => (
               <TableRow key={row.name}>
-                <TableCell align="left"> <Typography color={colors.grey[500]} variant="h5">{row.patente}</Typography></TableCell>
-                <TableCell align="left">{row.tipo}</TableCell>
-                <TableCell align="left"> <Typography color={colors.grey[500]} variant="h5">{row.clase}</Typography></TableCell>
-                <TableCell align="left">{row.disponibilidad}</TableCell>
+                <TableCell align="left"> <Typography color={colors.grey[500]} variant="h4">{row.patente}</Typography></TableCell>
+                <TableCell align="left"><Typography color={colors.grey[500]} variant="h5">{row.tipo}</Typography></TableCell>
+                <TableCell align="left"> <Typography color={colors.grey[500]} variant="h4">{row.clase}</Typography></TableCell>
+                <TableCell align="left"><Typography color={colors.grey[500]} variant="h5">{row.disponibilidad}</Typography></TableCell>
               </TableRow>
             ))}
           </TableBody>
