@@ -244,8 +244,6 @@ const AgregarVehiculo = () => {
                 ))}
               </TextField>
 
-              
-
               {/* <Autocomplete
                 id="autocomplete"
                 options={conductores}
@@ -296,7 +294,6 @@ const AgregarVehiculo = () => {
               <Autocomplete
                 id="conductor"
                 name="conductor"
-
                 sx={{ gridColumn: "span 4" }}
                 options={conductores}
                 getOptionLabel={(option) => option.label || ""}
@@ -320,10 +317,7 @@ const AgregarVehiculo = () => {
                 )}
               />
             </Box>
-            <Box
-              mt="40px"
-              sx={{ display: "flex", justifyContent: "right" }}
-            >
+            <Box mt="40px" sx={{ display: "flex", justifyContent: "right" }}>
               {/* <Button variant="contained" component="label">
                 Subir Foto
                 <input type="file" hidden />
