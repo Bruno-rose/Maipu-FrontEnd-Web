@@ -1,44 +1,57 @@
-import { Box, Typography, useTheme, Button } from "@mui/material";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
-import { mockDataTeam, mockDataVehicles } from "../../data/mockData";
+import { Box, Typography, useTheme, Button } from "@mui/material";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
+
+import { tokens } from "../../theme";
 import Header from "../../components/Header";
-import {useEffect} from 'react';
-
-// Import axios library
-import axios from 'axios';
-
-
-// Define an async function
-function getCars(){
-  try {
-    // Make a GET request
-    const response = axios.get('http://localhost:3000/hola/aaa');
-
-    // Handle success response
-    console.log(response.data);
-  } catch (error) {
-    // Handle error
-    console.error(error);
-  }
-}
+import { constGenericQuery } from "../../service/user_calls";
+import { mockDataTeam, mockDataVehicles } from "../../data/mockData";
 
 const Vehiculos = () => {
-  
-  useEffect(()=>{
-    getCars();
-  },[])
-
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  getCars();
+
+  const [data, setData] = useState(null);
+
+  // cambiar endpoint y columnas para mostrar la informacion de los autos
+  useEffect(() => {
+    axios
+      .get("https://jsonplaceholder.typicode.com/posts")
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   const columns = [
     {
+      field: "userId",
+      headerName: "USER",
+    },
+    {
       field: "id",
-      headerName: "ID"
+      headerName: "ID",
+    },
+    {
+      field: "title",
+      headerName: "Title",
+    },
+    {
+      field: "body",
+      headerName: "Description",
+    },
+  ];
+
+  const columns1 = [
+    {
+      field: "id",
+      headerName: "ID",
     },
     {
       field: "patente",
@@ -73,11 +86,11 @@ const Vehiculos = () => {
           <Button
             backgroundColor={colors.greenAccent[500]}
             key="vehiculo"
-            href="/ficha_vehiculo" // agregar referencia al ID  
+            href="/ficha_vehiculo" // agregar referencia al ID
             width="60%"
             m="0 auto"
             p="5px"
-            sx={{backgroundColor:colors.grey[900]}}
+            sx={{ backgroundColor: colors.grey[900] }}
             // display="flex"
             // justifyContent="center"
             borderRadius="4px"
@@ -90,99 +103,48 @@ const Vehiculos = () => {
         );
       },
     },
-    // { field: "id", headerName: "ID" },
-    // {
-    //   field: "name",
-    //   headerName: "Name",
-    //   flex: 1,
-    //   cellClassName: "name-column--cell",
-    // },
-    // {
-    //   field: "age",
-    //   headerName: "Age",
-    //   type: "number",
-    //   headerAlign: "left",
-    //   align: "left",
-    // },
-    // {
-    //   field: "phone",
-    //   headerName: "Phone Number",
-    //   flex: 1,
-    // },
-    // {
-    //   field: "email",
-    //   headerName: "Email",
-    //   flex: 1,
-    // },
-    // {
-    //   field: "accessLevel",
-    //   headerName: "Access Level",
-    //   flex: 1,
-    //   renderCell: ({ row: { access } }) => {
-    //     return (
-    //       <Box
-    //         width="60%"
-    //         m="0 auto"
-    //         p="5px"
-    //         display="flex"
-    //         justifyContent="center"
-    //         backgroundColor={
-    //           access === "admin"
-    //             ? colors.greenAccent[600]
-    //             : access === "manager"
-    //             ? colors.greenAccent[700]
-    //             : colors.greenAccent[700]
-    //         }
-    //         borderRadius="4px"
-    //       >
-    //         {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
-    //         {access === "manager" && <SecurityOutlinedIcon />}
-    //         {access === "user" && <LockOpenOutlinedIcon />}
-    //         <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
-    //           {access}
-    //         </Typography>
-    //       </Box>
-    //     );
-    //   },
-    // },
   ];
 
   return (
-    <Box m="20px">
-      <Header title="FLOTA DE VEHÍCULOS" subtitle="Administra la flota de vehículos" />
-      <Box
-        m="40px 0 0 0"
-        height="75vh"
-        sx={{
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-cell": {
-            borderBottom: "none",
-          },
-          "& .name-column--cell": {
-            color: colors.greenAccent[300],
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[400],
-          },
-          "& .MuiDataGrid-footerContainer": {
-            borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
-          },
-          "& .MuiCheckbox-root": {
-            color: `${colors.greenAccent[200]} !important`,
-          },
-        }}
-      >
-        <DataGrid rows={mockDataVehicles} columns={columns} />
-        {/* <DataGrid checkboxSelection rows={mockDataTeam} columns={columns} /> */}
+    data && (
+      <Box m="20px">
+        <Header
+          title="FLOTA DE VEHÍCULOS"
+          subtitle="Administra la flota de vehículos"
+        />
+        <Box
+          m="40px 0 0 0"
+          height="75vh"
+          sx={{
+            "& .MuiDataGrid-root": {
+              border: "none",
+            },
+            "& .MuiDataGrid-cell": {
+              borderBottom: "none",
+            },
+            "& .name-column--cell": {
+              color: colors.greenAccent[300],
+            },
+            "& .MuiDataGrid-columnHeaders": {
+              backgroundColor: colors.blueAccent[700],
+              borderBottom: "none",
+            },
+            "& .MuiDataGrid-virtualScroller": {
+              backgroundColor: colors.primary[400],
+            },
+            "& .MuiDataGrid-footerContainer": {
+              borderTop: "none",
+              backgroundColor: colors.blueAccent[700],
+            },
+            "& .MuiCheckbox-root": {
+              color: `${colors.greenAccent[200]} !important`,
+            },
+          }}
+        >
+          <DataGrid checkboxSelection rows={data} columns={columns} />
+        </Box>
       </Box>
-    </Box>
+    )
   );
 };
 

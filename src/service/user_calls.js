@@ -1,5 +1,5 @@
+import axios from 'axios';
 
-<<<<<<< HEAD
 // Define an async function
 export async function getCars () {
   try {
@@ -13,5 +13,12 @@ export async function getCars () {
     console.error(error);
   }
 }
-=======
->>>>>>> a66f3d1d5167ca79ca8034975d25c0b43d6d8fec
+
+export const constGenericQuery = (params) => {
+  return axios.get(params.endopoint, params.params) };
+
+
+  // "userId": 1,
+  // "id": 1,
+  // "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+  // "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
