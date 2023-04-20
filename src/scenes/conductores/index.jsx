@@ -6,7 +6,7 @@ import { Box, Typography, useTheme, Button } from "@mui/material";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 
-const Vehiculos = () => {
+const Conductores = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -104,8 +104,8 @@ const Vehiculos = () => {
     data && (
       <Box m="20px">
         <Header
-          title="FLOTA DE VEHÍCULOS"
-          subtitle="Administra la flota de vehículos"
+          title="CONDUCTORES"
+          subtitle="Gestiona el personal de la flota en un solo lugar"
         />
         <Box
           m="40px 0 0 0"
@@ -144,4 +144,4 @@ const Vehiculos = () => {
   );
 };
 
-export default Vehiculos;
+export default Conductores;

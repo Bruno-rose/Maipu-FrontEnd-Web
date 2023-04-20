@@ -9,6 +9,11 @@ import Contacts from "./scenes/contacts";
 import Vehiculos from "./scenes/vehiculos";
 import AgregarVehiculo from "./scenes/agregar_vehiculo";
 import FichaVehiculo from "./scenes/ficha_vehiculo";
+
+import Conductores from "./scenes/conductores";
+import AgregarConductor from "./scenes/agregar_conductor";
+import FichaConductor from "./scenes/ficha_conductor";
+
 import Bar from "./scenes/bar";
 import Form from "./scenes/form";
 import Line from "./scenes/line";
@@ -36,6 +41,9 @@ function App() {
               <Route path="/vehiculos" element={<Vehiculos />} />
               <Route path="/agregar_vehiculo" element={<AgregarVehiculo />} />
               <Route path="/ficha_vehiculo" element={<FichaVehiculo />} />
+              <Route path="/conductores" element={<Conductores />} />
+              <Route path="/agregar_conductor" element={<AgregarConductor />} />
+              <Route path="/ficha_conductor" element={<FichaConductor />} />
               {/* <Route path="/bar" element={<Bar />} /> */}
               {/* <Route path="/contacts" element={<Contacts />} /> */}
               {/* <Route path="/calendar" element={<Calendar />} /> */}

@@ -18,6 +18,7 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import DriveEtaOutlinedIcon from '@mui/icons-material/DriveEtaOutlined';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -148,6 +149,29 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
+            
+            <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              Personal
+            </Typography>
+            <Item
+              title="Conductores"
+              to="/conductores"
+              icon={<DriveEtaOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Agregar Conductor"
+              to="/agregar_conductor"
+              icon={<AddOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            
 
             {/* <Typography
               variant="h6"
