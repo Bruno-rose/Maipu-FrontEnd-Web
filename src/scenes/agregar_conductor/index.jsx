@@ -17,131 +17,133 @@ const AgregarConductor = () => {
         title="AGREGAR CONDUCTOR"
         subtitle="Crea la ficha de un conductor"
       />
-
-      <Formik
-        onSubmit={handleFormSubmit}
-        initialValues={initialValues}
-        validationSchema={checkoutSchema}
-      >
-        {({
-          values,
-          errors,
-          touched,
-          handleBlur,
-          handleChange,
-          handleSubmit,
-        }) => (
-          <form onSubmit={handleSubmit}>
-            <Box
-              display="grid"
-              gap="30px"
-              gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-              sx={{
-                "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
-              }}
-            >
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Nombre"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.nombre}
-                name="nombre"
-                error={!!touched.nombre && !!errors.nombre}
-                helperText={touched.nombre && errors.nombre}
-                sx={{ gridColumn: "span 2" }}
-              />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Apellido"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.apellido}
-                name="apellido"
-                error={!!touched.apellido && !!errors.apellido}
-                helperText={touched.apellido && errors.apellido}
-                sx={{ gridColumn: "span 2" }}
-              />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Email"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.email}
-                name="email"
-                error={!!touched.email && !!errors.email}
-                helperText={touched.email && errors.email}
-                sx={{ gridColumn: "span 4" }}
-              />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Número de contacto"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.numero}
-                name="numero"
-                error={!!touched.numero && !!errors.numero}
-                helperText={touched.numero && errors.numero}
-                sx={{ gridColumn: "span 4" }}
-              />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="RUT"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.rut}
-                name="rut"
-                error={!!touched.rut && !!errors.rut}
-                helperText={touched.rut && errors.rut}
-                sx={{ gridColumn: "span 4" }}
-              />
-            </Box>
-
-            <Box
-              mt="20px"
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
+      <Box mt="40px" sx={{ display: "flex", justifyContent: "center" }}>
+        <Formik
+          onSubmit={handleFormSubmit}
+          initialValues={initialValues}
+          validationSchema={checkoutSchema}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleBlur,
+            handleChange,
+            handleSubmit,
+          }) => (
+            <form onSubmit={handleSubmit}>
               <Box
+                display="grid"
+                gap="30px"
+                gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+                sx={{
+                  minWidth: "500px",
+                  "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                }}
+              >
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Nombre"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.nombre}
+                  name="nombre"
+                  error={!!touched.nombre && !!errors.nombre}
+                  helperText={touched.nombre && errors.nombre}
+                  sx={{ gridColumn: "span 2" }}
+                />
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Apellido"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.apellido}
+                  name="apellido"
+                  error={!!touched.apellido && !!errors.apellido}
+                  helperText={touched.apellido && errors.apellido}
+                  sx={{ gridColumn: "span 2" }}
+                />
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Email"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.email}
+                  name="email"
+                  error={!!touched.email && !!errors.email}
+                  helperText={touched.email && errors.email}
+                  sx={{ gridColumn: "span 4" }}
+                />
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Número de contacto"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.numero}
+                  name="numero"
+                  error={!!touched.numero && !!errors.numero}
+                  helperText={touched.numero && errors.numero}
+                  sx={{ gridColumn: "span 4" }}
+                />
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="RUT"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.rut}
+                  name="rut"
+                  error={!!touched.rut && !!errors.rut}
+                  helperText={touched.rut && errors.rut}
+                  sx={{ gridColumn: "span 4" }}
+                />
+              </Box>
+
+              <Box
+                mt="20px"
                 sx={{
                   display: "flex",
-                  justifyContent: "flex-start",
+                  justifyContent: "space-between",
                   alignItems: "center",
                 }}
               >
-                <Button
-                  sx={{ marginRight: "4px" }}
-                  variant="contained"
-                  component="label"
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                  }}
                 >
-                  Subir Foto
-                  <input type="file" hidden />
-                </Button>
-                <Button variant="contained" component="label">
-                  Subir Licencia
-                  <input type="file" hidden />
+                  <Button
+                    sx={{ marginRight: "4px" }}
+                    variant="contained"
+                    component="label"
+                  >
+                    Subir Foto
+                    <input type="file" hidden />
+                  </Button>
+                  <Button variant="contained" component="label">
+                    Subir Licencia
+                    <input type="file" hidden />
+                  </Button>
+                </Box>
+                <Button type="submit" color="secondary" variant="contained">
+                  Crear nuevo conductor
                 </Button>
               </Box>
-              <Button type="submit" color="secondary" variant="contained">
-                Crear nuevo conductor
-              </Button>
-            </Box>
-          </form>
-        )}
-      </Formik>
+            </form>
+          )}
+        </Formik>
+      </Box>
     </Box>
   );
 };
