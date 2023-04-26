@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Typography, useTheme, Button } from "@mui/material";
@@ -6,16 +7,20 @@ import { Box, Typography, useTheme, Button } from "@mui/material";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 
+axios.defaults.headers.common['ngrok-skip-browser-warning'] = 'any';
+
 const Vehiculos = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   const [data, setData] = useState(null);
+  
+  const endpointVehiculos = "https://a76f-2800-150-10b-1376-3866-ac1e-787d-85a2.ngrok-free.app/vehiculo/flota";
 
   // cambiar endpoint y columnas para mostrar la informacion de los autos
   useEffect(() => {
     axios
-      .get("https://jsonplaceholder.typicode.com/posts")
+      .get(endpointVehiculos)
       .then((response) => {
         setData(response.data);
       })
@@ -63,13 +68,18 @@ const Vehiculos = () => {
       flex: 1,
     },
     {
-      field: "tarea",
-      headerName: "Tarea",
+      field: "operacional",
+      headerName: "Operacional",
       flex: 1,
     },
     {
-      field: "ubicacion",
-      headerName: "Ubicacion",
+      field: "clase",
+      headerName: "Contrato",
+      flex: 1,
+    },
+    {
+      field: "tipo",
+      headerName: "Tipo de vehículo",
       flex: 1,
     },
     {
@@ -136,7 +146,7 @@ const Vehiculos = () => {
             // },
           }}
         >
-          <DataGrid  rows={data} columns={columns} />
+          <DataGrid  rows={data} columns={columns1} />
           {/* <DataGrid checkboxSelection rows={data} columns={columns} /> */}
         </Box>
       </Box>
