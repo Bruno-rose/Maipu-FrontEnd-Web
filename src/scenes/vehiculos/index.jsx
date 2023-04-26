@@ -3,9 +3,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Typography, useTheme, Button } from "@mui/material";
-
+import { Link } from "react-router-dom";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
+import Line from "../line";
 
 axios.defaults.headers.common['ngrok-skip-browser-warning'] = 'any';
 
@@ -15,7 +16,7 @@ const Vehiculos = () => {
 
   const [data, setData] = useState(null);
   
-  const endpointVehiculos = "https://a76f-2800-150-10b-1376-3866-ac1e-787d-85a2.ngrok-free.app/vehiculo/flota";
+  const endpointVehiculos = "https://7995-200-89-69-135.ngrok-free.app/vehiculo/flota";
 
   // cambiar endpoint y columnas para mostrar la informacion de los autos
   useEffect(() => {
@@ -66,11 +67,14 @@ const Vehiculos = () => {
       headerAlign: "left",
       align: "left",
       flex: 1,
+      valueFormatter:(params) => params.value?params.value:"SIN CONDUCTOR",
+
     },
     {
       field: "operacional",
       headerName: "Operacional",
       flex: 1,
+      valueFormatter:(params) => params.value?"SI":"NO",
     },
     {
       field: "clase",
@@ -86,25 +90,26 @@ const Vehiculos = () => {
       field: "ficha",
       headerName: "Ficha",
       flex: 1,
-      renderCell: () => {
+      renderCell: (params) => {
         return (
-          <Button
-            backgroundColor={colors.greenAccent[500]}
-            key="vehiculo"
-            href="/ficha_vehiculo" // agregar referencia al ID
-            width="60%"
-            m="0 auto"
-            p="5px"
-            sx={{ backgroundColor: colors.grey[900] }}
-            // display="flex"
-            // justifyContent="center"
-            borderRadius="4px"
-            variant="outlined"
-          >
-            <Typography color={colors.grey[200]} sx={{ ml: "5px" }}>
-              Acceder
-            </Typography>
-          </Button>
+          <Link to={`../vehiculo/detalles/${params.id}`}>Acceder</Link>
+          // <Button
+          //   backgroundColor={colors.greenAccent[500]}
+          //   key="vehiculo"
+          //   href="vehiculo/detalles/1" // agregar referencia al ID
+          //   width="60%"
+          //   m="0 auto"
+          //   p="5px"
+          //   sx={{ backgroundColor: colors.grey[900] }}
+          //   // display="flex"
+          //   // justifyContent="center"
+          //   borderRadius="4px"
+          //   variant="outlined"
+          // >
+          //   <Typography color={colors.grey[200]} sx={{ ml: "5px" }}>
+          //     Acceder
+          //   </Typography>
+          // </Button>
         );
       },
     },

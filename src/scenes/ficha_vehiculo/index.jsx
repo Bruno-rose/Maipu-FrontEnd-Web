@@ -16,6 +16,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import  {useParams} from "react-router-dom";
 
 // const carData = {
 //   patente: "ABC123",
@@ -26,18 +27,34 @@ import Paper from "@mui/material/Paper";
 //   conductor: "Juan Pérez",
 // };
 
+const vehicle_type_map = {
+    0:"Auto",
+    1:"Camión",
+    2:"Bus",
+    3:"Otro",
+};
+
+const contract_map = {
+  1:"Leasing",
+  2:"Vecino",
+  3:"Municipal",
+}
+  
+
 const FichaVehiculo = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [carData, setCarData] = useState(null);
+  const { id } = useParams();
 
   useEffect(() => {
     axios
-      .get("https://jsonplaceholder.typicode.com/users/1")
+      .get(`https://7995-200-89-69-135.ngrok-free.app/vehiculo/detalles/${id}`)
       .then((response) => {
         setCarData(response.data);
+        console.log(carData);
       })
       .catch((error) => {
         console.log(error);
@@ -64,7 +81,7 @@ const FichaVehiculo = () => {
               </TableCell>
               <TableCell align="left">
                 <Typography color={colors.grey[500]} variant="h5">
-                  {carData.name}
+                  {carData.patente}
                 </Typography>
               </TableCell>
               <TableCell align="left">
@@ -75,7 +92,7 @@ const FichaVehiculo = () => {
               </TableCell>
               <TableCell align="left">
                 <Typography color={colors.grey[500]} variant="h5">
-                  {carData.username}
+                  {carData.ocupado}
                 </Typography>
               </TableCell>
             </TableRow>
@@ -88,7 +105,7 @@ const FichaVehiculo = () => {
               </TableCell>
               <TableCell align="left">
                 <Typography color={colors.grey[500]} variant="h5">
-                  {carData.website}
+                  {vehicle_type_map[carData.tipo_id]}
                 </Typography>
               </TableCell>
               <TableCell align="left">
@@ -99,7 +116,7 @@ const FichaVehiculo = () => {
               </TableCell>
               <TableCell align="left">
                 <Typography color={colors.grey[500]} variant="h5">
-                  {carData.email}
+                  {carData.kms}
                 </Typography>
               </TableCell>
             </TableRow>
@@ -112,7 +129,7 @@ const FichaVehiculo = () => {
               </TableCell>
               <TableCell align="left">
                 <Typography color={colors.grey[500]} variant="h5">
-                  {carData.phone}
+                  {contract_map[carData.tipo_contrato_id]}
                 </Typography>
               </TableCell>
               <TableCell align="left">
@@ -123,7 +140,7 @@ const FichaVehiculo = () => {
               </TableCell>
               <TableCell align="left">
                 <Typography color={colors.grey[500]} variant="h5">
-                  {carData.id}
+                  {carData.conductor?carData.conductor:"SIN CONDUCTOR"}
                 </Typography>
               </TableCell>
             </TableRow>
@@ -132,6 +149,7 @@ const FichaVehiculo = () => {
       </TableContainer>
 
       <Box sx={{ mt: 8 }}>
+        <i>Próximamente...</i>
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Typography color={colors.grey[500]} variant="h4">

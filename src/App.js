@@ -40,7 +40,7 @@ function App() {
               {/* <Route path="/" element={<Dashboard />} /> */}
               <Route path="/vehiculos" element={<Vehiculos />} />
               <Route path="/agregar_vehiculo" element={<AgregarVehiculo />} />
-              <Route path="/ficha_vehiculo" element={<FichaVehiculo />} />
+              <Route path="/vehiculo/detalles/:id" element={<FichaVehiculo />} />
               <Route path="/conductores" element={<Conductores />} />
               <Route path="/agregar_conductor" element={<AgregarConductor />} />
               <Route path="/ficha_conductor" element={<FichaConductor />} />

@@ -7,44 +7,38 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import MenuItem from "@mui/material/MenuItem";
 import Autocomplete from "@mui/material/Autocomplete";
+import { OpacityRounded } from "@mui/icons-material";
 
 const vehicle_type = [
   {
+    value: 0,
+    label: "Auto",
+  },
+  {
     value: 1,
-    label: "Tipo 1",
+    label: "Camión",
   },
   {
     value: 2,
-    label: "Tipo 2",
+    label: "Bus",
   },
   {
     value: 3,
-    label: "Tipo 3",
-  },
-  {
-    value: 4,
-    label: "Tipo 4",
+    label: "Otro",
   },
 ];
 
-const vehicle_class = [
+const operational_options = [
+  {
+    value: 0,
+    label: "NO",
+  },
   {
     value: 1,
-    label: "Clase 1",
-  },
-  {
-    value: 2,
-    label: "Clase 2",
-  },
-  {
-    value: 3,
-    label: "Clase 3",
-  },
-  {
-    value: 4,
-    label: "Clase 4",
+    label: "SI",
   },
 ];
+
 
 const contract = [
   {
@@ -86,24 +80,24 @@ const conductores = [
 
 
 const checkoutSchema = yup.object().shape({
-  patente: yup.string().required("Patente is required"),
-  kilometraje: yup
+  patente: yup.string().required("Patente es requerida"),
+  kms: yup
     .number()
-    .required("Kilometraje is required")
-    .positive("Kilometraje must be positive"),
-  tipo: yup.string().required("Tipo is required"),
-  clase: yup.string().required("Clase is required"),
-  conductor: yup.string().required("Conductor is required"),
-  contrato: yup.string().required("Contrato is required"),
+    .required("Kilometraje es requerido")
+    .positive("Kilometraje tiene que ser positivo"),
+  tipo_id: yup.string().required("Tipo es requerido"),
+  operacional: yup.string().required("Operacional es requerido"),
+  // conductor: yup.string().required("Conductor es requerido"),
+  tipo_contrato_id: yup.string().required("Contrato es requerido"),
 });
 
 const initialValues = {
   patente: "",
-  kilometraje: "",
-  tipo: "",
-  clase: "",
-  conductor: "",
-  contrato: "",
+  kms: "",
+  tipo_id: "",
+  operacional: "",
+  // conductor: "",
+  tipo_contrato_id: "",
 };
 
 const AgregarVehiculo = () => {
@@ -114,7 +108,7 @@ const AgregarVehiculo = () => {
     console.log("HOLAAAAAA!");
     try {
       const response = await axios.post(
-        "https://example.com/api/users",
+        "https://7995-200-89-69-135.ngrok-free.app/vehiculo",
         values
       ); // modificar el endpoint
       console.log(response);
@@ -173,14 +167,14 @@ const AgregarVehiculo = () => {
                 />
                 <TextField
                   variant="filled"
-                  type="text"
+                  type="number"
                   label="Kilometraje"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.kilometraje}
-                  name="kilometraje"
-                  error={!!touched.kilometraje && !!errors.kilometraje}
-                  helperText={touched.kilometraje && errors.kilometraje}
+                  value={values.kms}
+                  name="kms"
+                  error={!!touched.kms && !!errors.kms}
+                  helperText={touched.kms && errors.kms}
                   sx={{ gridColumn: "span 4" }}
                   inputprops={{
                     inputMode: "numeric",
@@ -195,10 +189,10 @@ const AgregarVehiculo = () => {
                   label="Tipo"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.tipo}
-                  name="tipo"
-                  error={!!touched.tipo && !!errors.tipo}
-                  helperText={touched.tipo && errors.tipo}
+                  value={values.tipo_id}
+                  name="tipo_id"
+                  error={!!touched.tipo_id && !!errors.tipo_id}
+                  helperText={touched.tipo_id && errors.tipo_id}
                   sx={{ gridColumn: "span 4" }}
                 >
                   {vehicle_type.map((option) => (
@@ -207,20 +201,21 @@ const AgregarVehiculo = () => {
                     </MenuItem>
                   ))}
                 </TextField>
+
                 <TextField
                   variant="filled"
-                  type="text"
                   select
-                  label="Clase"
+                  type="select"
+                  label="Operacional"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.clase}
-                  name="clase"
-                  error={!!touched.clase && !!errors.clase}
-                  helperText={touched.clase && errors.clase}
+                  value={values.operacional}
+                  name="operacional"
+                  error={!!touched.operacional && !!errors.operacional}
+                  helperText={touched.operacional && errors.operacional}
                   sx={{ gridColumn: "span 4" }}
                 >
-                  {vehicle_class.map((option) => (
+                  {operational_options.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}
                     </MenuItem>
@@ -234,10 +229,10 @@ const AgregarVehiculo = () => {
                   label="Contrato"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.contrato}
-                  name="contrato"
-                  error={!!touched.contrato && !!errors.contrato}
-                  helperText={touched.contrato && errors.contrato}
+                  value={values.tipo_contrato_id}
+                  name="tipo_contrato_id"
+                  error={!!touched.tipo_contrato_id && !!errors.tipo_contrato_id}
+                  helperText={touched.tipo_contrato_id && errors.tipo_contrato_id}
                   sx={{ gridColumn: "span 4" }}
                 >
                   {contract.map((option) => (
@@ -247,7 +242,7 @@ const AgregarVehiculo = () => {
                   ))}
                 </TextField>
 
-                <Autocomplete
+                {/* <Autocomplete
                   id="conductor"
                   name="conductor"
                   sx={{ gridColumn: "span 4" }}
@@ -268,12 +263,13 @@ const AgregarVehiculo = () => {
                       type="text"
                       name="conductor"
                       onBlur={handleBlur}
-                      error={!!touched.contrato && !!errors.contrato}
-                      helperText={touched.contrato && errors.contrato}
+                      error={!!touched.tipo_contrato_id && !!errors.tipo_contrato_id}
+                      helperText={touched.tipo_contrato_id && errors.tipo_contrato_id}
                       {...params}
                     />
                   )}
-                />
+                /> */}
+
               </Box>
 
               <Box mt="40px" sx={{ display: "flex", justifyContent: "center" }}>
