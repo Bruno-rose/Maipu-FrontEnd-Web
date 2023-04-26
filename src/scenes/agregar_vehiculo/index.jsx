@@ -11,19 +11,19 @@ import { OpacityRounded } from "@mui/icons-material";
 
 const vehicle_type = [
   {
-    value: 0,
+    value: 1,
     label: "Auto",
   },
   {
-    value: 1,
+    value: 2,
     label: "Camión",
   },
   {
-    value: 2,
+    value: 3,
     label: "Bus",
   },
   {
-    value: 3,
+    value: 4,
     label: "Otro",
   },
 ];
