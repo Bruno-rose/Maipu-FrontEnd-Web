@@ -96,7 +96,6 @@ const initialValues = {
   kms: "",
   tipo_id: "",
   operacional: "",
-  // conductor: "",
   tipo_contrato_id: "",
 };
 
