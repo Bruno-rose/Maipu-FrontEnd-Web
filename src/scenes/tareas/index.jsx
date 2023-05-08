@@ -1,26 +1,20 @@
 import axios from "axios";
-
 import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Typography, useTheme, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 
-axios.defaults.headers.common['ngrok-skip-browser-warning'] = 'any';
-
-const Vehiculos = () => {
+const Tareas = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   const [data, setData] = useState(null);
-  
-  const endpointVehiculos = "https://7995-200-89-69-135.ngrok-free.app/vehiculo/flota";
 
-  // cambiar endpoint y columnas para mostrar la informacion de los autos
   useEffect(() => {
     axios
-      .get(endpointVehiculos)
+      .get("https://jsonplaceholder.typicode.com/posts")
       .then((response) => {
         setData(response.data);
       })
@@ -31,20 +25,67 @@ const Vehiculos = () => {
 
   const columns = [
     {
-      field: "userId",
-      headerName: "USER",
-    },
-    {
       field: "id",
       headerName: "ID",
+      flex: 1,
     },
     {
-      field: "title",
-      headerName: "Title",
+      field: "vehiculo",
+      headerName: "Vehículo",
+      flex: 1,
     },
     {
-      field: "body",
-      headerName: "Description",
+      field: "hora_de_inicio",
+      headerName: "Hora de inico",
+      flex: 1,
+    },
+    {
+      field: "fecha",
+      headerName: "Fecha",
+      flex: 1,
+    },
+    {
+      field: "origen",
+      headerName: "Origen",
+      flex: 1,
+    },
+    {
+      field: "destino",
+      headerName: "Destino",
+      flex: 1,
+    },
+    {
+      field: "descripcion",
+      headerName: "Descripción",
+      flex: 2,
+    },
+    {
+      field: "ficha",
+      headerName: "Ficha",
+      flex: 1,
+      renderCell: (params) => {
+        return (
+          // <Link to={`../tarea/detalles/${params.id}`}>Acceder</Link>
+          <Button
+            backgroundColor={colors.greenAccent[500]}
+            key="vehiculo"
+            // href="/tarea/" // agregar referencia al ID
+            href={`../tarea/detalles/${params.id}`}
+            width="60%"
+            m="0 auto"
+            p="5px"
+            sx={{ backgroundColor: colors.grey[900] }}
+            // display="flex"
+            // justifyContent="center"
+            borderRadius="4px"
+            variant="outlined"
+          >
+            <Typography color={colors.grey[200]} sx={{ ml: "5px" }}>
+              Acceder
+            </Typography>
+          </Button>
+        );
+      },
     },
   ];
 
@@ -66,49 +107,40 @@ const Vehiculos = () => {
       headerAlign: "left",
       align: "left",
       flex: 1,
-      valueFormatter:(params) => params.value?params.value:"SIN CONDUCTOR",
-
     },
     {
-      field: "operacional",
-      headerName: "Operacional",
-      flex: 1,
-      valueFormatter:(params) => params.value?"SI":"NO",
-    },
-    {
-      field: "clase",
-      headerName: "Contrato",
+      field: "tarea",
+      headerName: "Tarea",
       flex: 1,
     },
     {
-      field: "tipo",
-      headerName: "Tipo de vehículo",
+      field: "ubicacion",
+      headerName: "Ubicacion",
       flex: 1,
     },
     {
       field: "ficha",
       headerName: "Ficha",
       flex: 1,
-      renderCell: (params) => {
+      renderCell: () => {
         return (
-          <Link to={`../vehiculo/detalles/${params.id}`}>Acceder</Link>
-          // <Button
-          //   backgroundColor={colors.greenAccent[500]}
-          //   key="vehiculo"
-          //   href="vehiculo/detalles/1" // agregar referencia al ID
-          //   width="60%"
-          //   m="0 auto"
-          //   p="5px"
-          //   sx={{ backgroundColor: colors.grey[900] }}
-          //   // display="flex"
-          //   // justifyContent="center"
-          //   borderRadius="4px"
-          //   variant="outlined"
-          // >
-          //   <Typography color={colors.grey[200]} sx={{ ml: "5px" }}>
-          //     Acceder
-          //   </Typography>
-          // </Button>
+          <Button
+            backgroundColor={colors.greenAccent[500]}
+            key="vehiculo"
+            href="/ficha_vehiculo" // agregar referencia al ID
+            width="60%"
+            m="0 auto"
+            p="5px"
+            sx={{ backgroundColor: colors.grey[900] }}
+            // display="flex"
+            // justifyContent="center"
+            borderRadius="4px"
+            variant="outlined"
+          >
+            <Typography color={colors.grey[200]} sx={{ ml: "5px" }}>
+              Acceder
+            </Typography>
+          </Button>
         );
       },
     },
@@ -118,8 +150,8 @@ const Vehiculos = () => {
     data && (
       <Box m="20px">
         <Header
-          title="FLOTA DE VEHÍCULOS"
-          subtitle="Administra la flota de vehículos"
+          title="TAREAS"
+          subtitle="Gestiona el personal de la flota en un solo lugar"
         />
         <Box
           m="40px 0 0 0"
@@ -150,7 +182,7 @@ const Vehiculos = () => {
             // },
           }}
         >
-          <DataGrid  rows={data} columns={columns1} />
+          <DataGrid rows={data} columns={columns} />
           {/* <DataGrid checkboxSelection rows={data} columns={columns} /> */}
         </Box>
       </Box>
@@ -158,4 +190,4 @@ const Vehiculos = () => {
   );
 };
 
-export default Vehiculos;
+export default Tareas;

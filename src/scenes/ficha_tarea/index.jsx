@@ -16,14 +16,37 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { useParams } from "react-router-dom";
 
+const taskData = {
+  patente: "ABC123",
+  disponibilidad: "Disponible",
+  tipo: "Sedán",
+  clase: "Clase A",
+  kilometraje: 79302,
+  conductor: "Juan Pérez",
+};
 
+const vehicle_type_map = {
+  1: "Auto",
+  2: "Camión",
+  3: "Bus",
+  4: "Otro",
+};
 
-const FichaConductor = () => {
+const contract_map = {
+  1: "Municipal",
+  2: "Leasing",
+  3: "Vecino",
+};
+
+const FichaTarea = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
-  
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { id } = useParams();
+
   const [carData, setCarData] = useState(null);
   
   useEffect(() => {
@@ -41,11 +64,11 @@ const FichaConductor = () => {
     carData && (
       <Box m="20px">
         <Header
-          title="FICHA CONDUCTOR"
-          subtitle="Toda la información del conductor en un solo lugar"
+          title="FICHA TAREA"
+          subtitle="Toda la información de una tarea en un solo lugar"
         />
         {/* patente, tipo, clase, disponibilidad, kilometraje, conductor */}
-
+        
         <Box sx={{ maxWidth: "50%" }}>
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 375 }} aria-label="caption table">
@@ -164,4 +187,4 @@ const FichaConductor = () => {
   );
 };
 
-export default FichaConductor;
+export default FichaTarea;

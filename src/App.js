@@ -2,10 +2,7 @@ import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
-import Dashboard from "./scenes/dashboard";
-import Team from "./scenes/team";
-import Invoices from "./scenes/invoices";
-import Contacts from "./scenes/contacts";
+
 import Vehiculos from "./scenes/vehiculos";
 import AgregarVehiculo from "./scenes/agregar_vehiculo";
 import FichaVehiculo from "./scenes/ficha_vehiculo";
@@ -14,15 +11,12 @@ import Conductores from "./scenes/conductores";
 import AgregarConductor from "./scenes/agregar_conductor";
 import FichaConductor from "./scenes/ficha_conductor";
 
-import Bar from "./scenes/bar";
-import Form from "./scenes/form";
-import Line from "./scenes/line";
-import Pie from "./scenes/pie";
-import FAQ from "./scenes/faq";
-import Geography from "./scenes/geography";
+import AgregarTarea from "./scenes/agregar_tarea";
+import Tareas from "./scenes/tareas";
+import FichaTarea from "./scenes/ficha_tarea";
+
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
-import Calendar from "./scenes/calendar/calendar";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -37,23 +31,27 @@ function App() {
           <main className="content">
             <Topbar setIsSidebar={setIsSidebar} />
             <Routes>
-              {/* <Route path="/" element={<Dashboard />} /> */}
+              {/* Vehiculos */}
               <Route path="/vehiculos" element={<Vehiculos />} />
               <Route path="/agregar_vehiculo" element={<AgregarVehiculo />} />
-              <Route path="/vehiculo/detalles/:id" element={<FichaVehiculo />} />
+              <Route
+                path="/vehiculo/detalles/:id"
+                element={<FichaVehiculo />}
+              />
+              {/* Conductores */}
               <Route path="/conductores" element={<Conductores />} />
               <Route path="/agregar_conductor" element={<AgregarConductor />} />
-              <Route path="/ficha_conductor" element={<FichaConductor />} />
-              {/* <Route path="/bar" element={<Bar />} /> */}
-              {/* <Route path="/contacts" element={<Contacts />} /> */}
-              {/* <Route path="/calendar" element={<Calendar />} /> */}
-              {/* <Route path="/faq" element={<FAQ />} /> */}
-              {/* <Route path="/form" element={<Form />} /> */}
-              {/* <Route path="/geography" element={<Geography />} /> */}
-              {/* <Route path="/invoices" element={<Invoices />} /> */}
-              {/* <Route path="/line" element={<Line />} /> */}
-              {/* <Route path="/pie" element={<Pie />} /> */}
-              {/* <Route path="/team" element={<Team />} /> */}
+              <Route
+                path="/conductor/detalles/:id"
+                element={<FichaConductor />}
+              />
+              {/* Tareas */}
+              <Route path="/tareas" element={<Tareas />} />
+              <Route path="/agregar_tarea" element={<AgregarTarea />} />
+              <Route
+                path="/tarea/detalles/:id"
+                element={<FichaTarea />}
+              />
             </Routes>
           </main>
         </div>
