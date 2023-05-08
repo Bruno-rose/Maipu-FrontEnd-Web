@@ -28,16 +28,16 @@ import  {useParams} from "react-router-dom";
 // };
 
 const vehicle_type_map = {
-    0:"Auto",
-    1:"Camión",
-    2:"Bus",
-    3:"Otro",
+    1:"Auto",
+    2:"Camión",
+    3:"Bus",
+    4:"Otro",
 };
 
 const contract_map = {
-  1:"Leasing",
-  2:"Vecino",
-  3:"Municipal",
+  1:"Municipal",
+  2:"Leasing",
+  3:"Vecino",
 }
   
 
@@ -54,7 +54,7 @@ const FichaVehiculo = () => {
       .get(`https://7995-200-89-69-135.ngrok-free.app/vehiculo/detalles/${id}`)
       .then((response) => {
         setCarData(response.data);
-        console.log(carData);
+        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -70,7 +70,7 @@ const FichaVehiculo = () => {
       {/* patente, tipo, clase, disponibilidad, kilometraje, conductor */}
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="caption table">
-          <caption>Información estática y dinámica del vehículo</caption>
+          {/*<caption>Información estática y dinámica del vehículo</caption>*/}
           <TableBody>
             <TableRow key={1}>
               <TableCell align="left">
