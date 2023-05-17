@@ -1,10 +1,12 @@
-import axios from 'axios';
+import axios from "axios";
 
 // Define an async function
-export async function getCars () {
+export async function getCars() {
   try {
     // Make a GET request
-    const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+    const response = await axios.get(
+      "https://jsonplaceholder.typicode.com/posts"
+    );
 
     // Handle success response
     console.log(response.data);
@@ -15,10 +17,39 @@ export async function getCars () {
 }
 
 export const constGenericQuery = (params) => {
-  return axios.get(params.endopoint, params.params) };
+  return axios.get(params.endopoint, params.params);
+};
 
+// "userId": 1,
+// "id": 1,
+// "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+// "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
 
-  // "userId": 1,
-  // "id": 1,
-  // "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-  // "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+export const getLongitudeLatitude = async (calle, numero, comuna) => {
+  const apiKey = "b142c27558554720853fd441d3dbd7ab";
+  const address = `${calle} ${numero}, ${comuna}, Region Metropolitana, Chile`;
+  const url = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(
+    address
+  )}&key=${apiKey}&countrycode=cl`;
+
+  return axios
+    .get(url)
+    .then((response) => {
+      // Parse the JSON response
+      const data = response.data;
+
+      // Extract the latitude and longitude coordinates
+      if (data.results.length > 0) {
+        const latitude = data.results[0].geometry.lat;
+        const longitude = data.results[0].geometry.lng;
+        // console.log("HOLA1");
+        // console.log(latitude, longitude);
+        return [latitude, longitude];
+      } else {
+        console.log("No results found.");
+      }
+    })
+    .catch((error) => {
+      console.log("Error:", error);
+    });
+};
