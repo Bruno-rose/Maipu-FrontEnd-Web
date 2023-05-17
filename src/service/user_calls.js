@@ -20,11 +20,6 @@ export const constGenericQuery = (params) => {
   return axios.get(params.endopoint, params.params);
 };
 
-// "userId": 1,
-// "id": 1,
-// "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-// "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-
 export const getLongitudeLatitude = async (calle, numero, comuna) => {
   const apiKey = "b142c27558554720853fd441d3dbd7ab";
   const address = `${calle} ${numero}, ${comuna}, Region Metropolitana, Chile`;
@@ -42,8 +37,6 @@ export const getLongitudeLatitude = async (calle, numero, comuna) => {
       if (data.results.length > 0) {
         const latitude = data.results[0].geometry.lat;
         const longitude = data.results[0].geometry.lng;
-        // console.log("HOLA1");
-        // console.log(latitude, longitude);
         return [latitude, longitude];
       } else {
         console.log("No results found.");
