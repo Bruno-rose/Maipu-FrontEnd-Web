@@ -12,34 +12,25 @@ const AgregarTarea = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  // const handleFormSubmit = (values) => {
-  //   console.log(values);
-  // };
-
-  // Set up the request parameters
-
-  // Send the HTTP request to the API endpoint
-
-
   const handleFormSubmit = async (values) => {
-    
     try {
-      [values.partida_latitud, values.partida_longitud] = await getLongitudeLatitude(
-        values.calle_origen,
-        values.numero_origen,
-        values.comuna_origen
-      );
+      [values.partida_latitud, values.partida_longitud] =
+        await getLongitudeLatitude(
+          values.calle_origen,
+          values.numero_origen,
+          values.comuna_origen
+        );
 
-      [values.destino_latitud, values.destino_longitud] = await getLongitudeLatitude(
-        values.calle_destino,
-        values.numero_destino,
-        values.comuna_destino
-      );
-
+      [values.destino_latitud, values.destino_longitud] =
+        await getLongitudeLatitude(
+          values.calle_destino,
+          values.numero_destino,
+          values.comuna_destino
+        );
     } catch (error) {
       console.log(error);
     }
-    
+
     try {
       console.log(values);
       const response = await axios.post(
@@ -51,9 +42,6 @@ const AgregarTarea = () => {
       console.log(error);
     }
   };
-
-  
-
 
   return (
     <Box m="20px">
@@ -125,8 +113,12 @@ const AgregarTarea = () => {
                   onChange={handleChange}
                   value={values.nombre_solicitante}
                   name="nombre_solicitante"
-                  error={!!touched.nombre_solicitante && !!errors.nombre_solicitante}
-                  helperText={touched.nombre_solicitante && errors.nombre_solicitante}
+                  error={
+                    !!touched.nombre_solicitante && !!errors.nombre_solicitante
+                  }
+                  helperText={
+                    touched.nombre_solicitante && errors.nombre_solicitante
+                  }
                   sx={{ gridColumn: "span 4" }}
                 />
                 <TextField
@@ -138,8 +130,13 @@ const AgregarTarea = () => {
                   onChange={handleChange}
                   value={values.apellido_solicitante}
                   name="apellido_solicitante"
-                  error={!!touched.apellido_solicitante && !!errors.apellido_solicitante}
-                  helperText={touched.apellido_solicitante && errors.apellido_solicitante}
+                  error={
+                    !!touched.apellido_solicitante &&
+                    !!errors.apellido_solicitante
+                  }
+                  helperText={
+                    touched.apellido_solicitante && errors.apellido_solicitante
+                  }
                   sx={{ gridColumn: "span 4" }}
                 />
                 <TextField
@@ -301,14 +298,14 @@ const AgregarTarea = () => {
 const phoneRegExp =
   /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
-
-
 const checkoutSchema = yup.object().shape({
   titulo: yup.string().required("Campo requerido"),
   patente: yup.string().required("Campo requerido"),
   nombre_solicitante: yup.string().required("Campo requerido"),
   apellido_solicitante: yup.string().required("Campo requerido"),
-  numero_contacto: yup.string().matches(phoneRegExp, 'Número de teléfono no válido'),
+  numero_contacto: yup
+    .string()
+    .matches(phoneRegExp, "Número de teléfono no válido"),
   inicio: yup.date().required("Campo requerido"),
   calle_origen: yup.string().required("Campo requerido"),
   numero_origen: yup.string().required("Campo requerido"),

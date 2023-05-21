@@ -5,6 +5,7 @@ import { Box, Typography, useTheme, Button } from "@mui/material";
 
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
+import { getTareas } from "../../service/api_calls";
 
 const Tareas = () => {
   const theme = useTheme();
@@ -13,8 +14,7 @@ const Tareas = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    axios
-      .get("https://jsonplaceholder.typicode.com/posts")
+    getTareas()
       .then((response) => {
         setData(response.data);
       })
@@ -147,7 +147,7 @@ const Tareas = () => {
   ];
 
   return (
-    data && (
+     
       <Box m="20px">
         <Header
           title="TAREAS"
@@ -182,11 +182,11 @@ const Tareas = () => {
             // },
           }}
         >
-          <DataGrid rows={data} columns={columns} />
+          {data && <DataGrid rows={data} columns={columns} />}
           {/* <DataGrid checkboxSelection rows={data} columns={columns} /> */}
         </Box>
       </Box>
-    )
+    
   );
 };
 

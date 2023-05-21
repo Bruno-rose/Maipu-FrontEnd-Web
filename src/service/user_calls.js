@@ -1,23 +1,7 @@
 import axios from "axios";
 
-// Define an async function
-export async function getCars() {
-  try {
-    // Make a GET request
-    const response = await axios.get(
-      "https://jsonplaceholder.typicode.com/posts"
-    );
-
-    // Handle success response
-    console.log(response.data);
-  } catch (error) {
-    // Handle error
-    console.error(error);
-  }
-}
-
 export const constGenericQuery = (params) => {
-  return axios.get(params.endopoint, params.params);
+  return axios.get(params.endpoint, params.params);
 };
 
 export const getLongitudeLatitude = async (calle, numero, comuna) => {

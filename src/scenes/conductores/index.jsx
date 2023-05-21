@@ -5,6 +5,11 @@ import { Box, Typography, useTheme, Button } from "@mui/material";
 
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
+import { getConductores } from "../../service/api_calls";
+
+
+const getRowId = (row) => row.nombre;
+
 
 const Conductores = () => {
   const theme = useTheme();
@@ -14,63 +19,66 @@ const Conductores = () => {
 
   // cambiar endpoint y columnas para mostrar la informacion de los autos
   useEffect(() => {
-    axios
-      .get("https://jsonplaceholder.typicode.com/posts")
+    getConductores()
       .then((response) => {
-        setData(response.data);
+        setData(response.data.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
 
-  const columns = [
-    {
-      field: "userId",
-      headerName: "USER",
-    },
-    {
-      field: "id",
-      headerName: "ID",
-    },
-    {
-      field: "title",
-      headerName: "Title",
-    },
-    {
-      field: "body",
-      headerName: "Description",
-    },
-  ];
-
   const columns1 = [
     {
-      field: "id",
-      headerName: "ID",
-    },
-    {
-      field: "patente",
-      headerName: "Patente",
+      field: "nombre",
+      headerName: "nombre",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
-      field: "conductor",
-      headerName: "Conductor",
-      type: "string",
-      headerAlign: "left",
-      align: "left",
+      field: "apellido",
+      headerName: "apellido",
       flex: 1,
+      cellClassName: "name-column--cell",
     },
     {
-      field: "tarea",
-      headerName: "Tarea",
+      field: "ficha",
+      headerName: "Ficha",
       flex: 1,
+      renderCell: () => {
+        return (
+          <Button
+            backgroundColor={colors.greenAccent[500]}
+            key="vehiculo"
+            href="/ficha_vehiculo" // agregar referencia al ID
+            width="60%"
+            m="0 auto"
+            p="5px"
+            sx={{ backgroundColor: colors.grey[900] }}
+            // display="flex"
+            // justifyContent="center"
+            borderRadius="4px"
+            variant="outlined"
+          >
+            <Typography color={colors.grey[200]} sx={{ ml: "5px" }}>
+              Acceder
+            </Typography>
+          </Button>
+        );
+      },
+    },
+  ];
+
+  const columns2 = [
+    {
+      field: "nombre",
+      headerName: "Nombre",
     },
     {
-      field: "ubicacion",
-      headerName: "Ubicacion",
-      flex: 1,
+      field: "apellido1",
+      headerName: "Apellido",
+      // cellClassName: "name-column--cell",
     },
     {
       field: "ficha",
@@ -136,7 +144,7 @@ const Conductores = () => {
             // },
           }}
         >
-          <DataGrid  rows={data} columns={columns} />
+          <DataGrid  rows={data} columns={columns2} getRowId={getRowId} />
           {/* <DataGrid checkboxSelection rows={data} columns={columns} /> */}
         </Box>
       </Box>

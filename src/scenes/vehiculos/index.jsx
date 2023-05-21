@@ -6,45 +6,75 @@ import { Box, Typography, useTheme, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
+import { getVehiculos } from "../../service/api_calls";
 
-axios.defaults.headers.common['ngrok-skip-browser-warning'] = 'any';
+
+// axios.defaults.headers.common["ngrok-skip-browser-warning"] = "any";
+
+const getRowId = (row) => row.patente;
 
 const Vehiculos = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   const [data, setData] = useState(null);
-  
-  const endpointVehiculos = "https://7995-200-89-69-135.ngrok-free.app/vehiculo/flota";
 
   // cambiar endpoint y columnas para mostrar la informacion de los autos
   useEffect(() => {
-    axios
-      .get(endpointVehiculos)
+    getVehiculos()
       .then((response) => {
         setData(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
 
-  const columns = [
+  const columns2 = [
     {
-      field: "userId",
-      headerName: "USER",
+      field: "anno",
+      headerName: "anno",
     },
     {
-      field: "id",
-      headerName: "ID",
+      field: "marca",
+      headerName: "marca",
     },
     {
-      field: "title",
-      headerName: "Title",
+      field: "modelo",
+      headerName: "modelo",
     },
     {
-      field: "body",
-      headerName: "Description",
+      field: "numero_chasis",
+      headerName: "numero_chasis",
+    },
+    {
+      field: "numero_inventario",
+      headerName: "numero_inventario",
+    },
+    {
+      field: "numero_motor",
+      headerName: "numero_motor",
+    },
+    {
+      field: "operacional",
+      headerName: "operacional",
+    },
+    {
+      field: "patente",
+      headerName: "patente",
+    },
+    {
+      field: "ruta_foto",
+      headerName: "ruta_foto",
+    },
+    {
+      field: "tipo_contrato_id",
+      headerName: "tipo_contrato_id",
+    },
+    {
+      field: "tipo_id",
+      headerName: "tipo_id",
     },
   ];
 
@@ -66,14 +96,14 @@ const Vehiculos = () => {
       headerAlign: "left",
       align: "left",
       flex: 1,
-      valueFormatter:(params) => params.value?params.value:"SIN CONDUCTOR",
-
+      valueFormatter: (params) =>
+        params.value ? params.value : "SIN CONDUCTOR",
     },
     {
       field: "operacional",
       headerName: "Operacional",
       flex: 1,
-      valueFormatter:(params) => params.value?"SI":"NO",
+      valueFormatter: (params) => (params.value ? "SI" : "NO"),
     },
     {
       field: "clase",
@@ -150,7 +180,7 @@ const Vehiculos = () => {
             // },
           }}
         >
-          <DataGrid  rows={data} columns={columns1} />
+          <DataGrid rows={data} columns={columns2} getRowId={getRowId} />
           {/* <DataGrid checkboxSelection rows={data} columns={columns} /> */}
         </Box>
       </Box>
