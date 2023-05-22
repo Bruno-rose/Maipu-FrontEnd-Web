@@ -9,6 +9,9 @@ import { getVehiculos } from "../../service/api_calls";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 
+import { vehicle_value_label, contract_value_label } from "../../data/valueMapping";
+
+
 const getRowId = (row) => row.patente;
 
 const Vehiculos = () => {
@@ -28,114 +31,62 @@ const Vehiculos = () => {
       });
   }, []);
 
-  const columns2 = [
-    {
-      field: "anno",
-      headerName: "anno",
-    },
-    {
-      field: "marca",
-      headerName: "marca",
-    },
-    {
-      field: "modelo",
-      headerName: "modelo",
-    },
-    {
-      field: "numero_chasis",
-      headerName: "numero_chasis",
-    },
-    {
-      field: "numero_inventario",
-      headerName: "numero_inventario",
-    },
-    {
-      field: "numero_motor",
-      headerName: "numero_motor",
-    },
-    {
-      field: "operacional",
-      headerName: "operacional",
-    },
+  const columns = [
     {
       field: "patente",
-      headerName: "patente",
-    },
-    {
-      field: "ruta_foto",
-      headerName: "ruta_foto",
+      flex:1,
+      headerName: "Patente",
     },
     {
       field: "tipo_contrato_id",
-      headerName: "tipo_contrato_id",
+      flex:1,
+      headerName: "Contrato",
+      valueFormatter: (params) => (contract_value_label[params.value] ),
     },
     {
       field: "tipo_id",
-      headerName: "tipo_id",
+      flex:1,
+      headerName: "Tipo",
+      valueFormatter: (params) => (vehicle_value_label[params.value] ),
     },
-  ];
 
-  const columns1 = [
     {
-      field: "id",
-      headerName: "ID",
+      field: "anno",
+      flex:1,
+      headerName: "Año",
+      renderCell: (params) => (
+        <>
+          {(new Date(params.value)).getFullYear()}
+        </>
+      ),
     },
     {
-      field: "patente",
-      headerName: "Patente",
-      flex: 1,
-      cellClassName: "name-column--cell",
+      field: "marca",
+      flex:1,
+      headerName: "Marca",
     },
     {
-      field: "conductor",
-      headerName: "Conductor",
-      type: "string",
-      headerAlign: "left",
-      align: "left",
-      flex: 1,
-      valueFormatter: (params) =>
-        params.value ? params.value : "SIN CONDUCTOR",
+      field: "modelo",
+      flex:1,
+      headerName: "Modelo",
     },
     {
       field: "operacional",
+      flex:1,
       headerName: "Operacional",
-      flex: 1,
       valueFormatter: (params) => (params.value ? "SI" : "NO"),
     },
     {
-      field: "clase",
-      headerName: "Contrato",
-      flex: 1,
-    },
-    {
-      field: "tipo",
-      headerName: "Tipo de vehículo",
-      flex: 1,
-    },
-    {
-      field: "ficha",
+      field: "reference",
+      flex:1,
       headerName: "Ficha",
-      flex: 1,
+      valueGetter: (params) => {
+        return params.row.patente;
+      },
+
       renderCell: (params) => {
         return (
-          <Link to={`../vehiculo/detalles/${params.id}`}>Acceder</Link>
-          // <Button
-          //   backgroundColor={colors.greenAccent[500]}
-          //   key="vehiculo"
-          //   href="vehiculo/detalles/1" // agregar referencia al ID
-          //   width="60%"
-          //   m="0 auto"
-          //   p="5px"
-          //   sx={{ backgroundColor: colors.grey[900] }}
-          //   // display="flex"
-          //   // justifyContent="center"
-          //   borderRadius="4px"
-          //   variant="outlined"
-          // >
-          //   <Typography color={colors.grey[200]} sx={{ ml: "5px" }}>
-          //     Acceder
-          //   </Typography>
-          // </Button>
+          <Button variant="contained" href={`../vehiculo/detalles/${params.id}`} sx={{ backgroundColor:colors.blueAccent[700]}} >Acceder</Button >
         );
       },
     },
@@ -145,7 +96,7 @@ const Vehiculos = () => {
     <Box m="20px">
       <Header
         title="FLOTA DE VEHÍCULOS"
-        subtitle="Administra la flota de vehículos"
+        subtitle="Gestiona la flota de vehículos"
       />
       <Box
         m="40px 0 0 0"
@@ -175,7 +126,7 @@ const Vehiculos = () => {
       >
         {!data && <LinearProgress />}
         {data && (
-          <DataGrid rows={data} columns={columns2} getRowId={getRowId} />
+          <DataGrid rows={data} columns={columns} getRowId={getRowId} />
         )}
       </Box>
     </Box>

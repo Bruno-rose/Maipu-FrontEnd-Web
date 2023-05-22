@@ -6,6 +6,10 @@ export const getVehiculos = async () => {
   return await axios.get(server_endpoint + "/vehiculos");
 };
 
+export const getVehiculo = async (patente) => {
+  return await axios.get(server_endpoint + "/vehiculos/" + patente);
+};
+
 export const getConductores = async () => {
   return await axios.get(server_endpoint + "/usuarios/conductores");
 };

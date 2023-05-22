@@ -66,18 +66,14 @@ const Tareas = () => {
       flex: 1,
       renderCell: (params) => {
         return (
-          // <Link to={`../tarea/detalles/${params.id}`}>Acceder</Link>
           <Button
             backgroundColor={colors.greenAccent[500]}
             key="vehiculo"
-            // href="/tarea/" // agregar referencia al ID
             href={`../tarea/detalles/${params.id}`}
             width="60%"
             m="0 auto"
             p="5px"
             sx={{ backgroundColor: colors.grey[900] }}
-            // display="flex"
-            // justifyContent="center"
             borderRadius="4px"
             variant="outlined"
           >
@@ -152,7 +148,7 @@ const Tareas = () => {
       <Box m="20px">
         <Header
           title="TAREAS"
-          subtitle="Gestiona todas tareas en un solo lugar"
+          subtitle="Gestiona todas las tareas en un solo lugar"
         />
         <Box
           m="40px 0 0 0"

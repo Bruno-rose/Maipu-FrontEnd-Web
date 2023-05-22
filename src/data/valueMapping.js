@@ -17,6 +17,13 @@ const vehicle_type = [
   },
 ];
 
+const vehicle_value_label = {
+  1: "Auto",
+  2: "Camión",
+  3: "Bus",
+  4: "Otro",
+};
+
 const operational_options = [
   {
     value: 0,
@@ -28,7 +35,7 @@ const operational_options = [
   },
 ];
 
-const contract = [
+const contract_type = [
   {
     value: 1,
     label: "Leasing",
@@ -43,4 +50,16 @@ const contract = [
   },
 ];
 
-export { vehicle_type, operational_options, contract };
+const contract_value_label = {
+  1: "Leasing",
+  2: "Vecino",
+  3: "Municipal",
+};
+
+export {
+  vehicle_type,
+  operational_options,
+  contract_type,
+  vehicle_value_label,
+  contract_value_label,
+};

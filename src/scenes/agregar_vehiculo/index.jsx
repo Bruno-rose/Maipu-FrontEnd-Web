@@ -3,16 +3,14 @@ import { Formik, form } from "formik";
 import * as yup from "yup";
 import { postVehiculos } from "../../service/api_calls";
 import { Typography, useTheme } from "@mui/material";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import MenuItem from "@mui/material/MenuItem";
-import Autocomplete from "@mui/material/Autocomplete";
-import { OpacityRounded } from "@mui/icons-material";
+
 
 import { tokens } from "../../theme";
 import {
   vehicle_type,
-  contract,
+  contract_type,
   operational_options,
 } from "../../data/valueMapping";
 
@@ -133,7 +131,7 @@ const AgregarVehiculo = () => {
                   }
                   sx={{ gridColumn: "span 4" }}
                 >
-                  {contract.map((option) => (
+                  {contract_type.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}
                     </MenuItem>
