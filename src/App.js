@@ -66,6 +66,7 @@ function App() {
             <Route path="/login" element={<LogIn />} />
           </Route>
           <Route element={<AppLayoutSideTopBar />}>
+            <Route path="/" />
             {/* Vehiculos */}
             <Route path="/vehiculos" element={<Vehiculos />} />
             <Route path="/agregar_vehiculo" element={<AgregarVehiculo />} />

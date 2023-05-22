@@ -1,7 +1,6 @@
 import { Box, Button, TextField } from "@mui/material";
 import { Formik, form } from "formik";
 import * as yup from "yup";
-import axios from "axios";
 import { postVehiculos } from "../../service/api_calls";
 import { Typography, useTheme } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -11,74 +10,11 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { OpacityRounded } from "@mui/icons-material";
 
 import { tokens } from "../../theme";
-
-const vehicle_type = [
-  {
-    value: 1,
-    label: "Auto",
-  },
-  {
-    value: 2,
-    label: "Camión",
-  },
-  {
-    value: 3,
-    label: "Bus",
-  },
-  {
-    value: 4,
-    label: "Otro",
-  },
-];
-
-const operational_options = [
-  {
-    value: 0,
-    label: "NO",
-  },
-  {
-    value: 1,
-    label: "SI",
-  },
-];
-
-const contract = [
-  {
-    value: 1,
-    label: "Leasing",
-  },
-  {
-    value: 2,
-    label: "Vecino",
-  },
-  {
-    value: 3,
-    label: "Municipal",
-  },
-];
-
-const conductores = [
-  { label: "Ana Perez", id: 1 },
-  { label: "Juan Ramirez", id: 2 },
-  { label: "Maria Rodriguez", id: 3 },
-  { label: "Pedro Hernandez", id: 4 },
-  { label: "Laura Gomez", id: 5 },
-  { label: "Jorge Martinez", id: 6 },
-  { label: "Lucia Castro", id: 7 },
-  { label: "Alejandro Flores", id: 8 },
-  { label: "Carolina Salas", id: 9 },
-  { label: "Fernando Cruz", id: 10 },
-  { label: "Natalia Vega", id: 11 },
-  { label: "Roberto Torres", id: 12 },
-  { label: "Lorena Chavez", id: 13 },
-  { label: "Ricardo Ortiz", id: 14 },
-  { label: "Gabriela Soto", id: 15 },
-  { label: "Daniel Garcia", id: 16 },
-  { label: "Carmen Aguilar", id: 17 },
-  { label: "Omar Mendoza", id: 18 },
-  { label: "Martha Castro", id: 19 },
-  { label: "Emilio Gonzalez", id: 20 },
-];
+import {
+  vehicle_type,
+  contract,
+  operational_options,
+} from "../../data/valueMapping";
 
 const checkoutSchema = yup.object().shape({
   patente: yup.string().required("Patente es requerida"),
@@ -88,7 +24,6 @@ const checkoutSchema = yup.object().shape({
     .positive("Kilometraje tiene que ser positivo"),
   tipo_id: yup.string().required("Tipo es requerido"),
   operacional: yup.string().required("Operacional es requerido"),
-  // conductor: yup.string().required("Conductor es requerido"),
   tipo_contrato_id: yup.string().required("Contrato es requerido"),
 });
 
@@ -101,14 +36,12 @@ const initialValues = {
 };
 
 const AgregarVehiculo = () => {
-  const isNonMobile = useMediaQuery("(min-width:600px)");
-
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   const handleSubmit = async (values) => {
     console.log(values);
-    console.log("HOLAAAAAA!");
+    console.log("LOGDEV: HandleSubmit");
 
     postVehiculos(values)
       .then((response) => {
@@ -117,10 +50,6 @@ const AgregarVehiculo = () => {
       .catch((error) => {
         console.log(error);
       });
-  };
-
-  const handleDriverChange = (event, newValue) => {
-    initialValues.conductor = newValue;
   };
 
   return (
@@ -151,7 +80,6 @@ const AgregarVehiculo = () => {
                 gridTemplateColumns="repeat(12, minmax(0, 1fr))"
                 sx={{
                   minWidth: "500px",
-                  // "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
                 }}
               >
                 <TextField
@@ -165,25 +93,7 @@ const AgregarVehiculo = () => {
                   name="patente"
                   error={!!touched.patente && !!errors.patente}
                   helperText={touched.patente && errors.patente}
-                  sx={{ gridColumn: "span 8" }}
-                />
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="number"
-                  label="Kilometraje"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.kms}
-                  name="kms"
-                  error={!!touched.kms && !!errors.kms}
-                  helperText={touched.kms && errors.kms}
                   sx={{ gridColumn: "span 4" }}
-                  inputprops={{
-                    inputMode: "numeric",
-                    pattern: "[0-9]*",
-                    inputprops: { min: 0 },
-                  }}
                 />
                 <TextField
                   fullWidth
@@ -197,7 +107,7 @@ const AgregarVehiculo = () => {
                   name="operacional"
                   error={!!touched.operacional && !!errors.operacional}
                   helperText={touched.operacional && errors.operacional}
-                  sx={{ gridColumn: "span 6" }}
+                  sx={{ gridColumn: "span 4" }}
                 >
                   {operational_options.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -221,7 +131,7 @@ const AgregarVehiculo = () => {
                   helperText={
                     touched.tipo_contrato_id && errors.tipo_contrato_id
                   }
-                  sx={{ gridColumn: "span 6" }}
+                  sx={{ gridColumn: "span 4" }}
                 >
                   {contract.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -279,7 +189,7 @@ const AgregarVehiculo = () => {
                   sx={{ gridColumn: "span 3" }}
                 />
 
-<TextField
+                <TextField
                   fullWidth
                   variant="filled"
                   select
@@ -313,6 +223,7 @@ const AgregarVehiculo = () => {
                   helperText={touched.num_chasis && errors.num_chasis}
                   sx={{ gridColumn: "span 6" }}
                 />
+
                 <TextField
                   fullWidth
                   variant="filled"
@@ -326,7 +237,6 @@ const AgregarVehiculo = () => {
                   helperText={touched.num_motor && errors.num_motor}
                   sx={{ gridColumn: "span 6" }}
                 />
-
               </Box>
 
               <Box

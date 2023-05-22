@@ -6,6 +6,7 @@ import { Box, Typography, useTheme, Button } from "@mui/material";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { getConductores } from "../../service/api_calls";
+import LinearProgress from '@mui/material/LinearProgress';
 
 
 const getRowId = (row) => row.nombre;
@@ -109,7 +110,7 @@ const Conductores = () => {
   ];
 
   return (
-    data && (
+  
       <Box m="20px">
         <Header
           title="CONDUCTORES"
@@ -144,11 +145,12 @@ const Conductores = () => {
             // },
           }}
         >
-          <DataGrid  rows={data} columns={columns2} getRowId={getRowId} />
+          {!data && <LinearProgress />}
+          {data && <DataGrid  rows={data} columns={columns2} getRowId={getRowId} />}
           {/* <DataGrid checkboxSelection rows={data} columns={columns} /> */}
         </Box>
       </Box>
-    )
+  
   );
 };
 

@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Typography, useTheme, Button } from "@mui/material";
@@ -6,6 +5,8 @@ import { Box, Typography, useTheme, Button } from "@mui/material";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { getTareas } from "../../service/api_calls";
+import LinearProgress from '@mui/material/LinearProgress';
+
 
 const Tareas = () => {
   const theme = useTheme();
@@ -151,7 +152,7 @@ const Tareas = () => {
       <Box m="20px">
         <Header
           title="TAREAS"
-          subtitle="Gestiona el personal de la flota en un solo lugar"
+          subtitle="Gestiona todas tareas en un solo lugar"
         />
         <Box
           m="40px 0 0 0"
@@ -182,6 +183,7 @@ const Tareas = () => {
             // },
           }}
         >
+          {!data && <LinearProgress />}
           {data && <DataGrid rows={data} columns={columns} />}
           {/* <DataGrid checkboxSelection rows={data} columns={columns} /> */}
         </Box>
