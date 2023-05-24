@@ -6,6 +6,7 @@ import Header from "../../components/Header";
 import { tokens } from "../../theme";
 import axios from "axios";
 import { getLongitudeLatitude } from "../../service/user_calls";
+import {postTareas} from "../../service/api_calls";
 
 const AgregarTarea = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -32,11 +33,9 @@ const AgregarTarea = () => {
     }
 
     try {
-      console.log(values);
-      const response = await axios.post(
-        "https://7995-200-89-69-135.ngrok-free.app/vehiculo",
-        values
-      ); // modificar el endpoint
+      // console.log(values);
+      const response = postTareas(values);
+
       console.log(response);
     } catch (error) {
       console.log(error);

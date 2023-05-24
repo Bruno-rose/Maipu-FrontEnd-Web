@@ -18,7 +18,15 @@ export const getTareas = async () => {
   return await axios.get(server_endpoint + "/tareas");
 };
 
+export const getTarea = async (id) => {
+  return await axios.get(server_endpoint + "/tareas/patente?patente=" + id);
+};
+
+export const postTareas = async (values) => {
+  return await axios.post(server_endpoint + "/tareas", values);
+};
+
 export const postVehiculos = async (values) => {
     return await axios.post(server_endpoint + "/vehiculos", values);
   };
-  
+

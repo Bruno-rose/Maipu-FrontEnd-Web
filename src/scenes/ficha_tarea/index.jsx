@@ -1,189 +1,112 @@
 import { Box, useTheme, Typography } from "@mui/material";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { tokens } from "../../theme";
-import axios from "axios";
 import { useEffect, useState } from "react";
+import LinearProgress from "@mui/material/LinearProgress";
 
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import { useParams } from "react-router-dom";
+import { getTarea, getVehiculo } from "../../service/api_calls";
 
-const taskData = {
-  patente: "ABC123",
-  disponibilidad: "Disponible",
-  tipo: "Sedán",
-  clase: "Clase A",
-  kilometraje: 79302,
-  conductor: "Juan Pérez",
+import TableTarea from "./table_tarea";
+import TableVehiculo from "./table_tarea_vehiculo";
+import TableConductor from "./table_tarea_conductor";
+
+const myTaskData = {
+  apellido_solicitante: "Rodriguez",
+  calle_destino: "Beauchef",
+  calle_origen: "San Pablo",
+  comuna_destino: "Santiago",
+  comuna_origen: "Santiago",
+  descripcion: "desc1",
+  destino_latitud: -33.4577725,
+  destino_longitud: -70.6635288,
+  inicio: "2023-05-31T11:12",
+  nombre_solicitante: "Bruno",
+  numero_contacto: "56933027489",
+  numero_destino: "850",
+  numero_origen: "1353",
+  partida_latitud: -33.4345566,
+  partida_longitud: -70.6601565,
+  patente: "AB123CD",
+  titulo: "Test01",
 };
 
-const vehicle_type_map = {
-  1: "Auto",
-  2: "Camión",
-  3: "Bus",
-  4: "Otro",
-};
-
-const contract_map = {
-  1: "Municipal",
-  2: "Leasing",
-  3: "Vecino",
+const myDriverData = {
+  rut: "18756912-0",
+  correo: "super_conductor@gmail.com",
+  nombre: "Luis",
+  apellido1: "Latorre",
+  apellido2: "Bravo",
+  numero: "56985836098",
 };
 
 const FichaTarea = () => {
-  const isNonMobile = useMediaQuery("(min-width:600px)");
-
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { id } = useParams();
 
-  const [carData, setCarData] = useState(null);
-  
+  const [taskData, settaskData] = useState(null);
+  const [carData, setcarData] = useState(null);
+  const [driverData, setdriverData] = useState(null);
+
   useEffect(() => {
-    axios
-      .get("https://jsonplaceholder.typicode.com/users/1")
-      .then((response) => {
-        setCarData(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
+    try {
+      settaskData(myTaskData);
+
+      getVehiculo(myTaskData.patente).then((response) => {
+        console.log(response.data);
+        setcarData(response.data);
+        setdriverData(myDriverData);
       });
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
+  // useEffect(() => {
+  //   getTarea(id)
+  //     .then((response) => {
+  //       settaskData(response.data)
+  //      getVehiculo(response.data.patente)
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
+
+  // useEffect(() => {
+  //   try {
+  //     const response_task = getTarea(id);
+  //     settaskData(response_task);
+  //
+  //     const response_car = getVehiculo(response_task.data.patente);
+  //     setcarData(response_car.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, []);
+
   return (
-    carData && (
-      <Box m="20px">
-        <Header
-          title="FICHA TAREA"
-          subtitle="Toda la información de una tarea en un solo lugar"
-        />
-        {/* patente, tipo, clase, disponibilidad, kilometraje, conductor */}
-        
-        <Box sx={{ maxWidth: "50%" }}>
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 375 }} aria-label="caption table">
-              {/* <caption>Información estática y dinámica del vehículo</caption> */}
-              <TableBody>
-                <TableRow key={1}>
-                  <TableCell align="left">
-                    {" "}
-                    <Typography color={colors.grey[500]} variant="h4">
-                      Nombre:
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="left">
-                    <Typography color={colors.grey[500]} variant="h5">
-                      {carData.name}
-                    </Typography>
-                  </TableCell>
-                </TableRow>
-                <TableRow key={2}>
-                  <TableCell align="left">
-                    {" "}
-                    <Typography color={colors.grey[500]} variant="h4">
-                      Vehículo:
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="left">
-                    <Typography color={colors.grey[500]} variant="h5">
-                      {carData.website}
-                    </Typography>
-                  </TableCell>
-                </TableRow>
-                <TableRow key={3}>
-                  <TableCell align="left">
-                    {" "}
-                    <Typography color={colors.grey[500]} variant="h4">
-                      Tipo:
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="left">
-                    <Typography color={colors.grey[500]} variant="h5">
-                      {carData.phone}
-                    </Typography>
-                  </TableCell>
-                </TableRow>
-                <TableRow key={4}>
-                  <TableCell align="left">
-                    {" "}
-                    <Typography color={colors.grey[500]} variant="h4">
-                    Licencia:
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="left">
-                    <Typography color={colors.grey[500]} variant="h5">
-                      {carData.phone}
-                    </Typography>
-                  </TableCell>
-                </TableRow>
-                <TableRow key={5}>
-                  <TableCell align="left">
-                    {" "}
-                    <Typography color={colors.grey[500]} variant="h4">
-                      Rut:
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="left">
-                    <Typography color={colors.grey[500]} variant="h5">
-                      {carData.phone}
-                    </Typography>
-                  </TableCell>
-                </TableRow>
-                <TableRow key={6}>
-                  <TableCell align="left">
-                    {" "}
-                    <Typography color={colors.grey[500]} variant="h4">
-                      Estado:
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="left">
-                    <Typography color={colors.grey[500]} variant="h5">
-                      {carData.phone}
-                    </Typography>
-                  </TableCell>
-                </TableRow>
-                <TableRow key={7}>
-                  <TableCell align="left">
-                    {" "}
-                    <Typography color={colors.grey[500]} variant="h4">
-                      Teléfono:
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="left">
-                    <Typography color={colors.grey[500]} variant="h5">
-                      {carData.phone}
-                    </Typography>
-                  </TableCell>
-                </TableRow>
-                <TableRow key={8}>
-                  <TableCell align="left">
-                    {" "}
-                    <Typography color={colors.grey[500]} variant="h4">
-                      Email:
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="left">
-                    <Typography color={colors.grey[500]} variant="h5">
-                      {carData.phone}
-                    </Typography>
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Box>
+    <Box m="20px">
+      <Header
+        title="FICHA TAREA"
+        subtitle="Toda la información de una tarea en un solo lugar"
+      />
+      <Box>
+        {!taskData && <LinearProgress />}
+        {taskData && <TableTarea data={taskData} />}
+        <Typography mt={2} mb={1} variant="h3" color={colors.greenAccent[300]}>
+          Vehículo
+        </Typography>
+        {!carData && <LinearProgress />}
+        {carData && <TableVehiculo data={carData} />}
+        <Typography mt={2} mb={1} variant="h3" color={colors.greenAccent[300]}>
+          Conductor
+        </Typography>
+        {!driverData && <LinearProgress />}
+        {myDriverData && <TableConductor data={myDriverData} />}
       </Box>
-    )
+    </Box>
   );
 };
 

@@ -4,7 +4,7 @@ import { Box, useTheme, Typography } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
 
 import Header from "../../components/Header";
-import MUITable from "./tableMUI";
+import TableVehiculo from "./table_vehiculo";
 
 
 import { getVehiculo } from "../../service/api_calls";
@@ -32,7 +32,7 @@ const FichaVehiculo = () => {
         subtitle="Toda la información del vehículo en un solo lugar"
       />
       {!carData && <LinearProgress />}
-      {carData && <MUITable data={carData} />}
+      {carData && <TableVehiculo data={carData} />}
     </Box>
   );
 };

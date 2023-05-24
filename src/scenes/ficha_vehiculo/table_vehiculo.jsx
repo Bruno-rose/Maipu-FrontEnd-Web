@@ -8,16 +8,10 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { vehicle_value_label, contract_value_label } from "../../data/valueMapping";
 
-const MUITable = (params) => {
+const TableVehiculo = (params) => {
   return (
     <TableContainer component={Paper} sx={{ maxWidth: "600px" }}>
       <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Parametros</TableCell>
-            <TableCell>Valores</TableCell>
-          </TableRow>
-        </TableHead>
         <TableBody>
           <TableRow key="patente">
             <TableCell>Patente</TableCell>
@@ -65,4 +59,4 @@ const MUITable = (params) => {
   );
 };
 
-export default MUITable;
+export default TableVehiculo;
