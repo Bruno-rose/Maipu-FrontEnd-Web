@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const server_endpoint = "http://172.25.7.47/api/v2";
+const server_endpoint = "http://172.25.7.47/api";
 
 export const getVehiculos = async () => {
   return await axios.get(server_endpoint + "/vehiculos");
