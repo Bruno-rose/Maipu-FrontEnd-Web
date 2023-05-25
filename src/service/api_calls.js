@@ -14,6 +14,10 @@ export const getConductores = async () => {
   return await axios.get(server_endpoint + "/usuarios/conductores");
 };
 
+export const getConductor = async (id) => {
+  return await axios.get(server_endpoint + "/usuarios/conductores/" + id);
+};
+
 export const getTareas = async () => {
   return await axios.get(server_endpoint + "/tareas");
 };
@@ -27,6 +31,5 @@ export const postTareas = async (values) => {
 };
 
 export const postVehiculos = async (values) => {
-    return await axios.post(server_endpoint + "/vehiculos", values);
-  };
-
+  return await axios.post(server_endpoint + "/vehiculos", values);
+};
