@@ -100,4 +100,5 @@ export {
   contract_type,
   vehicle_value_label,
   contract_value_label,
+  comuna_value_label,
 };
