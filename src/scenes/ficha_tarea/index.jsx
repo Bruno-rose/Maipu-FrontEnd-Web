@@ -1,4 +1,4 @@
-import { Box, useTheme, Typography } from "@mui/material";
+import { Box, useTheme, Typography, Grid, Paper } from "@mui/material";
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
 import { useEffect, useState } from "react";
@@ -10,6 +10,8 @@ import { getTarea, getVehiculo } from "../../service/api_calls";
 import TableTarea from "./table_tarea";
 import TableVehiculo from "./table_tarea_vehiculo";
 import TableConductor from "./table_tarea_conductor";
+import driver_example from "../../data/driver_example.jpg"; // Replace with the actual path to your image
+import car_example from "../../data/car_example.jpeg"; // Replace with the actual path to your image
 
 const myTaskData = {
   apellido_solicitante: "Rodriguez",
@@ -63,48 +65,66 @@ const FichaTarea = () => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   getTarea(id)
-  //     .then((response) => {
-  //       settaskData(response.data)
-  //      getVehiculo(response.data.patente)
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, []);
-
-  // useEffect(() => {
-  //   try {
-  //     const response_task = getTarea(id);
-  //     settaskData(response_task);
-  //
-  //     const response_car = getVehiculo(response_task.data.patente);
-  //     setcarData(response_car.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, []);
-
   return (
     <Box m="20px">
       <Header
         title="FICHA TAREA"
         subtitle="Toda la información de una tarea en un solo lugar"
       />
-      <Box>
-        {!taskData && <LinearProgress />}
-        {taskData && <TableTarea data={taskData} />}
-        <Typography mt={2} mb={1} variant="h3" color={colors.greenAccent[300]}>
-          Vehículo
-        </Typography>
-        {!carData && <LinearProgress />}
-        {carData && <TableVehiculo data={carData} />}
-        <Typography mt={2} mb={1} variant="h3" color={colors.greenAccent[300]}>
-          Conductor
-        </Typography>
-        {!driverData && <LinearProgress />}
-        {myDriverData && <TableConductor data={myDriverData} />}
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Grid container spacing={2}>
+          <Grid item xs={6}>
+            {/* Content for the left column */}
+
+            {!taskData && <LinearProgress />}
+            {taskData && <TableTarea data={taskData} />}
+            <Typography
+              mt={2}
+              mb={1}
+              variant="h3"
+              color={colors.greenAccent[300]}
+            >
+              Vehículo
+            </Typography>
+            {!carData && <LinearProgress />}
+            {carData && <TableVehiculo data={carData} />}
+            <Typography
+              mt={2}
+              mb={1}
+              variant="h3"
+              color={colors.greenAccent[300]}
+            >
+              Conductor
+            </Typography>
+            {!driverData && <LinearProgress />}
+            {myDriverData && <TableConductor data={myDriverData} />}
+          </Grid>
+          <Grid item xs={4}>
+            {/* Content for the right column */}
+            <Typography
+              mt={2}
+              mb={1}
+              variant="h3"
+              color={colors.greenAccent[300]}
+            >
+              Conductor
+            </Typography>
+            <Paper elevation={3}>
+              <img src={driver_example} alt="driver" style={{width: "100%"}}/>
+            </Paper>
+            <Typography
+              mt={2}
+              mb={1}
+              variant="h3"
+              color={colors.greenAccent[300]}
+            >
+              Auto
+            </Typography>
+            <Paper elevation={3}>
+              <img src={car_example} alt="car" style={{width: "100%"}}/>
+            </Paper>
+          </Grid>
+        </Grid>
       </Box>
     </Box>
   );

@@ -34,7 +34,29 @@ const AgregarTarea = () => {
 
     try {
       // console.log(values);
-      const response = postTareas(values);
+      // const response = postTareas(values);
+
+      const testReq = {
+        "nombre": "Ir a buscar a jesus", // Obligatorio.
+        "patente": "AB123CD", // Obligatorio. Debe referenciar a un vehiculo ya existente.
+        "inicio": "2020-01-01", // Obligatorio.
+        "partida_kilometraje": 2, // Obligatorio.
+        "partida_latitud": 2, // Obligatorio.
+        "partida_longitud": 2, // Obligatorio.
+        "destino_latitud": 2, // Obligatorio.
+        "destino_longitud": 2, // Obligatorio.
+        "descripcion": "Funciona 2 test real no fake", // Opcional
+        "solicitante": "Jose Hernandez",
+        "numero_contacto": "977103924",
+        "nombre_direccion_partida": "Hernan Villalobos",
+        "numero_direccion_partida": 1024,
+        "comuna_partida": 1,
+        "nombre_direccion_destino":"5 de abril",
+        "numero_direccion_destino":512,
+        "comuna_destino": 2
+    }
+      const response = postTareas(testReq);
+
 
       console.log(response);
     } catch (error) {

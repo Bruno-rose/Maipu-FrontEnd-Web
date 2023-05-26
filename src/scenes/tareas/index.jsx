@@ -6,7 +6,9 @@ import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { getTareas } from "../../service/api_calls";
 import LinearProgress from '@mui/material/LinearProgress';
+import axios from "axios";
 
+axios.defaults.headers.common['ngrok-skip-browser-warning'] = 'any';
 
 const Tareas = () => {
   const theme = useTheme();
@@ -18,6 +20,7 @@ const Tareas = () => {
     getTareas()
       .then((response) => {
         setData(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -31,7 +34,7 @@ const Tareas = () => {
       flex: 1,
     },
     {
-      field: "vehiculo",
+      field: "patente",
       headerName: "Vehículo",
       flex: 1,
     },
@@ -41,7 +44,7 @@ const Tareas = () => {
       flex: 1,
     },
     {
-      field: "fecha",
+      field: "inicio",
       headerName: "Fecha",
       flex: 1,
     },
@@ -65,83 +68,30 @@ const Tareas = () => {
       headerName: "Ficha",
       flex: 1,
       renderCell: (params) => {
+        
+        
         return (
-          <Button
-            backgroundColor={colors.greenAccent[500]}
-            key="vehiculo"
-            href={`../tarea/detalles/${params.id}`}
-            width="60%"
-            m="0 auto"
-            p="5px"
-            sx={{ backgroundColor: colors.grey[900] }}
-            borderRadius="4px"
-            variant="outlined"
-          >
-            <Typography color={colors.grey[200]} sx={{ ml: "5px" }}>
-              Acceder
-            </Typography>
-          </Button>
+          <Button variant="contained" href={`../tarea/detalles/${params.id}`} sx={{ backgroundColor:colors.blueAccent[700]}} >Acceder</Button >
+          // <Button
+          //   backgroundColor={colors.greenAccent[500]}
+          //   key={`tarea_${id}`}
+          //   href={`../tarea/detalles/${params.id}`}
+          //   width="60%"
+          //   m="0 auto"
+          //   p="5px"
+          //   sx={{ backgroundColor: colors.grey[900] }}
+          //   borderRadius="4px"
+          //   variant="outlined"
+          // >
+          //   <Typography color={colors.grey[200]} sx={{ ml: "5px" }}>
+          //     Acceder
+          //   </Typography>
+          // </Button>
         );
       },
     },
   ];
 
-  const columns1 = [
-    {
-      field: "id",
-      headerName: "ID",
-    },
-    {
-      field: "patente",
-      headerName: "Patente",
-      flex: 1,
-      cellClassName: "name-column--cell",
-    },
-    {
-      field: "conductor",
-      headerName: "Conductor",
-      type: "string",
-      headerAlign: "left",
-      align: "left",
-      flex: 1,
-    },
-    {
-      field: "tarea",
-      headerName: "Tarea",
-      flex: 1,
-    },
-    {
-      field: "ubicacion",
-      headerName: "Ubicacion",
-      flex: 1,
-    },
-    {
-      field: "ficha",
-      headerName: "Ficha",
-      flex: 1,
-      renderCell: () => {
-        return (
-          <Button
-            backgroundColor={colors.greenAccent[500]}
-            key="vehiculo"
-            href="/ficha_vehiculo" // agregar referencia al ID
-            width="60%"
-            m="0 auto"
-            p="5px"
-            sx={{ backgroundColor: colors.grey[900] }}
-            // display="flex"
-            // justifyContent="center"
-            borderRadius="4px"
-            variant="outlined"
-          >
-            <Typography color={colors.grey[200]} sx={{ ml: "5px" }}>
-              Acceder
-            </Typography>
-          </Button>
-        );
-      },
-    },
-  ];
 
   return (
      
