@@ -5,13 +5,15 @@ import { useEffect, useState } from "react";
 import LinearProgress from "@mui/material/LinearProgress";
 
 import { useParams } from "react-router-dom";
-import { getTarea, getVehiculo } from "../../service/api_calls";
+import { getTarea, getVehiculo, getConductor, getConductorbyPatente } from "../../service/api_calls";
 
 import TableTarea from "./table_tarea";
 import TableVehiculo from "./table_tarea_vehiculo";
 import TableConductor from "./table_tarea_conductor";
+
 import driver_example from "../../data/driver_example.jpg"; // Replace with the actual path to your image
 import car_example from "../../data/car_example.jpeg"; // Replace with the actual path to your image
+
 
 const myTaskData = {
   apellido_solicitante: "Rodriguez",
@@ -51,19 +53,31 @@ const FichaTarea = () => {
   const [carData, setcarData] = useState(null);
   const [driverData, setdriverData] = useState(null);
 
-  useEffect(() => {
-    try {
-      settaskData(myTaskData);
+  const [carPhotoPath, setcarPhotoPath] = useState("");
+  const [driverPhotoPath, setdriverPhotoPath] = useState("");
 
-      getVehiculo(myTaskData.patente).then((response) => {
-        console.log(response.data);
-        setcarData(response.data);
-        setdriverData(myDriverData);
+  useEffect(() => {
+    getTarea(id).then((response) => {
+      console.log(response.data[0]);
+      settaskData(response.data[0]);
+
+      getVehiculo(response.data[0].patente).then((response_1) => {
+        console.log("response_1.data");
+        console.log(response_1);
+        setcarData(response_1.data);
+        setcarPhotoPath(response_1.data.ruta_foto);
       });
-    } catch (error) {
-      console.log(error);
-    }
+
+      getConductorbyPatente(response.data[0].patente).then((response_3) => {
+        console.log("response_3.data");
+        console.log(response_3.data[0]);
+        setdriverData(response_3.data[0]);
+        setdriverPhotoPath(response_3.data[0].ruta_foto);
+      });
+
+    });
   }, []);
+    
 
   return (
     <Box m="20px">
@@ -75,7 +89,6 @@ const FichaTarea = () => {
         <Grid container spacing={2}>
           <Grid item xs={6}>
             {/* Content for the left column */}
-
             {!taskData && <LinearProgress />}
             {taskData && <TableTarea data={taskData} />}
             <Typography
@@ -97,11 +110,11 @@ const FichaTarea = () => {
               Conductor
             </Typography>
             {!driverData && <LinearProgress />}
-            {myDriverData && <TableConductor data={myDriverData} />}
+            {driverData && <TableConductor data={driverData} />}
           </Grid>
-          <Grid item xs={4}>
+          {/* <Grid item xs={4}> */}
             {/* Content for the right column */}
-            <Typography
+            {/* <Typography
               mt={2}
               mb={1}
               variant="h3"
@@ -110,7 +123,7 @@ const FichaTarea = () => {
               Conductor
             </Typography>
             <Paper elevation={3}>
-              <img src={driver_example} alt="driver" style={{width: "100%"}}/>
+              <img src={driverPhotoPath||driver_example} alt="driver" style={{width: "100%"}}/>
             </Paper>
             <Typography
               mt={2}
@@ -121,9 +134,9 @@ const FichaTarea = () => {
               Auto
             </Typography>
             <Paper elevation={3}>
-              <img src={car_example} alt="car" style={{width: "100%"}}/>
-            </Paper>
-          </Grid>
+              <img src={car_example||carPhotoPath} alt="car" style={{width: "100%"}}/>
+            </Paper> */}
+          {/* </Grid> */}
         </Grid>
       </Box>
     </Box>

@@ -18,7 +18,6 @@ const Conductores = () => {
 
   const [data, setData] = useState(null);
 
-  // cambiar endpoint y columnas para mostrar la informacion de los autos
   useEffect(() => {
     getConductores()
       .then((response) => {
@@ -29,47 +28,6 @@ const Conductores = () => {
         console.log(error);
       });
   }, []);
-
-  const columns1 = [
-    {
-      field: "nombre",
-      headerName: "nombre",
-      flex: 1,
-      cellClassName: "name-column--cell",
-    },
-    {
-      field: "apellido",
-      headerName: "apellido",
-      flex: 1,
-      cellClassName: "name-column--cell",
-    },
-    {
-      field: "ficha",
-      headerName: "Ficha",
-      flex: 1,
-      renderCell: () => {
-        return (
-          <Button
-            backgroundColor={colors.greenAccent[500]}
-            key="vehiculo"
-            href="/ficha_vehiculo" // agregar referencia al ID
-            width="60%"
-            m="0 auto"
-            p="5px"
-            sx={{ backgroundColor: colors.grey[900] }}
-            // display="flex"
-            // justifyContent="center"
-            borderRadius="4px"
-            variant="outlined"
-          >
-            <Typography color={colors.grey[200]} sx={{ ml: "5px" }}>
-              Acceder
-            </Typography>
-          </Button>
-        );
-      },
-    },
-  ];
 
   const columns2 = [
     {
@@ -85,24 +43,14 @@ const Conductores = () => {
       field: "ficha",
       headerName: "Ficha",
       flex: 1,
-      renderCell: () => {
+      renderCell: (params) => {
         return (
           <Button
-            backgroundColor={colors.greenAccent[500]}
-            key="vehiculo"
-            href="/ficha_vehiculo" // agregar referencia al ID
-            width="60%"
-            m="0 auto"
-            p="5px"
-            sx={{ backgroundColor: colors.grey[900] }}
-            // display="flex"
-            // justifyContent="center"
-            borderRadius="4px"
-            variant="outlined"
+            variant="contained"
+            href={`../conductor/detalles/${params.row.rut}`}
+            sx={{ backgroundColor: colors.blueAccent[700] }}
           >
-            <Typography color={colors.grey[200]} sx={{ ml: "5px" }}>
-              Acceder
-            </Typography>
+            Acceder
           </Button>
         );
       },

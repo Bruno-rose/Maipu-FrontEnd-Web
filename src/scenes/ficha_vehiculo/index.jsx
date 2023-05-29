@@ -7,7 +7,7 @@ import Header from "../../components/Header";
 import TableVehiculo from "./table_vehiculo";
 
 
-import { getVehiculo } from "../../service/api_calls";
+import { getVehiculo, getUser } from "../../service/api_calls";
 
 
 const FichaVehiculo = () => {
@@ -17,8 +17,9 @@ const FichaVehiculo = () => {
   useEffect(() => {
     getVehiculo(id)
       .then((response) => {
-        setCarData(response.data);
+        console.log(response);
         console.log(response.data);
+        setCarData(response.data);
       })
       .catch((error) => {
         console.log(error);

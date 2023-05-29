@@ -26,7 +26,7 @@ const Tareas = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, [data]);
+  }, []);
 
   const columns = [
     {
@@ -84,11 +84,15 @@ const Tareas = () => {
       field: "ficha",
       headerName: "Ficha",
       flex: 1,
+      // valueGetter: (params) => {
+      //   console.log(params.row.patente)
+      //   return params.patente;
+      // },
       renderCell: (params) => {
         return (
           <Button
             variant="contained"
-            href={`../tarea/detalles/${params.id}`}
+            href={`../tarea/detalles/${params.row.id}`}
             sx={{ backgroundColor: colors.blueAccent[700] }}
           >
             Acceder

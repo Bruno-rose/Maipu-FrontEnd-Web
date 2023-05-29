@@ -6,6 +6,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 
 import { useParams } from "react-router-dom";
 
+import { getConductor, getUser } from "../../service/api_calls";
 
 import TableConductor from "./table_conductor";
 
@@ -25,14 +26,24 @@ const FichaTarea = () => {
   const { id } = useParams();
 
   const [driverData, setdriverData] = useState(null);
+  const [userData, setuserData] = useState(null);
 
   useEffect(() => {
-    try {
-      // getConductor(id)
-      setdriverData(myDriverData);
-    } catch (error) {
+
+    getConductor(id).then((response) => {
+      console.log(response);
+      setdriverData(response.data.data);
+    }).catch((error) => {
       console.log(error);
-    }
+    });
+
+    getUser(id).then((response) => {
+      console.log(response.data.data[0]);
+      setuserData(response.data.data[0]);
+    }).catch((error) => {
+      console.log(error);
+    });
+
   }, []);
 
   return (
@@ -42,8 +53,8 @@ const FichaTarea = () => {
         subtitle="Toda la información de un conductor en un solo lugar"
       />
       <Box>
-        {!driverData && <LinearProgress />}
-        {myDriverData && <TableConductor data={myDriverData} />}
+        { (!userData || !driverData) && <LinearProgress />}
+        {(userData && driverData) && <TableConductor driver={driverData} user={userData} />}
       </Box>
     </Box>
   );
