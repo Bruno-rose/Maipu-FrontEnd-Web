@@ -14,7 +14,7 @@ const TableTarea = (params) => {
         <TableBody>
           <TableRow key="patente">
             <TableCell>Hora y fecha de inicio</TableCell>
-            <TableCell>{(new Date(params.data.inicio)).toLocaleTimeString()} - {(new Date(params.data.inicio)).toLocaleDateString("es-ES")}</TableCell>
+            <TableCell>{(new Date(params.data.inicio)).toLocaleTimeString("es-ES")} - {(new Date(params.data.inicio)).toLocaleDateString("es-ES")}</TableCell>
           </TableRow>
           <TableRow key="origen">
             <TableCell>Origen</TableCell>

@@ -19,7 +19,7 @@ const TableConductor = (params) => {
           </TableRow>
           <TableRow key="numero">
             <TableCell>Teléfono</TableCell>
-            <TableCell>{params.data.numero}</TableCell>
+            <TableCell>{params.data.numero?params.data.numero:"No hay número"}</TableCell>
           </TableRow>
           <TableRow key="correo">
             <TableCell>Email</TableCell>
