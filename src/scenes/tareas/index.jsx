@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Box, Typography, useTheme, Button } from "@mui/material";
+import { Box, useTheme, Button } from "@mui/material";
 
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
@@ -21,7 +21,6 @@ const Tareas = () => {
     getTareas()
       .then((response) => {
         setData(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -78,16 +77,12 @@ const Tareas = () => {
     {
       field: "descripcion",
       headerName: "Descripción",
-      flex: 2,
+      flex: 3,
     },
     {
       field: "ficha",
       headerName: "Ficha",
       flex: 1,
-      // valueGetter: (params) => {
-      //   console.log(params.row.patente)
-      //   return params.patente;
-      // },
       renderCell: (params) => {
         return (
           <Button
@@ -132,14 +127,10 @@ const Tareas = () => {
             borderTop: "none",
             backgroundColor: colors.blueAccent[700],
           },
-          // "& .MuiCheckbox-root": {
-          //   color: `${colors.greenAccent[200]} !important`,
-          // },
         }}
       >
         {!data && <LinearProgress />}
         {data && <DataGrid rows={data} columns={columns} />}
-        {/* <DataGrid checkboxSelection rows={data} columns={columns} /> */}
       </Box>
     </Box>
   );

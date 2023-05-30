@@ -66,6 +66,8 @@ const FichaTarea = () => {
         console.log(response_1);
         setcarData(response_1.data);
         setcarPhotoPath(response_1.data.ruta_foto);
+      }).catch((error) => {
+        console.log(error);
       });
 
       getConductorbyPatente(response.data[0].patente).then((response_3) => {
@@ -73,6 +75,8 @@ const FichaTarea = () => {
         console.log(response_3.data[0]);
         setdriverData(response_3.data[0]);
         setdriverPhotoPath(response_3.data[0].ruta_foto);
+      }).catch((error) => {
+        console.log(error);
       });
 
     });
@@ -109,7 +113,15 @@ const FichaTarea = () => {
             >
               Conductor
             </Typography>
-            {!driverData && <LinearProgress />}
+            {!driverData && 
+            <Typography
+              mt={2}
+              mb={1}
+              variant="Body1"
+              color={colors.purple_maipu[800]}
+            >
+              Agregue un conductor al vehículo
+            </Typography>}
             {driverData && <TableConductor data={driverData} />}
           </Grid>
           {/* <Grid item xs={4}> */}

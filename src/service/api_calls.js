@@ -2,7 +2,7 @@ import axios from "axios";
 
 axios.defaults.headers.common["ngrok-skip-browser-warning"] = "any";
 
-const server_endpoint = "http://172.25.7.47/api";
+export const server_endpoint = "http://172.25.7.47/api";
 // const server_endpoint = "https://4224-200-27-195-4.ngrok-free.app/";
 const hash_4_login = "xd";
 
@@ -17,7 +17,6 @@ export const getVehiculos = async () => {
 };
 
 export const getVehiculo = async (mypatente) => {
-  // console.log(server_endpoint + "/vehiculos/patente?=" + patente);
   return await axios.get(
     server_endpoint + "/vehiculos/patente?patente=" + mypatente,
     config
@@ -35,12 +34,8 @@ export const getConductor = async (id) => {
   );
 };
 
-
 export const getUser = async (id) => {
-  return await axios.get(
-    server_endpoint + "/usuarios?rut=" + id,
-    config
-  );
+  return await axios.get(server_endpoint + "/usuarios?rut=" + id, config);
 };
 
 export const getConductorbyPatente = async (id) => {
@@ -49,7 +44,6 @@ export const getConductorbyPatente = async (id) => {
     config
   );
 };
-
 
 export const getTareas = async () => {
   return await axios.get(server_endpoint + "/tareas", config);
@@ -66,3 +60,17 @@ export const postTareas = async (values) => {
 export const postVehiculos = async (values) => {
   return await axios.post(server_endpoint + "/vehiculos", values, config);
 };
+
+export const getPathLicencia = async (id) => {
+  return await axios.get(
+    server_endpoint + "/usuarios/licencia?rut=" + id,
+    config
+  );
+}
+
+export const getLicencia = async (mediaPath) => {
+  return await axios.get(
+    server_endpoint + mediaPath,
+    config
+  );
+}

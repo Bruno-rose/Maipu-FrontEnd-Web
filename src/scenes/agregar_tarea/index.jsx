@@ -37,11 +37,9 @@ const AgregarTarea = () => {
     }
 
     try {
-      values.partida_kilometraje = -1;
+      values.partida_kilometraje = -1; // To remove eventually
       console.log(values);
-
       const response = postTareas(values);
-
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -73,7 +71,6 @@ const AgregarTarea = () => {
                 gridTemplateColumns="repeat(12, minmax(0, 1fr))"
                 sx={{
                   minWidth: "500px",
-                  // "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
                 }}
               >
                 <TextField
