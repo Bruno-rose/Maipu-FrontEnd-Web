@@ -26,13 +26,17 @@ const TableConductor = (params) => {
             <TableCell>Email</TableCell>
             <TableCell>{params.user.correo}</TableCell>
           </TableRow>
+          <TableRow key="numero">
+            <TableCell>Teléfono</TableCell>
+            <TableCell>{params.user.numero?params.user.numero:"Sin Teléfono"}</TableCell>
+          </TableRow>
           <TableRow key="patente">
             <TableCell>Patente</TableCell>
             <TableCell>{params.driver.patenteVehiculo}</TableCell>
           </TableRow>
           <TableRow key="operacional">
-            <TableCell>operacional</TableCell>
-            <TableCell>{params.driver.vehiculoOperacional?"Operacional":"No operacional"}</TableCell>
+            <TableCell>Operacional</TableCell>
+            <TableCell>{params.driver.vehiculoOperacional?"Operacional":"No Operacional"}</TableCell>
           </TableRow>
         </TableBody>
       </Table>

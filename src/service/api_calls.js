@@ -66,11 +66,16 @@ export const getPathLicencia = async (id) => {
     server_endpoint + "/usuarios/licencia?rut=" + id,
     config
   );
-}
+};
 
-export const getLicencia = async (mediaPath) => {
+export const getPathRevision = async (id) => {
   return await axios.get(
-    server_endpoint + mediaPath,
+    server_endpoint + "/revision?patente=" + id,
     config
   );
-}
+};
+
+
+export const getLicencia = async (mediaPath) => {
+  return await axios.get(server_endpoint + mediaPath, config);
+};

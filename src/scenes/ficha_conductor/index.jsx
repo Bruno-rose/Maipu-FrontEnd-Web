@@ -96,14 +96,14 @@ const FichaTarea = () => {
             {userPathLicense && (
               <Paper elevation={3}>
                 <img
-                  src={server_endpoint + userPathLicense.ruta_archivo1}
-                  alt="foto_perfil"
-                  style={{ width: "100%" }}
-                />
-                <img
                   src={server_endpoint + userPathLicense.ruta_archivo2}
                   alt="licencia"
-                  style={{ width: "100%" }}
+                  style={{ width: "50%" }}
+                />
+                <img
+                  src={server_endpoint + userPathLicense.ruta_archivo1}
+                  alt="foto_perfil"
+                  style={{ width: "50%" }}
                 />
               </Paper>
             )}
