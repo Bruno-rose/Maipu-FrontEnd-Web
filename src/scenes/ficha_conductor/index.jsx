@@ -39,7 +39,6 @@ const FichaTarea = () => {
   useEffect(() => {
     getConductor(id)
       .then((response) => {
-        // console.log(response);
         setdriverData(response.data.data);
       })
       .catch((error) => {
@@ -48,7 +47,6 @@ const FichaTarea = () => {
 
     getUser(id)
       .then((response) => {
-        // console.log(response.data.data[0]);
         setuserData(response.data.data[0]);
       })
       .catch((error) => {
@@ -83,7 +81,6 @@ const FichaTarea = () => {
           </Grid>
           <Grid item xs={4}>
             {/* Content for the right column */}
-
             <Typography
               mt={2}
               mb={1}
@@ -92,7 +89,7 @@ const FichaTarea = () => {
             >
               Licencia de conducir
             </Typography>
-            {!userPathLicense  && <LinearProgress />}
+            {!userPathLicense && <LinearProgress />}
             {userPathLicense && (
               <Paper elevation={3}>
                 <img
