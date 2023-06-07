@@ -15,14 +15,14 @@ import {
 } from "../../data/valueMapping";
 
 const checkoutSchema = yup.object().shape({
-  patente: yup.string().required("Patente es requerida"),
+  patente: yup.string().required("Campo requerido"),
   kms: yup
     .number()
-    .required("Kilometraje es requerido")
+    .required("Campo requerido")
     .positive("Kilometraje tiene que ser positivo"),
-  tipo_id: yup.string().required("Tipo es requerido"),
-  operacional: yup.string().required("Operacional es requerido"),
-  tipo_contrato_id: yup.string().required("Contrato es requerido"),
+  tipo_id: yup.string().required("Campo requerido"),
+  operacional: yup.string().required("Campo requerido"),
+  tipo_contrato_id: yup.string().required("Campo requerido"),
 });
 
 const initialValues = {
@@ -245,7 +245,7 @@ const AgregarVehiculo = () => {
                   alignItems: "center",
                 }}
               >
-                <Button type="submit" color="secondary" variant="contained">
+                <Button type="submit" color="secondary" variant="contained" href={`../vehiculos`}>
                   Agregar Vehiculo
                 </Button>
               </Box>

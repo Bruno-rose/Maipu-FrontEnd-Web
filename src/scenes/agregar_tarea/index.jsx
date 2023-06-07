@@ -6,26 +6,30 @@ import Header from "../../components/Header";
 import { tokens } from "../../theme";
 import axios from "axios";
 import { getLongitudeLatitude } from "../../service/user_calls";
-import {postTareas} from "../../service/api_calls";
+import { postTareas } from "../../service/api_calls";
+import { comuna_options } from "../../data/valueMapping";
+import MenuItem from "@mui/material/MenuItem";
+import { useNavigate } from "react-router-dom";
 
 const AgregarTarea = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const navigate = useNavigate();
 
   const handleFormSubmit = async (values) => {
     try {
       [values.partida_latitud, values.partida_longitud] =
         await getLongitudeLatitude(
-          values.calle_origen,
-          values.numero_origen,
-          values.comuna_origen
+          values.nombre_direccion_partida,
+          values.numero_direccion_partida,
+          values.comuna_partida
         );
 
       [values.destino_latitud, values.destino_longitud] =
         await getLongitudeLatitude(
-          values.calle_destino,
-          values.numero_destino,
+          values.nombre_direccion_destino,
+          values.numero_direccion_destino,
           values.comuna_destino
         );
     } catch (error) {
@@ -33,13 +37,14 @@ const AgregarTarea = () => {
     }
 
     try {
-      // console.log(values);
+      values.partida_kilometraje = -1; // To remove eventually
+      console.log(values);
       const response = postTareas(values);
-
       console.log(response);
     } catch (error) {
       console.log(error);
     }
+    navigate("/tareas");
   };
 
   return (
@@ -66,7 +71,6 @@ const AgregarTarea = () => {
                 gridTemplateColumns="repeat(12, minmax(0, 1fr))"
                 sx={{
                   minWidth: "500px",
-                  // "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
                 }}
               >
                 <TextField
@@ -76,10 +80,10 @@ const AgregarTarea = () => {
                   label="Título"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.titulo}
-                  name="titulo"
-                  error={!!touched.titulo && !!errors.titulo}
-                  helperText={touched.titulo && errors.titulo}
+                  value={values.nombre}
+                  name="nombre"
+                  error={!!touched.nombre && !!errors.nombre}
+                  helperText={touched.nombre && errors.nombre}
                   sx={{ gridColumn: "span 8" }}
                 />
 
@@ -110,32 +114,10 @@ const AgregarTarea = () => {
                   label="Nombre"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.nombre_solicitante}
-                  name="nombre_solicitante"
-                  error={
-                    !!touched.nombre_solicitante && !!errors.nombre_solicitante
-                  }
-                  helperText={
-                    touched.nombre_solicitante && errors.nombre_solicitante
-                  }
-                  sx={{ gridColumn: "span 4" }}
-                />
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="text"
-                  label="Apellido"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.apellido_solicitante}
-                  name="apellido_solicitante"
-                  error={
-                    !!touched.apellido_solicitante &&
-                    !!errors.apellido_solicitante
-                  }
-                  helperText={
-                    touched.apellido_solicitante && errors.apellido_solicitante
-                  }
+                  value={values.solicitante}
+                  name="solicitante"
+                  error={!!touched.solicitante && !!errors.solicitante}
+                  helperText={touched.solicitante && errors.solicitante}
                   sx={{ gridColumn: "span 4" }}
                 />
                 <TextField
@@ -165,38 +147,57 @@ const AgregarTarea = () => {
                   label="Calle"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.calle_origen}
-                  name="calle_origen"
-                  error={!!touched.calle_origen && !!errors.calle_origen}
-                  helperText={touched.calle_origen && errors.calle_origen}
+                  value={values.nombre_direccion_partida}
+                  name="nombre_direccion_partida"
+                  error={
+                    !!touched.nombre_direccion_partida &&
+                    !!errors.nombre_direccion_partida
+                  }
+                  helperText={
+                    touched.nombre_direccion_partida &&
+                    errors.nombre_direccion_partida
+                  }
                   sx={{ gridColumn: "span 5" }}
                 />
                 <TextField
                   fullWidth
                   variant="filled"
-                  type="text"
+                  type="number"
                   label="Número"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.numero_origen}
-                  name="numero_origen"
-                  error={!!touched.numero_origen && !!errors.numero_origen}
-                  helperText={touched.numero_origen && errors.numero_origen}
+                  value={values.numero_direccion_partida}
+                  name="numero_direccion_partida"
+                  error={
+                    !!touched.numero_direccion_partida &&
+                    !!errors.numero_direccion_partida
+                  }
+                  helperText={
+                    touched.numero_direccion_partida &&
+                    errors.numero_direccion_partida
+                  }
                   sx={{ gridColumn: "span 3" }}
                 />
                 <TextField
                   fullWidth
+                  select
                   variant="filled"
-                  type="text"
                   label="Comuna"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.comuna_origen}
-                  name="comuna_origen"
-                  error={!!touched.comuna_origen && !!errors.comuna_origen}
-                  helperText={touched.comuna_origen && errors.comuna_origen}
+                  value={values.comuna_partida}
+                  name="comuna_partida"
+                  error={!!touched.comuna_partida && !!errors.comuna_partida}
+                  helperText={touched.comuna_partida && errors.comuna_partida}
                   sx={{ gridColumn: "span 4" }}
-                />
+                >
+                  {comuna_options.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+
                 <Typography
                   variant="h5"
                   color={colors.greenAccent[400]}
@@ -211,29 +212,42 @@ const AgregarTarea = () => {
                   label="Calle"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.calle_destino}
-                  name="calle_destino"
-                  error={!!touched.calle_destino && !!errors.calle_destino}
-                  helperText={touched.calle_destino && errors.calle_destino}
+                  value={values.nombre_direccion_destino}
+                  name="nombre_direccion_destino"
+                  error={
+                    !!touched.nombre_direccion_destino &&
+                    !!errors.nombre_direccion_destino
+                  }
+                  helperText={
+                    touched.nombre_direccion_destino &&
+                    errors.nombre_direccion_destino
+                  }
                   sx={{ gridColumn: "span 5" }}
                 />
                 <TextField
                   fullWidth
                   variant="filled"
-                  type="text"
+                  type="number"
                   label="Número"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.numero_destino}
-                  name="numero_destino"
-                  error={!!touched.numero_destino && !!errors.numero_destino}
-                  helperText={touched.numero_destino && errors.numero_destino}
+                  value={values.numero_direccion_destino}
+                  name="numero_direccion_destino"
+                  error={
+                    !!touched.numero_direccion_destino &&
+                    !!errors.numero_direccion_destino
+                  }
+                  helperText={
+                    touched.numero_direccion_destino &&
+                    errors.numero_direccion_destino
+                  }
                   sx={{ gridColumn: "span 3" }}
                 />
+
                 <TextField
                   fullWidth
+                  select
                   variant="filled"
-                  type="text"
                   label="Comuna"
                   onBlur={handleBlur}
                   onChange={handleChange}
@@ -242,7 +256,13 @@ const AgregarTarea = () => {
                   error={!!touched.comuna_destino && !!errors.comuna_destino}
                   helperText={touched.comuna_destino && errors.comuna_destino}
                   sx={{ gridColumn: "span 4" }}
-                />
+                >
+                  {comuna_options.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
                 <TextField
                   fullWidth
                   variant="filled"
@@ -298,34 +318,34 @@ const phoneRegExp =
   /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
 const checkoutSchema = yup.object().shape({
-  titulo: yup.string().required("Campo requerido"),
+  nombre: yup.string().required("Campo requerido"),
   patente: yup.string().required("Campo requerido"),
-  nombre_solicitante: yup.string().required("Campo requerido"),
-  apellido_solicitante: yup.string().required("Campo requerido"),
+  solicitante: yup.string().required("Campo requerido"),
+  // apellido_solicitante: yup.string().required("Campo requerido"),
   numero_contacto: yup
     .string()
-    .matches(phoneRegExp, "Número de teléfono no válido"),
+    .matches(phoneRegExp, "Número de teléfono inválido"),
   inicio: yup.date().required("Campo requerido"),
-  calle_origen: yup.string().required("Campo requerido"),
-  numero_origen: yup.string().required("Campo requerido"),
-  comuna_origen: yup.string().required("Campo requerido"),
-  calle_destino: yup.string().required("Campo requerido"),
-  numero_destino: yup.string().required("Campo requerido"),
-  comuna_destino: yup.string().required("Campo requerido"),
+  nombre_direccion_partida: yup.string().required("Campo requerido"),
+  numero_direccion_partida: yup.string().required("Campo requerido"),
+  comuna_partida: yup.number().required("Campo requerido"),
+  nombre_direccion_destino: yup.string().required("Campo requerido"),
+  numero_direccion_destino: yup.string().required("Campo requerido"),
+  comuna_destino: yup.number().required("Campo requerido"),
   descripcion: yup.string().required("Campo requerido"),
 });
 const initialValues = {
-  titulo: "",
+  nombre: "",
   patente: "",
-  nombre_solicitante: "",
-  apellido_solicitante: "",
+  solicitante: "",
+  // apellido_solicitante: "",
   numero_contacto: "",
   inicio: "",
-  calle_origen: "",
-  numero_origen: "",
-  comuna_origen: "",
-  calle_destino: "",
-  numero_destino: "",
+  nombre_direccion_partida: "",
+  numero_direccion_partida: "",
+  comuna_partida: "",
+  nombre_direccion_destino: "",
+  numero_direccion_destino: "",
   comuna_destino: "",
   descripcion: "",
 };

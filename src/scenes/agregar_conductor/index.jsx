@@ -168,7 +168,7 @@ const AgregarConductor = () => {
                     <input type="file" hidden />
                   </Button>
                 </Box>
-                <Button type="submit" color="secondary" variant="contained">
+                <Button type="submit" color="secondary" variant="contained" href={`../conductores`}>
                   Agregar nuevo conductor
                 </Button>
               </Box>
@@ -184,14 +184,14 @@ const phoneRegExp =
   /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
 const checkoutSchema = yup.object().shape({
-  nombre: yup.string().required("Obligatorio"),
-  apellido: yup.string().required("Obligatorio"),
-  email: yup.string().email("email invalido").required("Obligatorio"),
+  nombre: yup.string().required("Campo requerido"),
+  apellido: yup.string().required("Campo requerido"),
+  email: yup.string().email("email invalido").required("Campo requerido"),
   numero: yup
     .string()
-    .matches(phoneRegExp, "Phone number is not valid")
-    .required("Obligatorio"),
-  rut: yup.string().required("Obligatorio"),
+    .matches(phoneRegExp, "Número de teléfono inválido")
+    .required("Campo requerido"),
+  rut: yup.string().required("Campo requerido"),
 });
 const initialValues = {
   nombre: "",

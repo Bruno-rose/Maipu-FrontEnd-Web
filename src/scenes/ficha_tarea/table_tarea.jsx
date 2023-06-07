@@ -5,6 +5,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { comuna_value_label } from "../../data/valueMapping";
 
 const TableTarea = (params) => {
   return (
@@ -12,20 +13,23 @@ const TableTarea = (params) => {
       <Table>
         <TableBody>
           <TableRow key="patente">
-            <TableCell>Hora de inicio</TableCell>
-            <TableCell>{(new Date(params.data.inicio)).toLocaleTimeString()} - {(new Date(params.data.inicio)).toLocaleDateString("es-ES")}</TableCell>
+            <TableCell>Hora y fecha de inicio</TableCell>
+            <TableCell>{(new Date(params.data.inicio)).toLocaleTimeString("es-ES")} - {(new Date(params.data.inicio)).toLocaleDateString("es-ES")}</TableCell>
           </TableRow>
           <TableRow key="origen">
             <TableCell>Origen</TableCell>
-            <TableCell>{params.data.calle_origen} {params.data.numero_origen}, {params.data.comuna_origen} </TableCell>
+            <TableCell>{params.data.nombre_direccion_partida} {params.data.numero_direccion_partida}, {comuna_value_label[params.data.comuna_partida]}</TableCell>
+            {/* <TableCell>{params.data.calle_origen} {params.data.numero_origen}, {params.data.comuna_origen} </TableCell> */}
           </TableRow>
           <TableRow key="destino">
             <TableCell>Destino</TableCell>
-            <TableCell>{params.data.calle_destino} {params.data.numero_destino}, {params.data.comuna_destino} </TableCell>
+            <TableCell>{params.data.nombre_direccion_destino} {params.data.numero_direccion_destino}, {comuna_value_label[params.data.comuna_destino]}</TableCell>
+            {/* <TableCell>{params.data.calle_destino} {params.data.numero_destino}, {params.data.comuna_destino} </TableCell> */}
           </TableRow>
           <TableRow key="solicitante">
             <TableCell>Solicitante</TableCell>
-            <TableCell>{params.data.nombre_solicitante} {params.data.apellido_solicitante}</TableCell>
+            <TableCell>{params.data.solicitante}</TableCell>
+            {/* <TableCell>{params.data.nombre_solicitante} {params.data.apellido_solicitante}</TableCell> */}
           </TableRow>
           <TableRow key="contacto">
             <TableCell>Número de contacto</TableCell>

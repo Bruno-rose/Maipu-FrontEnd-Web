@@ -1,15 +1,19 @@
-import { Box, useTheme, Typography } from "@mui/material";
+import { Box, useTheme, Typography, Grid, Paper } from "@mui/material";
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
 import { useEffect, useState } from "react";
 import LinearProgress from "@mui/material/LinearProgress";
 
 import { useParams } from "react-router-dom";
-import { getTarea, getVehiculo } from "../../service/api_calls";
+import { getTarea, getVehiculo, getConductor, getConductorbyPatente } from "../../service/api_calls";
 
 import TableTarea from "./table_tarea";
 import TableVehiculo from "./table_tarea_vehiculo";
 import TableConductor from "./table_tarea_conductor";
+
+import driver_example from "../../data/driver_example.jpg"; // Replace with the actual path to your image
+import car_example from "../../data/car_example.jpeg"; // Replace with the actual path to your image
+
 
 const myTaskData = {
   apellido_solicitante: "Rodriguez",
@@ -49,42 +53,35 @@ const FichaTarea = () => {
   const [carData, setcarData] = useState(null);
   const [driverData, setdriverData] = useState(null);
 
+  const [carPhotoPath, setcarPhotoPath] = useState("");
+  const [driverPhotoPath, setdriverPhotoPath] = useState("");
+
   useEffect(() => {
-    try {
-      settaskData(myTaskData);
+    getTarea(id).then((response) => {
+      console.log(response.data[0]);
+      settaskData(response.data[0]);
 
-      getVehiculo(myTaskData.patente).then((response) => {
-        console.log(response.data);
-        setcarData(response.data);
-        setdriverData(myDriverData);
+      getVehiculo(response.data[0].patente).then((response_1) => {
+        console.log("response_1.data");
+        console.log(response_1);
+        setcarData(response_1.data);
+        setcarPhotoPath(response_1.data.ruta_foto);
+      }).catch((error) => {
+        console.log(error);
       });
-    } catch (error) {
-      console.log(error);
-    }
+
+      getConductorbyPatente(response.data[0].patente).then((response_3) => {
+        console.log("response_3.data");
+        console.log(response_3.data[0]);
+        setdriverData(response_3.data[0]);
+        setdriverPhotoPath(response_3.data[0].ruta_foto);
+      }).catch((error) => {
+        console.log(error);
+      });
+
+    });
   }, []);
-
-  // useEffect(() => {
-  //   getTarea(id)
-  //     .then((response) => {
-  //       settaskData(response.data)
-  //      getVehiculo(response.data.patente)
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, []);
-
-  // useEffect(() => {
-  //   try {
-  //     const response_task = getTarea(id);
-  //     settaskData(response_task);
-  //
-  //     const response_car = getVehiculo(response_task.data.patente);
-  //     setcarData(response_car.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, []);
+    
 
   return (
     <Box m="20px">
@@ -92,19 +89,67 @@ const FichaTarea = () => {
         title="FICHA TAREA"
         subtitle="Toda la información de una tarea en un solo lugar"
       />
-      <Box>
-        {!taskData && <LinearProgress />}
-        {taskData && <TableTarea data={taskData} />}
-        <Typography mt={2} mb={1} variant="h3" color={colors.greenAccent[300]}>
-          Vehículo
-        </Typography>
-        {!carData && <LinearProgress />}
-        {carData && <TableVehiculo data={carData} />}
-        <Typography mt={2} mb={1} variant="h3" color={colors.greenAccent[300]}>
-          Conductor
-        </Typography>
-        {!driverData && <LinearProgress />}
-        {myDriverData && <TableConductor data={myDriverData} />}
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Grid container spacing={2}>
+          <Grid item xs={6}>
+            {/* Content for the left column */}
+            {!taskData && <LinearProgress />}
+            {taskData && <TableTarea data={taskData} />}
+            <Typography
+              mt={2}
+              mb={1}
+              variant="h3"
+              color={colors.greenAccent[300]}
+            >
+              Vehículo
+            </Typography>
+            {!carData && <LinearProgress />}
+            {carData && <TableVehiculo data={carData} />}
+            <Typography
+              mt={2}
+              mb={1}
+              variant="h3"
+              color={colors.greenAccent[300]}
+            >
+              Conductor
+            </Typography>
+            {!driverData && 
+            <Typography
+              mt={2}
+              mb={1}
+              variant="Body1"
+              color={colors.purple_maipu[800]}
+            >
+              Agregue un conductor al vehículo
+            </Typography>}
+            {driverData && <TableConductor data={driverData} />}
+          </Grid>
+          {/* <Grid item xs={4}> */}
+            {/* Content for the right column */}
+            {/* <Typography
+              mt={2}
+              mb={1}
+              variant="h3"
+              color={colors.greenAccent[300]}
+            >
+              Conductor
+            </Typography>
+            <Paper elevation={3}>
+              <img src={driverPhotoPath||driver_example} alt="driver" style={{width: "100%"}}/>
+            </Paper>
+            <Typography
+              mt={2}
+              mb={1}
+              variant="h3"
+              color={colors.greenAccent[300]}
+            >
+              Auto
+            </Typography>
+            <Paper elevation={3}>
+              <img src={car_example||carPhotoPath} alt="car" style={{width: "100%"}}/>
+            </Paper> */}
+          {/* </Grid> */}
+        </Grid>
       </Box>
     </Box>
   );
