@@ -4,8 +4,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
@@ -15,10 +13,6 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { login } from "../../services/api_calls";
 import { useNavigate } from "react-router-dom";
-
-import { isAuthenticated } from "../../services/api_calls";
-import UserContext from '../../services/auth/UserContext';
-import { useContext } from "react";
 
 
 function Copyright(props) {
@@ -46,10 +40,6 @@ export default function LogIn() {
   const [ username, setUsername ] = useState('');
 	const [ password, setPassword ] = useState('');
 
-  const [ currentUser, setCurrentUser ] = useContext(UserContext);
-
-  console.log("currentUser_from_login",currentUser);
-
 	const onChangeUsername = (e) => {
     console.log(e.target.value);
 		setUsername(e.target.value);
@@ -75,15 +65,6 @@ export default function LogIn() {
       console.log(error);
     });
   }
-
-
-    // login(username, password).then(
-    //   navigate("/")
-    // ).catch(
-    //   (error) => {
-    //     console.log(error);
-    //   }
-    
 
   return (
     <ThemeProvider theme={theme}>
