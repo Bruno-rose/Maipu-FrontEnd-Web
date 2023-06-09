@@ -21,6 +21,8 @@ import { CssBaseline, ThemeProvider, useTheme } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import LogIn from "./scenes/login";
 
+import Bienvenido from "./scenes/bienvenido";
+
 import { UserProvider } from "./services/auth/UserContext";
 
 const AppLayoutSideTopBar = () => {
@@ -69,7 +71,7 @@ function App() {
               <Route path="/login" element={<LogIn />} />
             </Route>
             <Route element={<AppLayoutSideTopBar />}>
-              <Route path="/" />
+              <Route path="/" element={<Bienvenido />} />
               {/* Vehiculos */}
               <Route path="/vehiculos" element={<Vehiculos />} />
               <Route path="/agregar_vehiculo" element={<AgregarVehiculo />} />

@@ -48,6 +48,7 @@ export default function LogIn() {
 
   const [ currentUser, setCurrentUser ] = useContext(UserContext);
 
+  console.log("currentUser_from_login",currentUser);
 
 	const onChangeUsername = (e) => {
     console.log(e.target.value);
@@ -58,15 +59,31 @@ export default function LogIn() {
 		setPassword(e.target.value);
 	};
 
-  const handleSubmit = () => {
-    try {
-      const response = login(username, password);
+  const mylogin = () =>{
+    navigate('/')
+    navigate(0)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    login(username, password).then( (response) => {
       console.log(response);
-      navigate("/vehiculos");
-    } catch (error) {
-      console.error("error", error);
-    }
-  };
+      mylogin();
+
+    }).catch( (error) => {
+      console.log(error);
+    });
+  }
+
+
+    // login(username, password).then(
+    //   navigate("/")
+    // ).catch(
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    
 
   return (
     <ThemeProvider theme={theme}>
@@ -105,21 +122,19 @@ export default function LogIn() {
 
             <Box
               component="form"
-              // noValidate
               onSubmit={handleSubmit}
               sx={{ mt: 1 }}
             >
               <TextField
               	onChange={onChangeUsername}
                 value={username}
-                // margin="normal"
+                margin="normal"
                 required
                 fullWidth
                 id="rut"
                 label="RUT"
-                // name="rut"
-                // autoComplete="rut"
-                // autoFocus
+                autoComplete="rut"
+                autoFocus
               />
               <TextField
               	onChange={onChangePassword}
@@ -127,7 +142,6 @@ export default function LogIn() {
                 margin="normal"
                 required
                 fullWidth
-                // name="contrasenna"
                 label="Contraseña"
                 type="password"
                 id="contrasenna"

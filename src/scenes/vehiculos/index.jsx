@@ -17,7 +17,6 @@ const getRowId = (row) => row.patente;
 const Vehiculos = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
   const [data, setData] = useState(null);
 
   useEffect(() => {
