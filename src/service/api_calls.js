@@ -69,13 +69,34 @@ export const getPathLicencia = async (id) => {
 };
 
 export const getPathRevision = async (id) => {
-  return await axios.get(
-    server_endpoint + "/revision?patente=" + id,
-    config
-  );
+  return await axios.get(server_endpoint + "/revision?patente=" + id, config);
 };
-
 
 export const getLicencia = async (mediaPath) => {
   return await axios.get(server_endpoint + mediaPath, config);
+};
+
+export const login = async (rut, contrasenna) => {
+  const response = await axios.post(
+    server_endpoint + "/autentificar",
+    {
+      rut,
+      contrasenna,
+    },
+  );
+
+  const token = response.data.hash;
+  if (token) {
+    localStorage.setItem("user", JSON.stringify(response.data));
+  }
+
+  return response.data;
+};
+
+export const isAuthenticated = () => {
+  const user = localStorage.getItem("user");
+  if (!user) {
+    return {};
+  }
+  return JSON.parse(user);
 };

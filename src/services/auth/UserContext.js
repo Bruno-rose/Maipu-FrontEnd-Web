@@ -1,8 +1,8 @@
 import React, { useState, useEffect, createContext } from 'react';
 import { Redirect } from 'react-router-dom';
-import { isAuthenticated } from './AuthService';
+import { isAuthenticated } from '../../service/api_calls'; // lo tengo
 
-import Login from '../components/Login';
+import LogIn from '../../scenes/login'; // tambien lo tengo
 
 const UserContext = createContext();
 
@@ -27,7 +27,7 @@ export const UserProvider = ({ children }) => {
 
 	return (
 		<UserContext.Provider value={[currentUser, setCurrentUser]}>
-			{ currentUser?.token ? children : <Login />}
+			{ currentUser?.hash ? children : <LogIn />}
 		</UserContext.Provider>
 	);
 };

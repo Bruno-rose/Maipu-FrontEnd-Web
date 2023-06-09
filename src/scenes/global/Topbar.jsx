@@ -8,11 +8,29 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate } from "react-router-dom";
+
+
+import React from 'react';
+
+// import { Link, useHistory } from 'react-router-dom';
+
+import UserContext from '../../services/auth/UserContext';
 
 const Topbar = () => {
+  const navigate = useNavigate();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+
+  const [ currentUser, setCurrentUser ] = useContext(UserContext);
+	// const history = useHistory();
+
+	const handleLogOut = () => {
+		localStorage.removeItem('user');
+		setCurrentUser({});
+    navigate("/login");
+	};
 
   return (
     <Box display="flex" justifyContent="flex-end" p={2}>
@@ -46,6 +64,12 @@ const Topbar = () => {
         <IconButton>
           <PersonOutlinedIcon />
         </IconButton>
+        <IconButton
+						type='button'
+						onClick={handleLogOut}
+					>
+						Log out
+					</IconButton>
       </Box>
     </Box>
   );

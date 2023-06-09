@@ -21,6 +21,8 @@ import { CssBaseline, ThemeProvider, useTheme } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import LogIn from "./scenes/login";
 
+import { UserProvider } from "./services/auth/UserContext";
+
 const AppLayoutSideTopBar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -61,29 +63,34 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Routes>
-          <Route element={<AppLayout />}>
-            <Route path="/login" element={<LogIn />} />
-          </Route>
-          <Route element={<AppLayoutSideTopBar />}>
-            <Route path="/" />
-            {/* Vehiculos */}
-            <Route path="/vehiculos" element={<Vehiculos />} />
-            <Route path="/agregar_vehiculo" element={<AgregarVehiculo />} />
-            <Route path="/vehiculo/detalles/:id" element={<FichaVehiculo />} />
-            {/* Conductores */}
-            <Route path="/conductores" element={<Conductores />} />
-            <Route path="/agregar_conductor" element={<AgregarConductor />} />
-            <Route
-              path="/conductor/detalles/:id"
-              element={<FichaConductor />}
-            />
-            {/* Tareas */}
-            <Route path="/tareas" element={<Tareas />} />
-            <Route path="/agregar_tarea" element={<AgregarTarea />} />
-            <Route path="/tarea/detalles/:id" element={<FichaTarea />} />
-          </Route>
-        </Routes>
+        <UserProvider>
+          <Routes>
+            <Route element={<AppLayout />}>
+              <Route path="/login" element={<LogIn />} />
+            </Route>
+            <Route element={<AppLayoutSideTopBar />}>
+              <Route path="/" />
+              {/* Vehiculos */}
+              <Route path="/vehiculos" element={<Vehiculos />} />
+              <Route path="/agregar_vehiculo" element={<AgregarVehiculo />} />
+              <Route
+                path="/vehiculo/detalles/:id"
+                element={<FichaVehiculo />}
+              />
+              {/* Conductores */}
+              <Route path="/conductores" element={<Conductores />} />
+              <Route path="/agregar_conductor" element={<AgregarConductor />} />
+              <Route
+                path="/conductor/detalles/:id"
+                element={<FichaConductor />}
+              />
+              {/* Tareas */}
+              <Route path="/tareas" element={<Tareas />} />
+              <Route path="/agregar_tarea" element={<AgregarTarea />} />
+              <Route path="/tarea/detalles/:id" element={<FichaTarea />} />
+            </Route>
+          </Routes>
+        </UserProvider>
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
