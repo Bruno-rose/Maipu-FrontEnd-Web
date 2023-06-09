@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createContext } from 'react';
 import { Redirect } from 'react-router-dom';
-import { isAuthenticated } from '../../service/api_calls'; // lo tengo
+import { isAuthenticated } from '../api_calls'; // lo tengo
 
 import LogIn from '../../scenes/login'; // tambien lo tengo
 

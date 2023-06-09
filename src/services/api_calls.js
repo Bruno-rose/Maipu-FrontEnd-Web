@@ -84,7 +84,7 @@ export const login = async (rut, contrasenna) => {
       contrasenna,
     },
   );
-
+  console.log(response.data);
   const token = response.data.hash;
   if (token) {
     localStorage.setItem("user", JSON.stringify(response.data));

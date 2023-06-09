@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Typography, useTheme, Button } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
-import { getVehiculos } from "../../service/api_calls";
+import { getVehiculos } from "../../services/api_calls";
 
 import { tokens } from "../../theme";
 import Header from "../../components/Header";

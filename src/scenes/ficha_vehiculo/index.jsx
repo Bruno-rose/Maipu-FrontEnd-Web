@@ -7,7 +7,7 @@ import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import TableVehiculo from "./table_vehiculo";
 
-import { getVehiculo, getPathRevision, server_endpoint } from "../../service/api_calls";
+import { getVehiculo, getPathRevision, server_endpoint } from "../../services/api_calls";
 
 const FichaVehiculo = () => {
   const theme = useTheme();

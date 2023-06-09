@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import LinearProgress from "@mui/material/LinearProgress";
 
 import { useParams } from "react-router-dom";
-import { getTarea, getVehiculo, getConductor, getConductorbyPatente } from "../../service/api_calls";
+import { getTarea, getVehiculo, getConductor, getConductorbyPatente } from "../../services/api_calls";
 
 import TableTarea from "./table_tarea";
 import TableVehiculo from "./table_tarea_vehiculo";

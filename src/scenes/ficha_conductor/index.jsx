@@ -12,7 +12,7 @@ import {
   getLicencia,
   getPathLicencia,
   server_endpoint,
-} from "../../service/api_calls";
+} from "../../services/api_calls";
 import { Grid } from "@mui/material";
 import TableConductor from "./table_conductor";
 

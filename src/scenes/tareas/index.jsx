@@ -4,7 +4,7 @@ import { Box, useTheme, Button } from "@mui/material";
 
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
-import { getTareas } from "../../service/api_calls";
+import { getTareas } from "../../services/api_calls";
 import LinearProgress from "@mui/material/LinearProgress";
 import axios from "axios";
 import { comuna_value_label } from "../../data/valueMapping";

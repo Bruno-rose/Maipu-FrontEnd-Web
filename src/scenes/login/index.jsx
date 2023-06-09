@@ -13,10 +13,10 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { login } from "../../service/api_calls";
+import { login } from "../../services/api_calls";
 import { useNavigate } from "react-router-dom";
 
-import { isAuthenticated } from "../../service/api_calls";
+import { isAuthenticated } from "../../services/api_calls";
 import UserContext from '../../services/auth/UserContext';
 import { useContext } from "react";
 
@@ -31,7 +31,7 @@ function Copyright(props) {
     >
       {"Copyright © "}
       <Link color="inherit" href="https://www.municipalidadmaipu.cl/">
-        Municipalidad
+        Municipalidad de Maipú
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -81,11 +81,8 @@ export default function LogIn() {
             backgroundImage:
               "url(https://media.municipalidadmaipu.cl/media/imagenes/2021/11/logo-maipu-rrss.png)",
             backgroundRepeat: "no-repeat",
-            backgroundColor: (t) =>
-              t.palette.mode === "light"
-                ? t.palette.grey[50]
-                : t.palette.grey[900],
-            backgroundSize: "cover",
+            backgroundColor: "#10174b" ,
+            backgroundSize: "contain",
             backgroundPosition: "center",
           }}
         />
@@ -99,11 +96,11 @@ export default function LogIn() {
               alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Inicia Sesión
+              Iniciar Sesión
             </Typography>
 
             <Box
@@ -142,7 +139,7 @@ export default function LogIn() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign In
+                Entrar
               </Button>
               <Copyright sx={{ mt: 5 }} />
             </Box>

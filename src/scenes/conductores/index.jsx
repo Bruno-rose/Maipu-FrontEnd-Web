@@ -5,7 +5,7 @@ import { Box, Typography, useTheme, Button } from "@mui/material";
 
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
-import { getConductores } from "../../service/api_calls";
+import { getConductores } from "../../services/api_calls";
 import LinearProgress from "@mui/material/LinearProgress";
 
 const getRowId = (row) => row.nombre;
