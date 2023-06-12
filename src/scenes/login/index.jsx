@@ -1,10 +1,9 @@
 import * as React from "react";
-import  { useState } from "react";
+import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -13,58 +12,40 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { login } from "../../services/api_calls";
 import { useNavigate } from "react-router-dom";
-
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://www.municipalidadmaipu.cl/">
-        Municipalidad de Maipú
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import Copyright from "../global/Copyright";
 
 const theme = createTheme();
 
 export default function LogIn() {
   const navigate = useNavigate();
-  const [ username, setUsername ] = useState('');
-	const [ password, setPassword ] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-	const onChangeUsername = (e) => {
+  const onChangeUsername = (e) => {
     console.log(e.target.value);
-		setUsername(e.target.value);
-	};
+    setUsername(e.target.value);
+  };
 
-	const onChangePassword = (e) => {
-		setPassword(e.target.value);
-	};
+  const onChangePassword = (e) => {
+    setPassword(e.target.value);
+  };
 
-  const mylogin = () =>{
-    navigate('/')
-    navigate(0)
-  }
+  const mylogin = () => {
+    navigate("/");
+    navigate(0);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    login(username, password).then( (response) => {
-      console.log(response);
-      mylogin();
-
-    }).catch( (error) => {
-      console.log(error);
-    });
-  }
+    login(username, password)
+      .then((response) => {
+        console.log(response);
+        mylogin();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -79,7 +60,7 @@ export default function LogIn() {
             backgroundImage:
               "url(https://media.municipalidadmaipu.cl/media/imagenes/2021/11/logo-maipu-rrss.png)",
             backgroundRepeat: "no-repeat",
-            backgroundColor: "#10174b" ,
+            backgroundColor: "#10174b",
             backgroundSize: "contain",
             backgroundPosition: "center",
           }}
@@ -101,13 +82,9 @@ export default function LogIn() {
               Iniciar Sesión
             </Typography>
 
-            <Box
-              component="form"
-              onSubmit={handleSubmit}
-              sx={{ mt: 1 }}
-            >
+            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
-              	onChange={onChangeUsername}
+                onChange={onChangeUsername}
                 value={username}
                 margin="normal"
                 required
@@ -118,7 +95,7 @@ export default function LogIn() {
                 autoFocus
               />
               <TextField
-              	onChange={onChangePassword}
+                onChange={onChangePassword}
                 value={password}
                 margin="normal"
                 required

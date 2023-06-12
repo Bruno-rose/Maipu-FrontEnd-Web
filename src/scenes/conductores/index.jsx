@@ -31,20 +31,26 @@ const Conductores = () => {
     {
       field: "nombre",
       headerName: "Nombre",
+      flex: 1,
     },
     {
       field: "apellido1",
       headerName: "Apellido",
+      flex: 1,
+
     },
     {
       field: "rut",
       headerName: "RUT",
+      flex: 1,
     },
     {
       field: "numero",
       headerName: "Teléfono",
       valueFormatter: (params) =>
         params.value ? params.value : "Sin teléfono",
+      flex: 1,
+
     },
     {
       field: "ficha",
