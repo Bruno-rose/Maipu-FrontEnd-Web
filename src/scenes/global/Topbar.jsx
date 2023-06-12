@@ -4,6 +4,7 @@ import { ColorModeContext, tokens } from "../../theme";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import { useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
+import HomeIcon from '@mui/icons-material/Home';
 
 import React from "react";
 
@@ -30,10 +31,13 @@ const Topbar = () => {
     <Box display="flex" justifyContent="flex-end" p={2}>
       {/* ICONS */}
       <Box display="flex">
+        <IconButton type="button" href="\">
+        <HomeIcon />
+        </IconButton>
+
         <IconButton>
           <PersonOutlinedIcon />
         </IconButton>
-
         <IconButton type="button" onClick={handleLogOut}>
           <LogoutIcon />
         </IconButton>

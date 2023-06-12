@@ -32,9 +32,9 @@ export const UserProvider = ({ children }) => {
 
 	console.log('userContext_from_auth', currentUser);
 
-	return (
-		<UserContext.Provider value={[currentUser, setCurrentUser]}>
-			{ currentUser?.hash ? children : <LogIn /> }
+	return(
+		 <UserContext.Provider value={[currentUser, setCurrentUser]}>
+			 {currentUser &&( currentUser.hash ? children : <LogIn /> )}
 		</UserContext.Provider>
 	);
 };

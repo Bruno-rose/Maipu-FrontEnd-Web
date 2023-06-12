@@ -49,8 +49,13 @@ export default function LogIn() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid container component="main" sx={{ height: "100vh" }}>
+      <Grid
+        container
+        component="main"
+        sx={{ height: "100vh", backgroundColor: "#10174b" }}
+      >
         <CssBaseline />
+
         <Grid
           item
           xs={false}
@@ -64,7 +69,29 @@ export default function LogIn() {
             backgroundSize: "contain",
             backgroundPosition: "center",
           }}
-        />
+        >
+          <Box
+            sx={{
+              my: 8,
+              mx: 4,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              color: "#ffffff",
+            }}
+          >
+            <Typography component="h1" variant="h5" >
+              Dirección de Administración y Finanzas
+            </Typography>
+            <Typography component="h1" variant="h4" mt={4}>
+              Departamento de Movilización
+            </Typography>
+            <Typography component="h3" variant="h2" mt={2}>
+              Sistema de Gestión Vehicular
+            </Typography>
+          </Box>
+        </Grid>
+
         <Grid item xs={12} sm={8} md={5} component={Paper} square>
           <Box
             sx={{
