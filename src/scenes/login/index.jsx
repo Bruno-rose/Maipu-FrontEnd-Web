@@ -13,6 +13,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { login } from "../../services/api_calls";
 import { useNavigate } from "react-router-dom";
 import Copyright from "../global/Copyright";
+import Alert from "@mui/material/Alert";
 
 const theme = createTheme();
 
@@ -20,6 +21,7 @@ export default function LogIn() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const onChangeUsername = (e) => {
     console.log(e.target.value);
@@ -40,10 +42,18 @@ export default function LogIn() {
     login(username, password)
       .then((response) => {
         console.log(response);
-        mylogin();
+        if (response.status === 200) {
+          // Successfully logged in
+          mylogin();
+          setError("");
+        } else {
+          // Login failed
+          setError(response.data.message);
+        }
       })
       .catch((error) => {
         console.log(error);
+        setError(error.message);
       });
   };
 
@@ -80,7 +90,7 @@ export default function LogIn() {
               color: "#ffffff",
             }}
           >
-            <Typography component="h1" variant="h5" >
+            <Typography component="h1" variant="h5">
               Dirección de Administración y Finanzas
             </Typography>
             <Typography component="h1" variant="h4" mt={4}>
@@ -132,6 +142,7 @@ export default function LogIn() {
                 id="contrasenna"
                 autoComplete="current-contrasenna"
               />
+              {error && <Alert severity="error">{error}</Alert>}
               <Button
                 type="submit"
                 fullWidth
