@@ -14,6 +14,7 @@ import { login } from "../../services/api_calls";
 import { useNavigate } from "react-router-dom";
 import Copyright from "../global/Copyright";
 import Alert from "@mui/material/Alert";
+import "@fontsource/rubik";
 
 const theme = createTheme();
 
@@ -66,20 +67,7 @@ export default function LogIn() {
       >
         <CssBaseline />
 
-        <Grid
-          item
-          xs={false}
-          sm={4}
-          md={7}
-          sx={{
-            backgroundImage:
-              "url(https://media.municipalidadmaipu.cl/media/imagenes/2021/11/logo-maipu-rrss.png)",
-            backgroundRepeat: "no-repeat",
-            backgroundColor: "#10174b",
-            backgroundSize: "contain",
-            backgroundPosition: "center",
-          }}
-        >
+        <Grid item xs={false} sm={4} md={7}>
           <Box
             sx={{
               my: 8,
@@ -90,15 +78,29 @@ export default function LogIn() {
               color: "#ffffff",
             }}
           >
-            <Typography component="h1" variant="h5">
+            <Typography component="h1" fontFamily="rubik" variant="h5">
               Dirección de Administración y Finanzas
             </Typography>
-            <Typography component="h1" variant="h4" mt={4}>
+            <Typography component="h1" fontFamily="rubik" variant="h4" mt={4}>
               Departamento de Movilización
             </Typography>
-            <Typography component="h3" variant="h2" mt={2}>
+            <Typography component="h3" fontFamily="rubik" variant="h2" mt={2}>
               Sistema de Gestión Vehicular
             </Typography>
+          </Box>
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            sx={{
+              backgroundColor: "#10174b",
+            }}
+          >
+            <img
+              src="https://media.municipalidadmaipu.cl/media/imagenes/2021/11/logo-maipu-rrss.png"
+              alt="logo"
+              height="100%"
+            />
           </Box>
         </Grid>
 
