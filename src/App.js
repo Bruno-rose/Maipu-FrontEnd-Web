@@ -20,10 +20,20 @@ import FichaTarea from "./scenes/ficha_tarea";
 import { CssBaseline, ThemeProvider, useTheme } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import LogIn from "./scenes/login";
+import LogIn2 from "./scenes/login2";
 
 import Bienvenido from "./scenes/bienvenido";
 
 import { UserProvider } from "./services/auth/UserContext";
+
+import { AuthProvider } from "./lib/headlessAuth";
+import client from "./api/client";
+
+const store = {
+  get: () => localStorage.getItem("token"),
+  set: (token) => localStorage.setItem("token", token),
+  del: () => localStorage.removeItem("token"),
+};
 
 const AppLayoutSideTopBar = () => {
   const theme = useTheme();
@@ -65,10 +75,12 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <UserProvider>
+        {/* <UserProvider> */}
+        <AuthProvider client={client} store={store}>
           <Routes>
             <Route element={<AppLayout />}>
               <Route path="/login" element={<LogIn />} />
+              <Route path="/login2" element={<LogIn2 />} />
             </Route>
             <Route element={<AppLayoutSideTopBar />}>
               <Route path="/" element={<Bienvenido />} />
@@ -92,7 +104,8 @@ function App() {
               <Route path="/tarea/detalles/:id" element={<FichaTarea />} />
             </Route>
           </Routes>
-        </UserProvider>
+          {/* </UserProvider> */}
+        </AuthProvider>
       </ThemeProvider>
     </ColorModeContext.Provider>
   );

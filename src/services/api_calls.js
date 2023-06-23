@@ -2,8 +2,9 @@ import axios from "axios";
 
 axios.defaults.headers.common["ngrok-skip-browser-warning"] = "any";
 
-export const server_endpoint = "http://172.25.7.47/api";
-// const server_endpoint = "https://4224-200-27-195-4.ngrok-free.app/";
+// export const server_endpoint = "http://172.25.7.47/api";
+export const server_endpoint =
+  "https://1f2b-190-101-110-254.ngrok-free.app/api";
 const hash_4_login = "xd";
 
 const config = {
@@ -19,6 +20,15 @@ export const getVehiculos = async () => {
 export const getVehiculo = async (mypatente) => {
   return await axios.get(
     server_endpoint + "/vehiculos/patente?patente=" + mypatente,
+    config
+  );
+};
+
+export const postVehiculoConductor = async ({ patente, rut, fecha }) => {
+  // Desasignar conductor
+  return await axios.post(
+    server_endpoint + "/vehiculos/patente?patente=",
+    { patente, rut, fecha },
     config
   );
 };
@@ -77,13 +87,10 @@ export const getLicencia = async (mediaPath) => {
 };
 
 export const login = async (rut, contrasenna) => {
-  const response = await axios.post(
-    server_endpoint + "/autentificar",
-    {
-      rut,
-      contrasenna,
-    },
-  );
+  const response = await axios.post(server_endpoint + "/autentificar", {
+    rut,
+    contrasenna,
+  });
   const token = response.data.hash;
   console.log(response);
   if (token) {

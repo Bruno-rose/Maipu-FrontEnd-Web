@@ -60,73 +60,6 @@ export const tokens = (mode) => ({
           800: "#2a2d64",
           900: "#151632",
         },
-        // Palette
-        indigo: {
-          900: "#cddbe6",
-          800: "#9ab7cd",
-          700: "#6894b3",
-          600: "#35709a",
-          500: "#034c81",
-          400: "#023d67",
-          300: "#022e4d",
-          200: "#011e34",
-          100: "#010f1a"
-        },
-        celestialBlue: {
-          900: "#d5edfe",
-          800: "#abdafd",
-          700: "#80c8fc",
-          600: "#56b5fb",
-          500: "#2ca3fa",
-          400: "#2382c8",
-          300: "#1a6296",
-          200: "#124164",
-          100: "#092132"
-        },
-        ruddyBlue: {
-          900: "#deecfd",
-          800: "#bddafb",
-          700: "#9dc7f8",
-          600: "#7cb5f6",
-          500: "#5ba2f4",
-          400: "#4982c3",
-          300: "#376192",
-          200: "#244162",
-          100: "#122031"
-        },
-        gray: {
-          900: "#f4f1ee",
-          800: "#e9e4dd",
-          700: "#dfd6cc",
-          600: "#d4c9bb",
-          500: "#c9bbaa",
-          400: "#a19688",
-          300: "#797066",
-          200: "#504b44",
-          100: "#282522"
-        },
-        AntiFlashWhite: {
-          900: "#fdfdfd",
-          800: "#fafbfb",
-          700: "#f8f9fa",
-          600: "#f5f7f8",
-          500: "#f3f5f6",
-          400: "#c2c4c5",
-          300: "#929394",
-          200: "#616262",
-          100: "#313131"
-        },
-        white: {
-          900: "#ffffff",
-          800: "#ffffff",
-          700: "#ffffff",
-          600: "#ffffff",
-          500: "#ffffff",
-          400: "#cccccc",
-          300: "#999999",
-          200: "#666666",
-          100: "#333333"
-        },
       }
     : {
         grey: {
@@ -184,74 +117,6 @@ export const tokens = (mode) => ({
           800: "#c3c6fd",
           900: "#e1e2fe",
         },
-        // Palette POM
-        indigo: {
-          100: "#cddbe6",
-          200: "#9ab7cd",
-          300: "#6894b3",
-          400: "#35709a",
-          500: "#034c81",
-          600: "#023d67",
-          700: "#022e4d",
-          800: "#011e34",
-          900: "#010f1a"
-        },
-        celestialBlue: {
-          100: "#d5edfe",
-          200: "#abdafd",
-          300: "#80c8fc",
-          400: "#56b5fb",
-          500: "#2ca3fa",
-          600: "#2382c8",
-          700: "#1a6296",
-          800: "#124164",
-          900: "#092132"
-        },
-        ruddyBlue: {
-          100: "#deecfd",
-          200: "#bddafb",
-          300: "#9dc7f8",
-          400: "#7cb5f6",
-          500: "#5ba2f4",
-          600: "#4982c3",
-          700: "#376192",
-          800: "#244162",
-          900: "#122031"
-        },
-        gray: {
-          100: "#f4f1ee",
-          200: "#e9e4dd",
-          300: "#dfd6cc",
-          400: "#d4c9bb",
-          500: "#c9bbaa",
-          600: "#a19688",
-          700: "#797066",
-          800: "#504b44",
-          900: "#282522"
-        },
-        AntiFlashWhite: {
-          100: "#fdfdfd",
-          200: "#fafbfb",
-          300: "#f8f9fa",
-          400: "#f5f7f8",
-          500: "#f3f5f6",
-          600: "#c2c4c5",
-          700: "#929394",
-          800: "#616262",
-          900: "#313131"
-        },
-        white: {
-          100: "#ffffff",
-          200: "#ffffff",
-          300: "#ffffff",
-          400: "#ffffff",
-          500: "#ffffff",
-          600: "#cccccc",
-          700: "#999999",
-          800: "#666666",
-          900: "#333333"
-        },
-        
         white_maipu: {
           100: "#fcfcfc",
           200: "#f9f9f9",
@@ -386,31 +251,31 @@ export const themeSettings = (mode) => {
           }),
     },
     typography: {
-      fontFamily: ["Poppins", "sans-serif"].join(","),
-      fontSize: 12,
+      fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+      fontSize: 16,
       h1: {
-        fontFamily: ["Poppins", "sans-serif"].join(","),
+        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
         fontSize: 40,
       },
       h2: {
-        fontFamily: ["Poppins", "sans-serif"].join(","),
+        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
         fontSize: 32,
       },
       h3: {
-        fontFamily: ["Poppins", "sans-serif"].join(","),
+        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
         fontSize: 24,
       },
       h4: {
-        fontFamily: ["Poppins", "sans-serif"].join(","),
+        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
         fontSize: 20,
       },
       h5: {
-        fontFamily: ["Poppins", "sans-serif"].join(","),
+        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
         fontSize: 16,
       },
       h6: {
-        fontFamily: ["Poppins", "sans-serif"].join(","),
-        fontSize: 14,
+        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+        fontSize: 16,
       },
     },
   };

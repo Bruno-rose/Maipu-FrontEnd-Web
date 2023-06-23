@@ -10,7 +10,7 @@ import React from "react";
 
 // import { Link, useHistory } from 'react-router-dom';
 
-import UserContext from "../../services/auth/UserContext";
+// import UserContext from "../../services/auth/UserContext";
 
 const Topbar = () => {
   const navigate = useNavigate();
@@ -18,13 +18,13 @@ const Topbar = () => {
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
 
-  const [currentUser, setCurrentUser] = useContext(UserContext);
+  // const [currentUser, setCurrentUser] = useContext(UserContext);
   // const history = useHistory();
 
   const handleLogOut = () => {
-    localStorage.removeItem("user");
-    setCurrentUser({});
-    navigate("/login");
+    // localStorage.removeItem("user");
+    // setCurrentUser({});
+    // navigate("/login");
   };
 
   return (
