@@ -4,11 +4,11 @@ import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
-import AirportShuttleOutlinedIcon from '@mui/icons-material/AirportShuttleOutlined';
-import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
+import AirportShuttleOutlinedIcon from "@mui/icons-material/AirportShuttleOutlined";
+import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import DriveEtaOutlinedIcon from '@mui/icons-material/DriveEtaOutlined';
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import DriveEtaOutlinedIcon from "@mui/icons-material/DriveEtaOutlined";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -54,7 +54,7 @@ const Sidebar = () => {
         },
       }}
     >
-      <ProSidebar collapsed={isCollapsed} width={'300px'}>
+      <ProSidebar collapsed={isCollapsed} width={"300px"}>
         <Menu iconShape="square">
           {/* LOGO AND MENU ICON */}
           <MenuItem
