@@ -1,5 +1,5 @@
 import { tokens } from "../../theme";
-import { Avatar, Button, CssBaseline, FormControlLabel, Grid, Link, TextField, Typography, Container, ThemeProvider, useTheme, Box, Checkbox } from "@mui/material";
+import { Avatar, Button, CssBaseline, Grid, Link, TextField, Typography, Container, ThemeProvider, useTheme, Box } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -13,17 +13,18 @@ function AuthForm({ mode }) {
   const navigate = useNavigate();
 
   const validationSchema = Yup.object().shape({
-    email: Yup.string().email("Invalid email address").required("Email is required"),
-    password: Yup.string().required("Password is required"),
+    rut: Yup.string().required("RUT es requerido"),
+    contrasenna: Yup.string().required("Contraseña es requerida"),
   });
 
   const formik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
+      rut: "",
+      contrasenna: "",
     },
     validationSchema,
     onSubmit: async (values) => {
+      console.log(values);
       try {
         if (mode === "register") {
           await signUp(values);
@@ -32,7 +33,7 @@ function AuthForm({ mode }) {
         }
         navigate('/', { replace: true });
       } catch (error) {
-        formik.setStatus("Error: Invalid email or password");
+        formik.setStatus("Error: rut o constraseña invalida");
       }
     },
   });
@@ -75,33 +76,29 @@ function AuthForm({ mode }) {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="rut"
+              label="RUT"
+              name="rut"
+              autoComplete="rut"
               autoFocus
-              value={formik.values.email}
+              value={formik.values.rut}
               onChange={formik.handleChange}
-              error={formik.touched.email && Boolean(formik.errors.email)}
-              helperText={formik.touched.email && formik.errors.email}
+              error={formik.touched.rut && Boolean(formik.errors.rut)}
+              helperText={formik.touched.rut && formik.errors.rut}
             />
             <TextField
               margin="normal"
               required
               fullWidth
-              name="password"
-              label="Password"
+              name="contrasenna"
+              label="Contraseña"
               type="password"
-              id="password"
+              id="contrasenna"
               autoComplete={mode === "register" ? "new-password" : "current-password"}
-              value={formik.values.password}
+              value={formik.values.contrasenna}
               onChange={formik.handleChange}
-              error={formik.touched.password && Boolean(formik.errors.password)}
-              helperText={formik.touched.password && formik.errors.password}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="secondary" />}
-              label="Permanecer conectado"
+              error={formik.touched.contrasenna && Boolean(formik.errors.contrasenna)}
+              helperText={formik.touched.contrasenna && formik.errors.contrasenna}
             />
             {formik.status && (
               <Typography variant="body2" color="error" align="center" sx={{ mb: 2 }}>
@@ -120,11 +117,6 @@ function AuthForm({ mode }) {
               <Grid item>
                 <Link href="#" variant="body2">
                   Olvidaste tu contraseña?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href={mode === "register" ? "/login" : "/register"} variant="body2">
-                  {mode === "register" ? "Tienes una cuenta? Inicia Seción" : "No tienes una cuenta? Registrate"}
                 </Link>
               </Grid>
             </Grid>

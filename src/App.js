@@ -20,14 +20,12 @@ import FichaTarea from "./scenes/ficha_tarea";
 import { CssBaseline, ThemeProvider, useTheme } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import LogIn from "./scenes/login";
-import LogIn2 from "./scenes/login2";
 
 import Bienvenido from "./scenes/bienvenido";
 
-import { UserProvider } from "./services/auth/UserContext";
-
 import { AuthProvider } from "./lib/headlessAuth";
-import client from "./api/client";
+// import client from "./api/client";
+import client from "../src/services/api_calls";
 
 const store = {
   get: () => localStorage.getItem("token"),
@@ -80,7 +78,6 @@ function App() {
           <Routes>
             <Route element={<AppLayout />}>
               <Route path="/login" element={<LogIn />} />
-              <Route path="/login2" element={<LogIn2 />} />
             </Route>
             <Route element={<AppLayoutSideTopBar />}>
               <Route path="/" element={<Bienvenido />} />

@@ -37,6 +37,7 @@ const FichaTarea = () => {
   const [userLicense2, setuserLicense2] = useState(null);
 
   useEffect(() => {
+    console.log(id);
     getConductor(id)
       .then((response) => {
         setdriverData(response.data.data);

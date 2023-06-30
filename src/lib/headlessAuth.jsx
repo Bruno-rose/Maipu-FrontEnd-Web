@@ -1,13 +1,18 @@
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
-import LogIn2 from "../scenes/login2";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import LogIn from "../scenes/login";
-
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children, store, client, ...props }) {
   const [state, setState] = useState("loading");
   const [user, setUser] = useState(undefined);
   const [token, setToken] = useState(undefined);
+  const [rut, setRut] = useState(undefined);
 
   const signOut = useCallback(() => {
     store.del();
@@ -29,8 +34,14 @@ export function AuthProvider({ children, store, client, ...props }) {
   const getUserInfo = useCallback(
     async (token) => {
       try {
-        const { data } = await client.get("/users/me", { headers: { Authorization: `Bearer ${token}` } });
-        setUser(data.data);
+        const { data } = await client.get("/usuarios?rut=" + rut, {
+          headers: {
+            "sesion-hash": token,
+            "ngrok-skip-browser-warning": "any",
+          },
+        });
+        console.log(data);
+        setUser(data.data[0]);
         setState("authenticated");
       } catch (error) {
         console.error(error);
@@ -54,7 +65,7 @@ export function AuthProvider({ children, store, client, ...props }) {
     if (!token) return;
     const interceptor = client.interceptors.request.use((config) => {
       if (!config.headers) config.headers = {};
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers["sesion-hash"] = token;
       return config;
     });
     return () => client.interceptors.request.eject(interceptor);
@@ -62,18 +73,19 @@ export function AuthProvider({ children, store, client, ...props }) {
 
   const signUp = useCallback(
     async ({ params }) => {
-      const role = "DOCTOR";
-      await client.post("/auth/register", { ...params, role });
+      await client.post("/auth/register", { ...params });
     },
     [client]
   );
 
   const signIn = useCallback(
-    async ({ email, password }) => {
-      const role = "DOCTOR";
-      const payload = { password, email, role };
-      const data = (await client.post("/auth/login", payload)).data;
-      const token = data.data;
+    async ({ rut, contrasenna }) => {
+      const payload = { rut, contrasenna };
+      console.log(payload);
+      const data = (await client.post("/autentificar", payload)).data;
+      console.log(data);
+      const token = data.hash;
+      setRut(rut);
       setLoadingState(token);
       await getUserInfo(token);
     },
@@ -85,14 +97,20 @@ export function AuthProvider({ children, store, client, ...props }) {
     setUser(data);
   }, [client]);
 
-  return <AuthContext.Provider {...props} value={{ user, signUp, signIn, signOut, state, refreshUser }}>
-    {/* { state == "authenticated" ? children: <LogIn2/> } */}
-    { children }
-  </AuthContext.Provider>;
+  return (
+    <AuthContext.Provider
+      {...props}
+      value={{ user, signUp, signIn, signOut, state, refreshUser }}
+    >
+      {/* {state === "unauthenticated" ?  <LogIn />: children} */}
+      {state === "authenticated" ?  children: <LogIn />}
+    </AuthContext.Provider>
+  );
 }
 
 export function useAuth() {
   const context = useContext(AuthContext);
-  if (!context) throw new Error("useAuthContext must be used within an AuthProvider");
+  if (!context)
+    throw new Error("useAuthContext must be used within an AuthProvider");
   return context;
 }

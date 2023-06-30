@@ -59,6 +59,7 @@ const FichaVehiculo = () => {
   const [carRevision, setcarRevision] = useState(null);
 
   const { id } = useParams();
+  console.log(id);
 
   useEffect(() => {
     getVehiculo(id)
@@ -138,7 +139,6 @@ const FichaVehiculo = () => {
                       <TextField
                         margin="normal"
                         label="Conductor"
-                        variant="filled"
                         type="text"
                         name="conductor"
                         onBlur={handleBlur}

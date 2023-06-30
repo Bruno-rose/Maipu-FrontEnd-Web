@@ -8,24 +8,19 @@ import HomeIcon from '@mui/icons-material/Home';
 
 import React from "react";
 
+import { useAuth } from "../../lib/headlessAuth";
+
+
 // import { Link, useHistory } from 'react-router-dom';
 
 // import UserContext from "../../services/auth/UserContext";
 
 const Topbar = () => {
+  const { signOut } = useAuth();
   const navigate = useNavigate();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
-
-  // const [currentUser, setCurrentUser] = useContext(UserContext);
-  // const history = useHistory();
-
-  const handleLogOut = () => {
-    // localStorage.removeItem("user");
-    // setCurrentUser({});
-    // navigate("/login");
-  };
 
   return (
     <Box display="flex" justifyContent="flex-end" p={2}>
@@ -38,7 +33,7 @@ const Topbar = () => {
         <IconButton>
           <PersonOutlinedIcon />
         </IconButton>
-        <IconButton type="button" onClick={handleLogOut}>
+        <IconButton type="button" onClick={signOut}>
           <LogoutIcon />
         </IconButton>
       </Box>

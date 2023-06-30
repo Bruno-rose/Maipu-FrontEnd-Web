@@ -1,93 +1,106 @@
 import axios from "axios";
 
+const baseURL = process.env.API_URL || "https://1172-200-27-195-4.ngrok-free.app";
+const client = axios.create({ baseURL : baseURL, headers: {'ngrok-skip-browser-warning': 'any'} });
 axios.defaults.headers.common["ngrok-skip-browser-warning"] = "any";
+client.defaults.headers.common["ngrok-skip-browser-warning"] = "any";
 
-// export const server_endpoint = "http://172.25.7.47/api";
-export const server_endpoint =
-  "https://1f2b-190-101-110-254.ngrok-free.app/api";
-const hash_4_login = "xd";
 
-const config = {
-  headers: {
-    "sesion-hash": hash_4_login,
-  },
-};
+client.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error?.response?.data?.name) return Promise.reject(error?.response?.data?.name);
+    return Promise.reject(error);
+  }
+);
+
+export const server_endpoint = "https://1172-200-27-195-4.ngrok-free.app";
+
+// function header() {
+//   const obj = {
+//     headers: {
+//       "sesion-hash": localStorage.getItem("token"),
+//     },
+//   };
+//   return obj;
+// }
 
 export const getVehiculos = async () => {
-  return await axios.get(server_endpoint + "/vehiculos", config);
+  console.log("token", localStorage.getItem("token"));
+  const response = await client.get("/vehiculos");
+  return response;
 };
 
 export const getVehiculo = async (mypatente) => {
-  return await axios.get(
-    server_endpoint + "/vehiculos/patente?patente=" + mypatente,
-    config
+  return await client.get(
+    "/vehiculos/patente?patente=" + mypatente,
   );
 };
 
 export const postVehiculoConductor = async ({ patente, rut, fecha }) => {
   // Desasignar conductor
-  return await axios.post(
-    server_endpoint + "/vehiculos/patente?patente=",
+  return await client.post(
+    "/vehiculos/patente?patente=",
     { patente, rut, fecha },
-    config
+
   );
 };
 
 export const getConductores = async () => {
-  return await axios.get(server_endpoint + "/usuarios/conductores", config);
+  return await client.get("/usuarios/conductores");
 };
 
 export const getConductor = async (id) => {
-  return await axios.get(
-    server_endpoint + "/usuarios/conductores/informacion?rut=" + id,
-    config
+  return await client.get(
+    "/usuarios/conductores/informacion?rut=" + id,
+
   );
 };
 
 export const getUser = async (id) => {
-  return await axios.get(server_endpoint + "/usuarios?rut=" + id, config);
+  return await client.get("/usuarios?rut=" + id);
 };
 
 export const getConductorbyPatente = async (id) => {
-  return await axios.get(
-    server_endpoint + "/vehiculos/conductor/actual?patente=" + id,
-    config
+  return await client.get(
+    "/vehiculos/conductor/actual?patente=" + id,
+
   );
 };
 
 export const getTareas = async () => {
-  return await axios.get(server_endpoint + "/tareas", config);
+  return await client.get("/tareas");
 };
 
 export const getTarea = async (id) => {
-  return await axios.get(server_endpoint + "/tareas/id?id=" + id, config);
+  return await client.get("/tareas/id?id=" + id);
 };
 
 export const postTareas = async (values) => {
-  return await axios.post(server_endpoint + "/tareas", values, config);
+  return await client.post("/tareas", values);
 };
 
 export const postVehiculos = async (values) => {
-  return await axios.post(server_endpoint + "/vehiculos", values, config);
+  return await client.post("/vehiculos", values);
 };
 
 export const getPathLicencia = async (id) => {
-  return await axios.get(
-    server_endpoint + "/usuarios/licencia?rut=" + id,
-    config
+  return await client.get(
+    "/usuarios/licencia?rut=" + id,
+
   );
 };
 
 export const getPathRevision = async (id) => {
-  return await axios.get(server_endpoint + "/revision?patente=" + id, config);
+  return await client.get("/revision?patente=" + id);
 };
 
 export const getLicencia = async (mediaPath) => {
-  return await axios.get(server_endpoint + mediaPath, config);
+  return await client.get(mediaPath);
 };
 
 export const login = async (rut, contrasenna) => {
-  const response = await axios.post(server_endpoint + "/autentificar", {
+  const response = await client.post("/autentificar", {
     rut,
     contrasenna,
   });
@@ -107,3 +120,6 @@ export const isAuthenticated = () => {
   }
   return JSON.parse(user);
 };
+
+
+export default client;
