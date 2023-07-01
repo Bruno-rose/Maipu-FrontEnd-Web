@@ -103,7 +103,7 @@ export function AuthProvider({ children, store, client, ...props }) {
       value={{ user, signUp, signIn, signOut, state, refreshUser }}
     >
       {/* {state === "unauthenticated" ?  <LogIn />: children} */}
-      {state === "authenticated" ?  children: <LogIn />}
+      {(state === "authenticated" || state === "loading") ?  children: <LogIn />}
     </AuthContext.Provider>
   );
 }

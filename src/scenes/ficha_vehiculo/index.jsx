@@ -8,14 +8,13 @@ import Header from "../../components/Header";
 import TableVehiculo from "./table_vehiculo";
 
 import Autocomplete from "@mui/material/Autocomplete";
-import { Formik, form } from "formik";
+import { Formik } from "formik";
 import * as yup from "yup";
-import axios from "axios";
 
 import {
   getVehiculo,
   getPathRevision,
-  server_endpoint,
+  baseURL,
   postVehiculoConductor,
 } from "../../services/api_calls";
 
@@ -90,9 +89,9 @@ const FichaVehiculo = () => {
     }
   };
 
-  const handleDriverChange = (event, newValue) => {
-    initialValues.conductor = newValue;
-  };
+  // const handleDriverChange = (event, newValue) => {
+  //   initialValues.conductor = newValue;
+  // };
 
   return (
     <Box m="20px">
@@ -171,7 +170,7 @@ const FichaVehiculo = () => {
             {carRevision && (
               <Paper elevation={3}>
                 <img
-                  src={server_endpoint + carRevision.ruta_archivo}
+                  src={baseURL + carRevision.ruta_archivo}
                   alt="revision_tecnica"
                   style={{ width: "100%" }}
                 />
