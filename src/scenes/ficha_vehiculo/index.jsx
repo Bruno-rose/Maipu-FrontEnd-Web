@@ -11,6 +11,8 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { Formik } from "formik";
 import * as yup from "yup";
 
+import { useAuth } from "../../lib/headlessAuth";
+
 import {
   getVehiculo,
   getPathRevision,
@@ -50,34 +52,36 @@ const conductores = [
 ];
 
 
-
 const FichaVehiculo = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [carData, setCarData] = useState(null);
   const [carRevision, setcarRevision] = useState(null);
+  const {state} = useAuth();
+
 
   const { id } = useParams();
-  console.log(id);
 
   useEffect(() => {
-    getVehiculo(id)
-      .then((response) => {
-        setCarData(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-        setCarData("Error");
-      });
-
-    getPathRevision(id)
-      .then((response) => {
-        setcarRevision(response.data.data[0]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [id]);
+    if(state === "authenticated"){
+      getVehiculo(id)
+        .then((response) => {
+          setCarData(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+          setCarData("Error");
+        });
+  
+      getPathRevision(id)
+        .then((response) => {
+          setcarRevision(response.data.data[0]);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  },[state]);
 
   const handleSubmit = async (values) => {
     console.log(values);

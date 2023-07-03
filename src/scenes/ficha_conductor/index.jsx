@@ -26,7 +26,6 @@ const FichaTarea = () => {
   const [userPathLicense, setuserPathLicense] = useState(null);
 
   useEffect(() => {
-    // console.log(id);
     getConductor(id)
       .then((response) => {
         setdriverData(response.data.data);

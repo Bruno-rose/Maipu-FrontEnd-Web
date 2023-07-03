@@ -6,6 +6,7 @@ import {
   useState,
 } from "react";
 import LogIn from "../scenes/login";
+import { ConstructionOutlined } from "@mui/icons-material";
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children, store, client, ...props }) {
@@ -52,19 +53,27 @@ export function AuthProvider({ children, store, client, ...props }) {
   );
 
   useEffect(() => {
-    const token = store.get();
-    if (token) {
-      setLoadingState(token);
-      getUserInfo(token);
+    const myToken = store.get();
+    console.log("first UseEffect:", myToken);
+    if (myToken) {
+      setLoadingState(myToken);
+      getUserInfo(myToken);
     } else {
       signOut();
     }
   }, [setLoadingState, getUserInfo, signOut, store]);
 
   useEffect(() => {
-    if (!token) return;
+    console.log("second UseEffect:", token);
+    if (!token) {
+      console.log("No hay token", token);
+      return;
+    }
     const interceptor = client.interceptors.request.use((config) => {
-      if (!config.headers) config.headers = {};
+      if (!config.headers) {
+        console.log("No hay headers");
+        config.headers = {};
+      }
       config.headers["sesion-hash"] = token;
       return config;
     });
@@ -103,7 +112,7 @@ export function AuthProvider({ children, store, client, ...props }) {
       value={{ user, signUp, signIn, signOut, state, refreshUser }}
     >
       {/* {state === "unauthenticated" ?  <LogIn />: children} */}
-      {(state === "authenticated" || state === "loading") ?  children: <LogIn />}
+      {state === "authenticated" || state === "loading" ? children : <LogIn />}
     </AuthContext.Provider>
   );
 }

@@ -1,14 +1,10 @@
 import axios from "axios";
 
 export const baseURL = process.env.API_URL || "https://1172-200-27-195-4.ngrok-free.app";
-export const client = axios.create({ baseURL : baseURL, headers: {'ngrok-skip-browser-warning': 'any'} });
+export const client = axios.create({ baseURL : baseURL, timeout: 6000, headers: {'ngrok-skip-browser-warning': 'any'} });
 // axios.defaults.headers.common["ngrok-skip-browser-warning"] = "any";
 // client.defaults.headers.common["ngrok-skip-browser-warning"] = "any";
  
-client.interceptors.response.use(res => {
-  console.log("interceptor_header_res",res.request.headers)
-  return res;
-}, error => Promise.reject(error));
 
 client.interceptors.response.use(
   (response) => response,
