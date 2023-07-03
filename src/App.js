@@ -17,6 +17,8 @@ import AgregarTarea from "./scenes/agregar_tarea";
 import Tareas from "./scenes/tareas";
 import FichaTarea from "./scenes/ficha_tarea";
 
+import Planillas from "./scenes/planillas";
+
 import { CssBaseline, ThemeProvider, useTheme } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import LogIn from "./scenes/login";
@@ -99,6 +101,8 @@ function App() {
               <Route path="/tareas" element={<Tareas />} />
               <Route path="/agregar_tarea" element={<AgregarTarea />} />
               <Route path="/tarea/detalles/:id" element={<FichaTarea />} />
+              {/* Planillas */}
+              <Route path="/planillas" element={<Planillas/>}/>
             </Route>
           </Routes>
           {/* </UserProvider> */}

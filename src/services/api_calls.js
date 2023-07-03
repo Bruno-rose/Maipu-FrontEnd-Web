@@ -30,6 +30,13 @@ export const getVehiculo = async (mypatente) => {
   );
 };
 
+export const getBitacora= async (year,month,patente) => {
+  return await client.get(
+    "/tareas/bitacora",
+    { params: { year: 2020 , month: 1, patente: "AB123CD"} }
+  );
+};
+
 export const postVehiculoConductor = async ({ patente, rut, fecha }) => {
   // Desasignar conductor
   return await client.post(
