@@ -26,9 +26,7 @@ export const UserProvider = ({ children }) => {
 
     checkLoggedIn();
   }, []);
-
-  console.log("userContext_from_auth", currentUser);
-
+  
   return (
     <UserContext.Provider value={[currentUser, setCurrentUser]}>
       {currentUser && (currentUser.hash ? children : <LogIn />)}

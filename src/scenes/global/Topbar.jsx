@@ -30,7 +30,7 @@ const Topbar = () => {
         <HomeIcon />
         </IconButton>
 
-        <IconButton>
+        <IconButton type="button" href="\user">
           <PersonOutlinedIcon />
         </IconButton>
         <IconButton type="button" onClick={signOut}>

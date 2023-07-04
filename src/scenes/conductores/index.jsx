@@ -7,16 +7,20 @@ import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { getConductores } from "../../services/api_calls";
 import LinearProgress from "@mui/material/LinearProgress";
+import { useAuth } from "../../lib/headlessAuth";
 
 const getRowId = (row) => row.nombre;
 
 const Conductores = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { state } = useAuth();
+
 
   const [data, setData] = useState(null);
 
   useEffect(() => {
+    if (state === "authenticated") {
     getConductores()
       .then((response) => {
         setData(response.data.data);
@@ -25,7 +29,8 @@ const Conductores = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+    }
+  }, [state]);
 
   const columns2 = [
     {

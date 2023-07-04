@@ -30,7 +30,7 @@ const Tareas = () => {
           console.log(error);
         });
     }
-  }, []);
+  }, [state]);
 
   const columns = [
     {

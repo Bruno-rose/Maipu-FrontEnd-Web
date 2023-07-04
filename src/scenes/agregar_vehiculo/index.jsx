@@ -39,8 +39,6 @@ const AgregarVehiculo = () => {
 
   const handleSubmit = async (values) => {
     console.log(values);
-    console.log("LOGDEV: HandleSubmit");
-
     postVehiculos(values)
       .then((response) => {
         console.log(response);

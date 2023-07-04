@@ -15,7 +15,6 @@ client.interceptors.response.use(
 );
 
 export const getVehiculos = async () => {
-  console.log("token", localStorage.getItem("token"));
   const response = await client.get("/vehiculos");
   return response;
 };

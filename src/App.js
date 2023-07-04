@@ -20,6 +20,7 @@ import FichaTarea from "./scenes/ficha_tarea";
 import { CssBaseline, ThemeProvider, useTheme } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import LogIn from "./scenes/login";
+import Usuario from "./scenes/usuario";
 
 import Bienvenido from "./scenes/bienvenido";
 
@@ -31,6 +32,9 @@ const store = {
   get: () => localStorage.getItem("token"),
   set: (token) => localStorage.setItem("token", token),
   del: () => localStorage.removeItem("token"),
+  get_rut: () => localStorage.getItem("rut"),
+  set_rut: (rut) => localStorage.setItem("rut", rut),
+  del_rut: () => localStorage.removeItem("rut"),
 };
 
 const AppLayoutSideTopBar = () => {
@@ -81,6 +85,7 @@ function App() {
             </Route>
             <Route element={<AppLayoutSideTopBar />}>
               <Route path="/" element={<Bienvenido />} />
+              <Route path="/user" element={<Usuario />} />
               {/* Vehiculos */}
               <Route path="/vehiculos" element={<Vehiculos />} />
               <Route path="/agregar_vehiculo" element={<AgregarVehiculo />} />

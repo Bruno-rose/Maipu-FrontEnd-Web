@@ -6,7 +6,8 @@ import {
   useState,
 } from "react";
 import LogIn from "../scenes/login";
-import { ConstructionOutlined } from "@mui/icons-material";
+import { getUser } from "../services/api_calls";
+
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children, store, client, ...props }) {
@@ -18,31 +19,32 @@ export function AuthProvider({ children, store, client, ...props }) {
   const signOut = useCallback(() => {
     store.del();
     setToken(undefined);
+    setRut(undefined);
     setUser(null);
     setState("unauthenticated");
   }, [store]);
 
   const setLoadingState = useCallback(
-    (newToken) => {
+    (newToken, rut) => {
       store.set(newToken);
       setState("loading");
       setUser(undefined);
       setToken(newToken);
+      setRut(rut);
     },
     [store]
   );
 
   const getUserInfo = useCallback(
-    async (token) => {
+    async (token, rut) => {
       try {
-        const { data } = await client.get("/usuarios?rut=" + rut, {
+        const response = await client.get("/usuarios?rut=" + rut, {
           headers: {
             "sesion-hash": token,
             "ngrok-skip-browser-warning": "any",
           },
         });
-        console.log(data);
-        setUser(data.data[0]);
+        setUser(response.data.data[0]);
         setState("authenticated");
       } catch (error) {
         console.error(error);
@@ -53,25 +55,25 @@ export function AuthProvider({ children, store, client, ...props }) {
   );
 
   useEffect(() => {
+    console.log("useEffect1");
     const myToken = store.get();
-    console.log("first UseEffect:", myToken);
+    const rut = store.get_rut();
+
     if (myToken) {
       setLoadingState(myToken);
-      getUserInfo(myToken);
+      getUserInfo(myToken, rut);
     } else {
       signOut();
     }
   }, [setLoadingState, getUserInfo, signOut, store]);
 
   useEffect(() => {
-    console.log("second UseEffect:", token);
+    console.log("useEffect2");
     if (!token) {
-      console.log("No hay token", token);
       return;
     }
     const interceptor = client.interceptors.request.use((config) => {
       if (!config.headers) {
-        console.log("No hay headers");
         config.headers = {};
       }
       config.headers["sesion-hash"] = token;
@@ -95,6 +97,7 @@ export function AuthProvider({ children, store, client, ...props }) {
       console.log(data);
       const token = data.hash;
       setRut(rut);
+      store.set_rut(rut);
       setLoadingState(token);
       await getUserInfo(token);
     },

@@ -66,13 +66,10 @@ const FichaTarea = () => {
   useEffect(() => {
     if (state === "authenticated") {
       getTarea(id).then((response) => {
-        console.log(response.data[0]);
         settaskData(response.data[0]);
 
         getVehiculo(response.data[0].patente)
           .then((response_1) => {
-            console.log("response_1.data");
-            console.log(response_1);
             setcarData(response_1.data);
             setcarPhotoPath(response_1.data.ruta_foto);
           })
@@ -82,8 +79,6 @@ const FichaTarea = () => {
 
         getConductorbyPatente(response.data[0].patente)
           .then((response_3) => {
-            console.log("response_3.data");
-            console.log(response_3.data[0]);
             setdriverData(response_3.data[0]);
             setdriverPhotoPath(response_3.data[0].ruta_foto);
           })
