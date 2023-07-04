@@ -4,14 +4,7 @@ import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
-import axios from "axios";
-import { getLongitudeLatitude } from "../../services/user_calls";
-
-import { postTareas } from "../../services/api_calls";
-import { getBitacora } from "../../services/api_calls";
-
-import { comuna_options } from "../../data/valueMapping";
-import MenuItem from "@mui/material/MenuItem";
+import { getBitacora, getRecargas } from "../../services/api_calls";
 import { useNavigate } from "react-router-dom";
 
 const Planillas = () => {
@@ -21,46 +14,52 @@ const Planillas = () => {
   const navigate = useNavigate();
 
 
-
-  const handleFormSubmit = async (values) => {
-    /* 
-    try {
-      values.partida_kilometraje = -1; // To remove eventually
-      console.log(values);
-      const response = postTareas(values);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-    navigate("/tareas");
-
-
-    */
+  /* Bitácora request */
+  const handleFormSubmit1 = async (values) => {
 
     const year = values.inicio.split('-')[0];
     const month = values.inicio.split('-')[1]
 
     try {
 
-      const response = getBitacora(year,month,values.patente);
-      console.log("response:", response);
+      getBitacora(year,month,values.patente);
+
     } catch (error) {
+
       console.log(error);
     }
 
-    console.log(values);
-  
-    console.log("patente", values.patente);
   };
+
+  /* Recargas request */
+  const handleFormSubmit2 = async (values) => {
+
+    const year = values.inicio.split('-')[0];
+    const month = values.inicio.split('-')[1]
+
+    try {
+
+      getRecargas(year,month);
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  };
+
 
   return (
     <Box m="20px">
-      <Header title="GENERAR PLANILLAS" subtitle="Crea una nueva tarea" />
-      <Box mt="40px" sx={{ display: "flex", justifyContent: "center" }}>
+      <Header title="GENERAR PLANILLAS" subtitle="Exportar planillas de Excel con información mensual" />
+
+      {/* BITACORA */}
+      <Box mt="40px" sx={{ display: "flex", justifyContent: "left" }}>
         <Formik
-          onSubmit={handleFormSubmit}
-          initialValues={initialValues}
-          validationSchema={checkoutSchema}
+          onSubmit={handleFormSubmit1}
+          initialValues={initialValues1}
+          validationSchema={checkoutSchema1}
         >
           {({
             values,
@@ -124,13 +123,82 @@ const Planillas = () => {
                 }}
               >
                 <Button type="submit" color="secondary" variant="contained">
-                  Crear nueva tarea
+                  Generar Bitácora
                 </Button>
               </Box>
             </form>
           )}
         </Formik>
       </Box>
+
+      {/* RECARGAS */}
+      <Box mt="40px" sx={{ display: "flex", justifyContent: "left" }}>
+        <Formik
+          onSubmit={handleFormSubmit2}
+          initialValues={initialValues2}
+          validationSchema={checkoutSchema2}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleBlur,
+            handleChange,
+            handleSubmit,
+          }) => (
+            <form onSubmit={handleSubmit}>
+              <Box
+                display="grid"
+                gap="30px"
+                gridTemplateColumns="repeat(12, minmax(0, 1fr))"
+                sx={{
+                  minWidth: "500px",
+                }}
+              >
+                <Typography
+                  variant="h5"
+                  color={colors.greenAccent[400]}
+                  sx={{ gridColumn: "span 12" }}
+                >
+                  Recargas de Bencina
+                </Typography>
+
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="date"
+                  label="Mes de la Bitácora"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.inicio}
+                  name="inicio"
+                  error={!!touched.inicio && !!errors.inicio}
+                  helperText={touched.inicio && errors.inicio}
+                  sx={{ gridColumn: "span 4" }}
+                  InputLabelProps={{ shrink: true }}
+                />
+              </Box>
+              <Box
+                mt="20px"
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Button type="submit" color="secondary" variant="contained">
+                  Generar Recargas
+                </Button>
+              </Box>
+            </form>
+          )}
+        </Formik>
+      </Box>
+
+
+
+
+
     </Box>
   );
 };
@@ -138,17 +206,26 @@ const Planillas = () => {
 
 
 
-const checkoutSchema = yup.object().shape({
+const checkoutSchema1 = yup.object().shape({
   patente: yup.string().required("Campo requerido"),
   inicio: yup.date().required("Campo requerido"),
 });
 
-
-
-const initialValues = {  
+const initialValues1 = {  
   patente: "",
   inicio: "",
 };
+
+
+
+const checkoutSchema2 = yup.object().shape({
+  inicio: yup.date().required("Campo requerido"),
+});
+
+const initialValues2 = {  
+  inicio: "",
+};
+
 
 
 export default Planillas;
