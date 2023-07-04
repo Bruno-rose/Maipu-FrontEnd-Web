@@ -5,7 +5,12 @@ import { useEffect, useState } from "react";
 import LinearProgress from "@mui/material/LinearProgress";
 
 import { useParams } from "react-router-dom";
-import { getTarea, getVehiculo, getConductor, getConductorbyPatente } from "../../services/api_calls";
+import {
+  getTarea,
+  getVehiculo,
+  getConductor,
+  getConductorbyPatente,
+} from "../../services/api_calls";
 
 import TableTarea from "./table_tarea";
 import TableVehiculo from "./table_tarea_vehiculo";
@@ -14,6 +19,7 @@ import TableConductor from "./table_tarea_conductor";
 import driver_example from "../../data/driver_example.jpg"; // Replace with the actual path to your image
 import car_example from "../../data/car_example.jpeg"; // Replace with the actual path to your image
 
+import { useAuth } from "../../lib/headlessAuth";
 
 const myTaskData = {
   apellido_solicitante: "Rodriguez",
@@ -48,6 +54,7 @@ const FichaTarea = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { id } = useParams();
+  const { state } = useAuth();
 
   const [taskData, settaskData] = useState(null);
   const [carData, setcarData] = useState(null);
@@ -57,31 +64,35 @@ const FichaTarea = () => {
   const [driverPhotoPath, setdriverPhotoPath] = useState("");
 
   useEffect(() => {
-    getTarea(id).then((response) => {
-      console.log(response.data[0]);
-      settaskData(response.data[0]);
+    if (state === "authenticated") {
+      getTarea(id).then((response) => {
+        console.log(response.data[0]);
+        settaskData(response.data[0]);
 
-      getVehiculo(response.data[0].patente).then((response_1) => {
-        console.log("response_1.data");
-        console.log(response_1);
-        setcarData(response_1.data);
-        setcarPhotoPath(response_1.data.ruta_foto);
-      }).catch((error) => {
-        console.log(error);
+        getVehiculo(response.data[0].patente)
+          .then((response_1) => {
+            console.log("response_1.data");
+            console.log(response_1);
+            setcarData(response_1.data);
+            setcarPhotoPath(response_1.data.ruta_foto);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+        getConductorbyPatente(response.data[0].patente)
+          .then((response_3) => {
+            console.log("response_3.data");
+            console.log(response_3.data[0]);
+            setdriverData(response_3.data[0]);
+            setdriverPhotoPath(response_3.data[0].ruta_foto);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       });
-
-      getConductorbyPatente(response.data[0].patente).then((response_3) => {
-        console.log("response_3.data");
-        console.log(response_3.data[0]);
-        setdriverData(response_3.data[0]);
-        setdriverPhotoPath(response_3.data[0].ruta_foto);
-      }).catch((error) => {
-        console.log(error);
-      });
-
-    });
-  }, []);
-    
+    }
+  }, [state]);
 
   return (
     <Box m="20px">
@@ -113,20 +124,21 @@ const FichaTarea = () => {
             >
               Conductor
             </Typography>
-            {!driverData && 
-            <Typography
-              mt={2}
-              mb={1}
-              variant="Body1"
-              color={colors.purple_maipu[800]}
-            >
-              Agregue un conductor al vehículo
-            </Typography>}
+            {!driverData && (
+              <Typography
+                mt={2}
+                mb={1}
+                variant="Body1"
+                color={colors.purple_maipu[800]}
+              >
+                Agregue un conductor al vehículo
+              </Typography>
+            )}
             {driverData && <TableConductor data={driverData} />}
           </Grid>
           {/* <Grid item xs={4}> */}
-            {/* Content for the right column */}
-            {/* <Typography
+          {/* Content for the right column */}
+          {/* <Typography
               mt={2}
               mb={1}
               variant="h3"

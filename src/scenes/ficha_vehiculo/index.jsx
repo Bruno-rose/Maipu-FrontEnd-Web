@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Box, useTheme, Typography, Grid, Paper, TextField  } from "@mui/material";
+import {
+  Box,
+  useTheme,
+  Typography,
+  Grid,
+  Paper,
+  TextField,
+} from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
 import { tokens } from "../../theme";
 
@@ -51,19 +58,18 @@ const conductores = [
   { label: "Emilio Gonzalez", id: 20 },
 ];
 
-
 const FichaVehiculo = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [carData, setCarData] = useState(null);
-  const [carRevision, setcarRevision] = useState(null);
-  const {state} = useAuth();
-
 
   const { id } = useParams();
+  const { state } = useAuth();
+
+  const [carData, setCarData] = useState(null);
+  const [carRevision, setcarRevision] = useState(null);
 
   useEffect(() => {
-    if(state === "authenticated"){
+    if (state === "authenticated") {
       getVehiculo(id)
         .then((response) => {
           setCarData(response.data);
@@ -72,7 +78,7 @@ const FichaVehiculo = () => {
           console.log(error);
           setCarData("Error");
         });
-  
+
       getPathRevision(id)
         .then((response) => {
           setcarRevision(response.data.data[0]);
@@ -81,7 +87,7 @@ const FichaVehiculo = () => {
           console.log(error);
         });
     }
-  },[state]);
+  }, [state]);
 
   const handleSubmit = async (values) => {
     console.log(values);

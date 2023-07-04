@@ -10,6 +10,7 @@ import { tokens } from "../../theme";
 import Header from "../../components/Header";
 
 import { vehicle_value_label, contract_value_label } from "../../data/valueMapping";
+import { useAuth } from "../../lib/headlessAuth";
 
 
 const getRowId = (row) => row.patente;
@@ -17,9 +18,12 @@ const getRowId = (row) => row.patente;
 const Vehiculos = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const {state} = useAuth();
   const [data, setData] = useState(null);
 
   useEffect(() => {
+    if(state === "authenticated"){
+
     getVehiculos()
       .then((response) => {
         setData(response.data);
@@ -28,7 +32,8 @@ const Vehiculos = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+    }
+  }, [state]);
 
   const columns = [
     {

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import LinearProgress from "@mui/material/LinearProgress";
 
 import { useParams } from "react-router-dom";
+import { useAuth } from "../../lib/headlessAuth";
 
 import {
   getConductor,
@@ -15,42 +16,44 @@ import {
 import { Grid } from "@mui/material";
 import TableConductor from "./table_conductor";
 
-
 const FichaTarea = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { id } = useParams();
+  const { state } = useAuth();
 
   const [driverData, setdriverData] = useState(null);
   const [userData, setuserData] = useState(null);
   const [userPathLicense, setuserPathLicense] = useState(null);
 
   useEffect(() => {
-    getConductor(id)
-      .then((response) => {
-        setdriverData(response.data.data);
-      })
-      .catch((error) => {
-        console.log("conductor",error);
-      });
+    if (state === "authenticated") {
+      getConductor(id)
+        .then((response) => {
+          setdriverData(response.data.data);
+        })
+        .catch((error) => {
+          console.log("conductor", error);
+        });
 
-    getUser(id)
-      .then((response) => {
-        setuserData(response.data.data[0]);
-      })
-      .catch((error) => {
-        console.log("user",error);
-      });
+      getUser(id)
+        .then((response) => {
+          setuserData(response.data.data[0]);
+        })
+        .catch((error) => {
+          console.log("user", error);
+        });
 
-    getPathLicencia(id)
-      .then((response) => {
-        console.log(response.data.data[0]);
-        setuserPathLicense(response.data.data[0]);
-      })
-      .catch((error) => {
-        console.log("licencia",error);
-      });
-  }, [id]);
+      getPathLicencia(id)
+        .then((response) => {
+          console.log(response.data.data[0]);
+          setuserPathLicense(response.data.data[0]);
+        })
+        .catch((error) => {
+          console.log("licencia", error);
+        });
+    }
+  }, [state, id]);
 
   return (
     <Box m="20px">
