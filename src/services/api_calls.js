@@ -25,6 +25,68 @@ export const getVehiculo = async (mypatente) => {
   );
 };
 
+export const getBitacora= async (year,month,patente) => {
+
+  try {
+
+    let response = await client.get("/tareas/bitacora",
+    {params:{year: year , month: month, patente: patente},responseType: 'blob'}
+    );
+
+    console.log(response.data);
+
+    const href = await URL.createObjectURL(response.data);
+    const link = await document.createElement('a');
+    link.href = href;
+    link.setAttribute(
+      'download', 
+      `Bitacora_${patente}_${month}-${year}.xlsx`); //or any other extension
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(href);
+    
+  } catch (e) {
+
+    console.log(e);
+
+  }
+};
+
+export const getRecargas = async (year,month,patente) => {
+
+  try {
+
+    let response = await client.get("/recargaCombustible/xlsx",
+    {params:{year: year , month: month},responseType: 'blob'}
+    );
+
+    console.log(response.data);
+
+    const href = await URL.createObjectURL(response.data);
+    const link = await document.createElement('a');
+    link.href = href;
+    link.setAttribute(
+      'download', 
+      `Recargas_${month}-${year}.xlsx`); //or any other extension
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(href);
+    
+  } catch (e) {
+
+    console.log(e);
+
+  }
+  
+};
+
+
+
+
+
+
 export const postVehiculoConductor = async ({ patente, rut, fecha }) => {
   // Desasignar conductor
   return await client.post(
