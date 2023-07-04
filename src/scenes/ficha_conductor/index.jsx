@@ -5,64 +5,55 @@ import { useEffect, useState } from "react";
 import LinearProgress from "@mui/material/LinearProgress";
 
 import { useParams } from "react-router-dom";
+import { useAuth } from "../../lib/headlessAuth";
 
 import {
   getConductor,
   getUser,
-  getLicencia,
   getPathLicencia,
-  server_endpoint,
-} from "../../service/api_calls";
+  baseURL,
+} from "../../services/api_calls";
 import { Grid } from "@mui/material";
 import TableConductor from "./table_conductor";
-
-const myDriverData = {
-  rut: "18756912-0",
-  correo: "super_conductor@gmail.com",
-  nombre: "Luis",
-  apellido1: "Latorre",
-  apellido2: "Bravo",
-  numero: "56985836098",
-};
 
 const FichaTarea = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { id } = useParams();
+  const { state } = useAuth();
 
   const [driverData, setdriverData] = useState(null);
   const [userData, setuserData] = useState(null);
   const [userPathLicense, setuserPathLicense] = useState(null);
-  const [userLicense1, setuserLicense1] = useState(null);
-  const [userLicense2, setuserLicense2] = useState(null);
 
   useEffect(() => {
-    getConductor(id)
-      .then((response) => {
-        setdriverData(response.data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (state === "authenticated") {
+      getConductor(id)
+        .then((response) => {
+          setdriverData(response.data.data);
+        })
+        .catch((error) => {
+          console.log("conductor", error);
+        });
 
-    getUser(id)
-      .then((response) => {
-        setuserData(response.data.data[0]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      getUser(id)
+        .then((response) => {
+          setuserData(response.data.data[0]);
+        })
+        .catch((error) => {
+          console.log("user", error);
+        });
 
-    getPathLicencia(id)
-      .then((response) => {
-        console.log("path");
-        console.log(response.data.data[0]);
-        setuserPathLicense(response.data.data[0]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+      getPathLicencia(id)
+        .then((response) => {
+          console.log(response.data.data[0]);
+          setuserPathLicense(response.data.data[0]);
+        })
+        .catch((error) => {
+          console.log("licencia", error);
+        });
+    }
+  }, [state, id]);
 
   return (
     <Box m="20px">
@@ -93,12 +84,12 @@ const FichaTarea = () => {
             {userPathLicense && (
               <Paper elevation={3}>
                 <img
-                  src={server_endpoint + userPathLicense.ruta_archivo2}
+                  src={baseURL + userPathLicense.ruta_archivo2}
                   alt="licencia"
                   style={{ width: "50%" }}
                 />
                 <img
-                  src={server_endpoint + userPathLicense.ruta_archivo1}
+                  src={baseURL + userPathLicense.ruta_archivo1}
                   alt="foto_perfil"
                   style={{ width: "50%" }}
                 />

@@ -1,7 +1,7 @@
 import { Box, Button, TextField } from "@mui/material";
 import { Formik, form } from "formik";
 import * as yup from "yup";
-import { postVehiculos } from "../../service/api_calls";
+import { postVehiculos } from "../../services/api_calls";
 import { Typography, useTheme } from "@mui/material";
 import Header from "../../components/Header";
 import MenuItem from "@mui/material/MenuItem";
@@ -39,8 +39,6 @@ const AgregarVehiculo = () => {
 
   const handleSubmit = async (values) => {
     console.log(values);
-    console.log("LOGDEV: HandleSubmit");
-
     postVehiculos(values)
       .then((response) => {
         console.log(response);

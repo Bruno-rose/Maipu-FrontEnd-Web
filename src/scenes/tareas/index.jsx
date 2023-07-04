@@ -4,10 +4,11 @@ import { Box, useTheme, Button } from "@mui/material";
 
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
-import { getTareas } from "../../service/api_calls";
+import { getTareas } from "../../services/api_calls";
 import LinearProgress from "@mui/material/LinearProgress";
 import axios from "axios";
 import { comuna_value_label } from "../../data/valueMapping";
+import { useAuth } from "../../lib/headlessAuth";
 
 axios.defaults.headers.common["ngrok-skip-browser-warning"] = "any";
 
@@ -15,17 +16,21 @@ const Tareas = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+  const { state } = useAuth();
+
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    getTareas()
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+    if (state === "authenticated") {
+      getTareas()
+        .then((response) => {
+          setData(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [state]);
 
   const columns = [
     {

@@ -4,11 +4,11 @@ import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
-import AirportShuttleOutlinedIcon from '@mui/icons-material/AirportShuttleOutlined';
-import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
+import AirportShuttleOutlinedIcon from "@mui/icons-material/AirportShuttleOutlined";
+import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import DriveEtaOutlinedIcon from '@mui/icons-material/DriveEtaOutlined';
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import DriveEtaOutlinedIcon from "@mui/icons-material/DriveEtaOutlined";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -54,7 +54,7 @@ const Sidebar = () => {
         },
       }}
     >
-      <ProSidebar collapsed={isCollapsed}>
+      <ProSidebar collapsed={isCollapsed} width={"300px"}>
         <Menu iconShape="square">
           {/* LOGO AND MENU ICON */}
           <MenuItem
@@ -73,7 +73,7 @@ const Sidebar = () => {
                 ml="15px"
               >
                 <Typography variant="h3" color={colors.grey[100]}>
-                  FLOTAPP
+                  FLOTA MAIPÚ
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -111,7 +111,7 @@ const Sidebar = () => {
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Typography
-              variant="h6"
+              variant="h4"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
@@ -132,7 +132,7 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Typography
-              variant="h6"
+              variant="h4"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
@@ -153,7 +153,7 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <Typography
-              variant="h6"
+              variant="h4"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >

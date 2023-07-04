@@ -5,18 +5,22 @@ import { Box, Typography, useTheme, Button } from "@mui/material";
 
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
-import { getConductores } from "../../service/api_calls";
+import { getConductores } from "../../services/api_calls";
 import LinearProgress from "@mui/material/LinearProgress";
+import { useAuth } from "../../lib/headlessAuth";
 
 const getRowId = (row) => row.nombre;
 
 const Conductores = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { state } = useAuth();
+
 
   const [data, setData] = useState(null);
 
   useEffect(() => {
+    if (state === "authenticated") {
     getConductores()
       .then((response) => {
         setData(response.data.data);
@@ -25,26 +29,33 @@ const Conductores = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+    }
+  }, [state]);
 
   const columns2 = [
     {
       field: "nombre",
       headerName: "Nombre",
+      flex: 1,
     },
     {
       field: "apellido1",
       headerName: "Apellido",
+      flex: 1,
+
     },
     {
       field: "rut",
       headerName: "RUT",
+      flex: 1,
     },
     {
       field: "numero",
       headerName: "Teléfono",
       valueFormatter: (params) =>
         params.value ? params.value : "Sin teléfono",
+      flex: 1,
+
     },
     {
       field: "ficha",
