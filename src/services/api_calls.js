@@ -1,15 +1,20 @@
 import axios from "axios";
 
-export const baseURL = process.env.API_URL || "https://1172-200-27-195-4.ngrok-free.app";
-export const client = axios.create({ baseURL : baseURL, timeout: 6000, headers: {'ngrok-skip-browser-warning': 'any'} });
+export const baseURL =
+  process.env.API_URL || "https://1172-200-27-195-4.ngrok-free.app";
+export const client = axios.create({
+  baseURL: baseURL,
+  timeout: 6000,
+  headers: { "ngrok-skip-browser-warning": "any" },
+});
 // axios.defaults.headers.common["ngrok-skip-browser-warning"] = "any";
 // client.defaults.headers.common["ngrok-skip-browser-warning"] = "any";
- 
 
 client.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error?.response?.data?.name) return Promise.reject(error?.response?.data?.name);
+    if (error?.response?.data?.name)
+      return Promise.reject(error?.response?.data?.name);
     return Promise.reject(error);
   }
 );
@@ -20,28 +25,37 @@ export const getVehiculos = async () => {
 };
 
 export const getVehiculo = async (mypatente) => {
-  return await client.get(
-    "/vehiculos/patente?patente=" + mypatente,
-  );
+  return await client.get("/vehiculos/patente?patente=" + mypatente);
 };
+
+export const getVehiculoConductorByVehiculo = async (mypatente) => {
+  return await client.get("/vehiculo-conductor/vehiculo?patente=" + mypatente);
+};
+
 
 export const postVehiculoConductor = async ({ patente, rut, fecha }) => {
   // Desasignar conductor
-  return await client.post(
-    "/vehiculos/patente?patente=",
-    { patente, rut, fecha },
-  );
+  return await client.post("/vehiculo-conductor/inicio", {
+    patente,
+    rut,
+    fecha,
+  });
 };
+
+export const putTermino = async ({ patente, fecha }) => {  
+  return await client.put("/vehiculo-conductor/termino", {
+    patente,
+    fecha,
+  });
+};
+
 
 export const getConductores = async () => {
   return await client.get("/usuarios/conductores");
 };
 
 export const getConductor = async (id) => {
-  return await client.get(
-    "/usuarios/conductores/informacion?rut=" + id,
-
-  );
+  return await client.get("/usuarios/conductores/informacion?rut=" + id);
 };
 
 export const getUser = async (id) => {
@@ -49,9 +63,7 @@ export const getUser = async (id) => {
 };
 
 export const getConductorbyPatente = async (id) => {
-  return await client.get(
-    "/vehiculos/conductor/actual?patente=" + id,
-  );
+  return await client.get("/vehiculos/conductor/actual?patente=" + id);
 };
 
 export const getTareas = async () => {
@@ -71,9 +83,7 @@ export const postVehiculos = async (values) => {
 };
 
 export const getPathLicencia = async (id) => {
-  return await client.get(
-    "/usuarios/licencia?rut=" + id,
-  );
+  return await client.get("/usuarios/licencia?rut=" + id);
 };
 
 export const getPathRevision = async (id) => {
@@ -83,6 +93,8 @@ export const getPathRevision = async (id) => {
 export const getLicencia = async (mediaPath) => {
   return await client.get(mediaPath);
 };
+
+
 
 export const login = async (rut, contrasenna) => {
   const response = await client.post("/autentificar", {
@@ -105,6 +117,5 @@ export const isAuthenticated = () => {
   }
   return JSON.parse(user);
 };
-
 
 export default client;

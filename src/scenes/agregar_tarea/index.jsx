@@ -1,10 +1,8 @@
 import { Box, Button, TextField, Typography, useTheme } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
-import axios from "axios";
 import { getLongitudeLatitude } from "../../services/user_calls";
 import { postTareas } from "../../services/api_calls";
 import { comuna_options } from "../../data/valueMapping";
@@ -12,7 +10,6 @@ import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 
 const AgregarTarea = () => {
-  const isNonMobile = useMediaQuery("(min-width:600px)");
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();

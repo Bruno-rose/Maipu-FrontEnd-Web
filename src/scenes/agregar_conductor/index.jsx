@@ -155,18 +155,7 @@ const AgregarConductor = () => {
                     alignItems: "center",
                   }}
                 >
-                  <Button
-                    sx={{ marginRight: "4px" }}
-                    variant="contained"
-                    component="label"
-                  >
-                    Subir Foto
-                    <input type="file" hidden />
-                  </Button>
-                  <Button variant="contained" component="label">
-                    Subir Licencia
-                    <input type="file" hidden />
-                  </Button>
+                  
                 </Box>
                 <Button type="submit" color="secondary" variant="contained" href={`../conductores`}>
                   Agregar nuevo conductor

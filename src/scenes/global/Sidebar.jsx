@@ -9,6 +9,8 @@ import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import DriveEtaOutlinedIcon from "@mui/icons-material/DriveEtaOutlined";
+import { useAuth } from "../../lib/headlessAuth";
+
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -33,7 +35,9 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
-
+  const { user } = useAuth();
+  
+  
   return (
     <Box
       sx={{
@@ -82,29 +86,29 @@ const Sidebar = () => {
             )}
           </MenuItem>
 
-          {!isCollapsed && (
+          {!isCollapsed && user && (
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
                 <img
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={`../../assets/user.png`}
+                  src={user.ruta_foto}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
               <Box textAlign="center">
-                <Typography
+              <Typography
                   variant="h2"
                   color={colors.grey[100]}
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Bruno Rodríguez
+                  {user.nombre} {user.apellido1} {user.apellido2} 
                 </Typography>
-                <Typography variant="h5" color={colors.greenAccent[500]}>
+                {/* <Typography variant="h5" color={colors.greenAccent[500]}>
                   Administrador Flota
-                </Typography>
+                </Typography> */}
               </Box>
             </Box>
           )}

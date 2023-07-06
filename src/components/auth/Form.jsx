@@ -24,7 +24,6 @@ function AuthForm({ mode }) {
     },
     validationSchema,
     onSubmit: async (values) => {
-      console.log(values);
       try {
         if (mode === "register") {
           await signUp(values);
@@ -33,6 +32,7 @@ function AuthForm({ mode }) {
         }
         navigate('/', { replace: true });
       } catch (error) {
+        console.log(error);
         formik.setStatus("Error: rut o constraseña invalida");
       }
     },
