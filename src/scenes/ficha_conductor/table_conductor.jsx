@@ -5,18 +5,18 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { vehicle_value_label, contract_value_label } from "../../data/valueMapping";
-
 
 const TableConductor = (params) => {
-  
   return (
     <TableContainer component={Paper} sx={{ maxWidth: "600px" }}>
       <Table>
         <TableBody>
           <TableRow key="nombre">
             <TableCell>Nombre</TableCell>
-            <TableCell>{params.driver.nombre} {params.driver.apellido1} {params.driver.apellido2}</TableCell>
+            <TableCell>
+              {params.driver.nombre} {params.driver.apellido1}{" "}
+              {params.driver.apellido2}
+            </TableCell>
           </TableRow>
           <TableRow key="RUT">
             <TableCell>RUT</TableCell>
@@ -28,7 +28,9 @@ const TableConductor = (params) => {
           </TableRow>
           <TableRow key="numero">
             <TableCell>Teléfono</TableCell>
-            <TableCell>{params.user.numero?params.user.numero:"Sin Teléfono"}</TableCell>
+            <TableCell>
+              {params.user.numero ? params.user.numero : "Sin Teléfono"}
+            </TableCell>
           </TableRow>
           <TableRow key="patente">
             <TableCell>Patente</TableCell>
@@ -36,7 +38,11 @@ const TableConductor = (params) => {
           </TableRow>
           <TableRow key="operacional">
             <TableCell>Operacional</TableCell>
-            <TableCell>{params.driver.vehiculoOperacional?"Operacional":"No Operacional"}</TableCell>
+            <TableCell>
+              {params.driver.vehiculoOperacional
+                ? "Operacional"
+                : "No Operacional"}
+            </TableCell>
           </TableRow>
         </TableBody>
       </Table>

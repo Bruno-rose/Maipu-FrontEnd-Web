@@ -33,6 +33,7 @@ function AuthForm({ mode }) {
         }
         navigate('/', { replace: true });
       } catch (error) {
+        console.log(error);
         formik.setStatus("Error: rut o constraseña invalida");
       }
     },

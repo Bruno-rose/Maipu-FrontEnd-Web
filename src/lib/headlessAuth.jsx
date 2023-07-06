@@ -6,7 +6,6 @@ import {
   useState,
 } from "react";
 import LogIn from "../scenes/login";
-import { getUser } from "../services/api_calls";
 
 const AuthContext = createContext(null);
 
@@ -55,10 +54,8 @@ export function AuthProvider({ children, store, client, ...props }) {
   );
 
   useEffect(() => {
-    console.log("useEffect1");
     const myToken = store.get();
     const rut = store.get_rut();
-
     if (myToken) {
       setLoadingState(myToken);
       getUserInfo(myToken, rut);
@@ -68,7 +65,6 @@ export function AuthProvider({ children, store, client, ...props }) {
   }, [setLoadingState, getUserInfo, signOut, store]);
 
   useEffect(() => {
-    console.log("useEffect2");
     if (!token) {
       return;
     }
@@ -94,7 +90,7 @@ export function AuthProvider({ children, store, client, ...props }) {
       const payload = { rut, contrasenna };
       console.log(payload);
       const data = (await client.post("/autentificar", payload)).data;
-      console.log(data);
+      console.log("data-login",data);
       const token = data.hash;
       setRut(rut);
       store.set_rut(rut);
@@ -114,7 +110,6 @@ export function AuthProvider({ children, store, client, ...props }) {
       {...props}
       value={{ user, signUp, signIn, signOut, state, refreshUser }}
     >
-      {/* {state === "unauthenticated" ?  <LogIn />: children} */}
       {state === "authenticated" || state === "loading" ? children : <LogIn />}
     </AuthContext.Provider>
   );
