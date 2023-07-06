@@ -24,7 +24,6 @@ function AuthForm({ mode }) {
     },
     validationSchema,
     onSubmit: async (values) => {
-      console.log(values);
       try {
         if (mode === "register") {
           await signUp(values);

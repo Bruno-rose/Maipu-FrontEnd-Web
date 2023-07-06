@@ -23,7 +23,6 @@ const Conductores = () => {
     getConductores()
       .then((response) => {
         setData(response.data.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);

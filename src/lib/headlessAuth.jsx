@@ -88,9 +88,7 @@ export function AuthProvider({ children, store, client, ...props }) {
   const signIn = useCallback(
     async ({ rut, contrasenna }) => {
       const payload = { rut, contrasenna };
-      console.log(payload);
       const data = (await client.post("/autentificar", payload)).data;
-      console.log("data-login",data);
       const token = data.hash;
       setRut(rut);
       store.set_rut(rut);

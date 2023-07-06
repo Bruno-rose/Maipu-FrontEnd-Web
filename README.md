@@ -19,6 +19,7 @@ Asegúrese de tener instalado lo siguiente en su máquina local antes de comenza
 Una vez que haya configurado el entorno, puede ejecutar el proyecto de la siguiente manera:
 
 ```bash
+npm i
 npm start
 ```
 
