@@ -11,6 +11,7 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import DriveEtaOutlinedIcon from "@mui/icons-material/DriveEtaOutlined";
 import { useAuth } from "../../lib/headlessAuth";
 
+import GridOnIcon from '@mui/icons-material/GridOn';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -177,6 +178,24 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
+
+
+            <Typography
+              variant="h4"
+              color={colors.grey[300]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              Planillas
+            </Typography>
+
+            <Item
+              title="Generar Planillas"
+              to="/planillas"
+              icon={<GridOnIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
           </Box>
         </Menu>
       </ProSidebar>
