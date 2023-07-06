@@ -7,8 +7,9 @@ export const client = axios.create({
   timeout: 6000,
   headers: { "ngrok-skip-browser-warning": "any" },
 });
-// axios.defaults.headers.common["ngrok-skip-browser-warning"] = "any";
-// client.defaults.headers.common["ngrok-skip-browser-warning"] = "any";
+
+axios.defaults.headers.common["ngrok-skip-browser-warning"] = "any";
+client.defaults.headers.common["ngrok-skip-browser-warning"] = "any";
 
 client.interceptors.response.use(
   (response) => response,
