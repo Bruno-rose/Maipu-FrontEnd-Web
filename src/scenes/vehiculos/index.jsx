@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, esES } from "@mui/x-data-grid";
+
 import { Box, Typography, useTheme, Button } from "@mui/material";
 import LinearProgress from "@mui/material/LinearProgress";
 import { getVehiculos } from "../../services/api_calls";
@@ -129,7 +130,7 @@ const Vehiculos = () => {
       >
         {!data && <LinearProgress />}
         {data && (
-          <DataGrid rows={data} columns={columns} getRowId={getRowId} />
+          <DataGrid localeText={esES.components.MuiDataGrid.defaultProps.localeText} rows={data} columns={columns} getRowId={getRowId} />
         )}
       </Box>
     </Box>

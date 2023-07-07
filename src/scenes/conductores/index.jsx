@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, esES } from "@mui/x-data-grid";
+
 import { Box, useTheme, Button } from "@mui/material";
 
 import { tokens } from "../../theme";
@@ -107,7 +108,7 @@ const Conductores = () => {
       >
         {!data && <LinearProgress />}
         {data && (
-          <DataGrid rows={data} columns={columns2} getRowId={getRowId} />
+          <DataGrid localeText={esES.components.MuiDataGrid.defaultProps.localeText} rows={data} columns={columns2} getRowId={getRowId} />
         )}
       </Box>
     </Box>
