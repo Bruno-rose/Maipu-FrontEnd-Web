@@ -10,6 +10,7 @@ const Bienvenido = () => {
         title="Bienvenido"
         subtitle="Estás en el sistema de administración de la flota de vehículos de la municipalidad de Maipú"
       />
+      {/*
       <Box m="40px 0 0 0" padding={6} height="50vh" component={Paper}>
       <Typography variant="h4" component="h1" gutterBottom>
         ¡Bienvenido al sitio web de administración de flotas de vehículos!
@@ -30,7 +31,9 @@ const Bienvenido = () => {
         En resumen, nuestra plataforma de administración de flotas de vehículos está diseñada para proporcionarte un control total sobre tus activos y actividades relacionadas. Te brindamos las herramientas necesarias para simplificar tu trabajo diario, optimizar el rendimiento de tu flota y tomar decisiones estratégicas basadas en datos. ¡Explora nuestras funciones y descubre cómo podemos ayudarte a gestionar eficientemente tu flota de vehículos!
       </Typography>
       </Box>
+        */}
     </Box>
+
   );
 };
 
